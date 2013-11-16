@@ -1,0 +1,83 @@
+@import 'vars.less';
+
+#playlist, #controls {
+  display: none;
+}
+
+.audiojs {
+  // display: none;  // XXX
+}
+
+.js #playlist {
+  display: block;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 3px solid @dark;
+
+  ul {
+    position: relative;
+    list-style: none;
+    width: 50000em;
+    left: 100%;
+
+    li {
+      width: 15em;
+      display: inline-block;
+      position: relative;
+      padding: .5em 0 .6em;
+      opacity: .2;
+
+      &.selected {
+        opacity: 1;
+      }
+      &.playable {
+        cursor: pointer;
+
+        &:hover {
+          opacity: .8;
+        }
+      }
+
+      p {
+        white-space: nowrap;
+        overflow: hidden;
+        width: 100%;
+        text-overflow: ellipsis;
+
+        &.title {
+          font-weight: 500;
+          font-size: 1.1em;
+        }
+
+        &.album {
+          font-size: .7em;
+
+          span {
+            font-size: 1.2em;
+            margin-left: .2em;
+          }
+        }
+      }
+    }
+  }
+
+  &.playing {
+  }
+}
+
+.js #controls {
+  display: block;
+  .inner();
+  
+  span {
+    .invert();
+    padding: 0 .4em .3em;
+    border-radius: 0 0 .3em .3em;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: @highlight;
+    }
+  }
+}

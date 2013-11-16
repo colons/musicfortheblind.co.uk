@@ -1,3 +1,37 @@
-html {
-  background-color: #eee;
+@import 'vars.less';
+
+* {
+  border: none;
+  padding: 0;
+  margin: 0;
 }
+
+html {
+  background-color: @light;
+  font-family: "Ubuntu" sans-serif;
+  color: @dark;
+}
+
+header {
+  .invert();
+
+  .inner {
+    .inner();
+
+    h1 {
+      padding: 3em 0;
+      font-weight: 500;
+    }
+  }
+}
+
+#content {
+  .inner();
+  padding-top: 2em;
+}
+
+a[href] {
+  color: @highlight;
+}
+
+@import 'playlist.less';

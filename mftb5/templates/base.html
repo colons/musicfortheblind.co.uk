@@ -2,20 +2,56 @@
 <!doctype html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:400,500">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu+Mono">
+
     <title>{% block title %}Home{% endblock %} | Music for the Blind</title>
     {% compressed_css "base" %}
-    <script src="{% static 'js/libs/jquery/jquery-2.0.3.min.js' %}"></script>
-    <script src="{% static 'js/libs/audiojs/audio.min.js' %}"></script>
-    <script>
-      var playlistUrl = '{% url "music:playlist" %}';
-    </script>
   </head>
   <body>
+    <script type="text/javascript">
+      document.body.className += ' js';
+    </script>
     <header>
-      <h1>Music for the Blind</h1>
+      <div class="inner">
+        <h1>Music for the Blind</h1>
+      </div>
     </header>
+
     <section id="playlist">
-      <ul></ul>
+      <ul><li>
+        <p class="title">loading</p><p class="album"><span>hang on a moment&hellip;</span></p>
+      </li></ul>
     </section>
+    <div id="controls">
+      <span class="prev">« prev</span> <span class="pp">play</span> <span class="next">next »</span>
+    </div>
+
+    <div id="content">
+      {% block content %}{% endblock %}
+    </div>
+
+    <script type="text/javascript" src="{% static 'js/libs/jquery/jquery-2.0.3.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/buzz/buzz.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/handlebars/handlebars-v1.1.2.js' %}"></script>
+
+    <script type="text/javascript">
+      var playlistUrl = '{% url "music:playlist" %}';
+    </script>
+
+    {% verbatim %}
+      <script id="playlist-template" type="text/x-handlebars-template">
+        <ul>
+          {{#each tracks}}
+            <li data-mp3="{{mp3}}" id={{pk}}>
+              <p class="title">{{name}}</p>
+              <p class="album">from <span>{{album.name}}</span>
+            </li>
+          {{/each}}
+        </ul>
+      </script>
+    {% endverbatim %}
+
+    {% compressed_js "base" %}
   </body>
 </html>

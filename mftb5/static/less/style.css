@@ -1,3 +1,98 @@
+* {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
 html {
-  background-color: #eee;
+  background-color: #fafafa;
+  font-family: "Ubuntu" sans-serif;
+  color: #222222;
+}
+header {
+  background-color: #222222;
+  color: #fafafa;
+}
+header .inner {
+  max-width: 50em;
+  margin: 0 auto;
+  padding: 0 .5em;
+}
+header .inner h1 {
+  padding: 3em 0;
+  font-weight: 500;
+}
+#content {
+  max-width: 50em;
+  margin: 0 auto;
+  padding: 0 .5em;
+  padding-top: 2em;
+}
+a[href] {
+  color: #cc5522;
+}
+#playlist,
+#controls {
+  display: none;
+}
+.js #playlist {
+  display: block;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 3px solid #222222;
+}
+.js #playlist ul {
+  position: relative;
+  list-style: none;
+  width: 50000em;
+  left: 100%;
+}
+.js #playlist ul li {
+  width: 15em;
+  display: inline-block;
+  position: relative;
+  padding: .5em 0 .6em;
+  opacity: .2;
+}
+.js #playlist ul li.selected {
+  opacity: 1;
+}
+.js #playlist ul li.playable {
+  cursor: pointer;
+}
+.js #playlist ul li.playable:hover {
+  opacity: .8;
+}
+.js #playlist ul li p {
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+  text-overflow: ellipsis;
+}
+.js #playlist ul li p.title {
+  font-weight: 500;
+  font-size: 1.1em;
+}
+.js #playlist ul li p.album {
+  font-size: .7em;
+}
+.js #playlist ul li p.album span {
+  font-size: 1.2em;
+  margin-left: .2em;
+}
+.js #controls {
+  display: block;
+  max-width: 50em;
+  margin: 0 auto;
+  padding: 0 .5em;
+}
+.js #controls span {
+  background-color: #222222;
+  color: #fafafa;
+  padding: 0 .4em .3em;
+  border-radius: 0 0 .3em .3em;
+  cursor: pointer;
+}
+.js #controls span:hover {
+  background-color: #cc5522;
 }

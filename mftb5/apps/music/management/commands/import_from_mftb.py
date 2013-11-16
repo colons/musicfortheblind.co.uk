@@ -107,9 +107,6 @@ class Command(BaseCommand):
         Album.objects.all().delete()
         Track.objects.all().delete()
 
-        self.mftb = Album(name='Music for the Blind', slug='requests')
-        self.mftb.save()
-
         self.models = {
             'music.client': [],
             'music.codeproject': [],
@@ -129,6 +126,9 @@ class Command(BaseCommand):
 
         for thing in self.models['music.project']:
             self.import_project(thing)
+
+        self.mftb = Album(name='Music for the Blind', slug='requests')
+        self.mftb.save()
 
         for thing in self.models['music.othertrack']:
             self.import_othertrack(thing)
