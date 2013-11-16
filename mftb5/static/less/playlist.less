@@ -13,7 +13,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-bottom: 3px solid @dark;
+  border-bottom: 4px solid @dark;
 
   ul {
     position: relative;
@@ -37,9 +37,14 @@
         &:hover {
           opacity: .8;
         }
+        
+        a {
+          color: inherit;
+        }
       }
 
       p {
+        margin: 0;
         white-space: nowrap;
         overflow: hidden;
         width: 100%;
@@ -53,7 +58,7 @@
         &.album {
           font-size: .7em;
 
-          span {
+          a {
             font-size: 1.2em;
             margin-left: .2em;
           }

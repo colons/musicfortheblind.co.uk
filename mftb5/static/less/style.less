@@ -19,8 +19,28 @@ header {
     .inner();
 
     h1 {
-      padding: 3em 0;
+      background-image: url(../img/logo.svg);
+      background-size: 164px 195px;
+      background-repeat: no-repeat;
+      background-position: 0 -10px;
+      padding: 100px 0 20px 150px;
       font-weight: 500;
+      font-size: 50px;
+    }
+
+    ul {
+      list-style: none;
+      margin-left: 12em;
+      
+      li {
+        display: inline-block;
+
+        a {
+          display: inline-block;
+          text-align: center;
+          padding: 0 .5em;
+        }
+      }
     }
   }
 }
@@ -30,8 +50,17 @@ header {
   padding-top: 2em;
 }
 
+p {
+  margin: .5em 0;
+}
+
 a[href] {
   color: @highlight;
+  text-decoration: none;
+
+  &:hover {
+    color: @dark;
+  }
 }
 
 @import 'playlist.less';

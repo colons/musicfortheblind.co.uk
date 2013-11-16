@@ -22,6 +22,15 @@ function drawPlaylist() {
   $.getJSON(playlistUrl, function(data) {
     context = {'tracks': data};
     $('#playlist').html(playlistTemplate(context));
+
+    $('#playlist ul').sortable({
+      scroll: false,
+      axis: "x",
+      update: function() {
+        positionPlaylist(true);
+      }
+    });
+
     bindPlayable();
     bindControls();
     selectTrack(playlist().first());  // XXX respect state
@@ -30,7 +39,7 @@ function drawPlaylist() {
 
 function selectNextTrack() {
   var next = $('#playlist .selected').next();
-  if (next) {
+  if (next.length) {
     selectTrack(next);
   } else {
     selectTrack(playlist().first());
@@ -39,7 +48,7 @@ function selectNextTrack() {
 
 function selectPrevTrack() {
   var prev = $('#playlist .selected').prev();
-  if (prev) {
+  if (prev.length) {
     selectTrack(prev);
   } else {
     selectTrack(playlist().last());
@@ -90,7 +99,7 @@ function bindControls() {
 }
 
 function getOffset() {
-  return $('#content h1').position().left - $('#playlist .selected').position().left;
+  return $('#content :first-child').position().left - $('#playlist .selected').position().left;
 }
 
 function selectTrack(track) {
@@ -105,7 +114,7 @@ function selectTrack(track) {
     selectNextTrack();
     play();
   });
-  $('#playlist ul').animate({'left': getOffset()});
+  positionPlaylist(true);
 }
 
 function play() {
@@ -120,8 +129,14 @@ function pause() {
   $pauseButton.text('play');
 }
 
-function positionPlaylist() {
-  $('#playlist ul').css({'left': getOffset()});
+function positionPlaylist(animate) {
+  var ul = $('#playlist ul');
+  var dest = {'left': getOffset()};
+  if (!animate) {
+    ul.css(dest);
+  } else {
+    ul.animate(dest);
+  }
 }
 
 $(function() {
@@ -130,5 +145,7 @@ $(function() {
   playlistTemplate = Handlebars.compile($('#playlist-template').html());
   getState();
   drawPlaylist();
-  $(window).resize(positionPlaylist);
+  $(window).resize(function() {
+    positionPlaylist(false);
+  });
 });

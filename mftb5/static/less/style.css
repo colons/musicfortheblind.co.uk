@@ -12,14 +12,34 @@ header {
   background-color: #222222;
   color: #fafafa;
 }
+header a[href]:hover {
+  color: #fafafa;
+}
 header .inner {
   max-width: 50em;
   margin: 0 auto;
   padding: 0 .5em;
 }
 header .inner h1 {
-  padding: 3em 0;
+  background-image: url(../img/logo.svg);
+  background-size: 164px 195px;
+  background-repeat: no-repeat;
+  background-position: 0 -10px;
+  padding: 100px 0 20px 150px;
   font-weight: 500;
+  font-size: 50px;
+}
+header .inner ul {
+  list-style: none;
+  margin-left: 12em;
+}
+header .inner ul li {
+  display: inline-block;
+}
+header .inner ul li a {
+  display: inline-block;
+  text-align: center;
+  padding: 0 .5em;
 }
 #content {
   max-width: 50em;
@@ -27,8 +47,15 @@ header .inner h1 {
   padding: 0 .5em;
   padding-top: 2em;
 }
+p {
+  margin: .5em 0;
+}
 a[href] {
   color: #cc5522;
+  text-decoration: none;
+}
+a[href]:hover {
+  color: #222222;
 }
 #playlist,
 #controls {
@@ -39,7 +66,7 @@ a[href] {
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-bottom: 3px solid #222222;
+  border-bottom: 4px solid #222222;
 }
 .js #playlist ul {
   position: relative;
@@ -63,7 +90,11 @@ a[href] {
 .js #playlist ul li.playable:hover {
   opacity: .8;
 }
+.js #playlist ul li.playable a {
+  color: inherit;
+}
 .js #playlist ul li p {
+  margin: 0;
   white-space: nowrap;
   overflow: hidden;
   width: 100%;
@@ -76,7 +107,7 @@ a[href] {
 .js #playlist ul li p.album {
   font-size: .7em;
 }
-.js #playlist ul li p.album span {
+.js #playlist ul li p.album a {
   font-size: 1.2em;
   margin-left: .2em;
 }
@@ -92,6 +123,9 @@ a[href] {
   padding: 0 .4em .3em;
   border-radius: 0 0 .3em .3em;
   cursor: pointer;
+}
+.js #controls span a[href]:hover {
+  color: #fafafa;
 }
 .js #controls span:hover {
   background-color: #cc5522;
