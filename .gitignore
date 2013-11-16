@@ -1,0 +1,6 @@
+mftb5/settings/local.py
+mftb5/static/less/*.css
+mftb5/db.sqlite3
+mftb5/media
+.*
+*.pyc

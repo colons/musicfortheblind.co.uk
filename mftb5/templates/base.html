@@ -2,11 +2,11 @@
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:400,500">
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu+Mono">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:400,500" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu+Mono" />
+    {% compressed_css "base" %}
 
     <title>{% block title %}Home{% endblock %} | Music for the Blind</title>
-    {% compressed_css "base" %}
   </head>
   <body>
     <script type="text/javascript">
@@ -42,18 +42,14 @@
       var playlistUrl = '{% url "music:playlist" %}';
     </script>
 
-    {% verbatim %}
-      <script id="playlist-template" type="text/x-handlebars-template">
-        <ul>
-          {{#each tracks}}
-            <li data-mp3="{{mp3}}" id={{pk}}>
-              <p class="title"><a href="">{{name}}</a></p>
-              <p class="album">from <a href="">{{album.name}}</a></span>
-            </li>
-          {{/each}}
-        </ul>
-      </script>
-    {% endverbatim %}
+    <script id="playlist-template" type="text/x-handlebars-template">
+      {% verbatim %}
+        <li data-ogg="{{ogg}}" data-mp3="{{mp3}}" id={{pk}}>
+          <a href="{{url}}"><p class="title">{{name}}</p></a>
+          <p class="album">from <a href="{{album.url}}">{{album.name}}</a></span>
+        </li>
+      {% endverbatim %}
+    </script>
 
     {% compressed_js "base" %}
   </body>

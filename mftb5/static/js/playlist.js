@@ -20,8 +20,11 @@ function playlist() {
 
 function drawPlaylist() {
   $.getJSON(playlistUrl, function(data) {
-    context = {'tracks': data};
-    $('#playlist').html(playlistTemplate(context));
+    var element = $('#playlist ul');
+    element.html('');
+    $.each(data, function(i, track) {
+      element.append(playlistTemplate(track));
+    });
 
     $('#playlist ul').sortable({
       scroll: false,

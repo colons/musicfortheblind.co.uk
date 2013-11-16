@@ -18,7 +18,8 @@ class Command(BaseCommand):
             external=bool(fields['external']),
             date=fields['date'],
             description=fields['comments'],
-            slug=fields['slug']
+            slug=fields['slug'],
+            url=fields['url'],
         )
         album.save()
 
@@ -68,6 +69,7 @@ class Command(BaseCommand):
             description=fields['comments'],
             slug=fields['slug'],
             track_number=fields['tracknum'],
+            url=fields['page_url'],
             album=album
         )
         the_dir = path.join(self.media_dir, 'music', album.slug)

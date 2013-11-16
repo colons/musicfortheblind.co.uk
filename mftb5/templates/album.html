@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <section>
+    <h1>{{ album.name }}</h1>
+    {{ album.description_html|safe }}
+
+    {% for track in album.tracks.all %}
+      <h2><a href="{{ track.get_absolute_url }}">{{ track.name }}</a></h2>
+      {{ track.description_html|safe }}
+    {% endfor %}
+  </section>
+{% endblock %}

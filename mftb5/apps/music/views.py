@@ -1,9 +1,19 @@
 import json
 
 from django.http import HttpResponse
-from django.views.generic import View
+from django.views.generic import View, DetailView
 
-from mftb5.apps.music.models import Track
+from mftb5.apps.music.models import Album, Track
+
+
+class TrackView(DetailView):
+    template_name = 'track.html'
+    model = Track
+
+
+class AlbumView(DetailView):
+    template_name = 'album.html'
+    model = Album
 
 
 class JSONView(View):
@@ -21,15 +31,4 @@ class PlaylistView(JSONView):
             playlist = Track.objects.filter(featured=True).order_by('?')
             request.session['playlist'] = [t.pk for t in playlist]
 
-        return [
-            # XXX gonna need to put useful urls in here
-            {
-                'mp3': t.mp3.url,
-                'pk': t.pk,
-                'name': t.name,
-                'album': {
-                    'name': t.album.name,
-                },
-            }
-            for t in playlist
-        ]
+        return [t.json() for t in playlist]

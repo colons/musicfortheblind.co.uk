@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <section>
+    <h1>{{ track.name }}</h1>
+    <p class="source">
+      {% if track.track_number %}
+        Track {{ track.track_number }} on <a href="{{ track.album.get_absolute_url }}">{{ track.album.name }}</a></p>
+      {% else %}
+        from <a href="{{ track.album.get_absolute_url }}">{{ track.album.name }}</a></p>
+      {% endif %}
+    </p>
+    {{ track.description_html|safe }}
+    <code>{{ track.lyrics|linebreaksbr }}</code>
+  </section>
+{% endblock %}
