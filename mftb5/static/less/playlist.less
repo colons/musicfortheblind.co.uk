@@ -73,16 +73,25 @@
 
 .js #controls {
   display: block;
+  line-height: 0;
   .inner();
   
   span {
-    .invert();
-    padding: 0 .4em .3em;
-    border-radius: 0 0 .3em .3em;
     cursor: pointer;
+
+    font-size: .8em;
+    width: 1.5em;
+    display: inline-block;
+    text-align: center;
+    padding: .5em .5em;
+    border-radius: 0 0 .3em .3em;
+    
+    &.pp {
+      background-color: @dark;
+      color: @light;
+    }
     
     &:hover {
-      background-color: @highlight;
     }
   }
 }

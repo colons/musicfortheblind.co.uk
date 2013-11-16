@@ -4,6 +4,7 @@
   <head>
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu:400,500" />
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu+Mono" />
+    <link rel="stylesheet" type="text/css" href="{% static "js/libs/font-awesome/css/font-awesome.min.css" %}" />
     {% compressed_css "base" %}
 
     <title>{% block title %}Home{% endblock %} | Music for the Blind</title>
@@ -26,7 +27,7 @@
     </section>
 
     <div id="controls">
-      <span class="prev">« prev</span> <span class="pp">play</span> <span class="next">next »</span>
+      <span class="prev fa fa-backward"></span><span class="pp fa fa-play"></span><span class="next fa fa-forward"></span>
     </div>
 
     <div id="content">

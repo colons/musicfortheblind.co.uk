@@ -123,13 +123,13 @@ function selectTrack(track) {
 function play() {
   $('#playlist').addClass('playing');
   currentSound.play();
-  $pauseButton.text('pause');
+  $pauseButton.removeClass('fa-play').addClass('fa-pause');
 }
 
 function pause() {
   $('#playlist').removeClass('playing');
   currentSound.pause();
-  $pauseButton.text('play');
+  $pauseButton.removeClass('fa-pause').addClass('fa-play');
 }
 
 function positionPlaylist(animate) {
