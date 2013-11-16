@@ -1,10 +1,8 @@
+from os import path
+
 from django.db import models
 
 from mftb5.utils.mdfield import MarkdownTextField
-
-
-def _upload_to(instance, filename):
-    return filename
 
 
 class Album(models.Model):
@@ -18,6 +16,10 @@ class Album(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+def _upload_to(instance, filename):
+    return path.join(instance.album.slug, filename)
 
 
 class Track(models.Model):
