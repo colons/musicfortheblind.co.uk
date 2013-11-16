@@ -13,7 +13,7 @@ class Album(models.Model):
     date = models.DateField(blank=True, null=True)
     description = MarkdownTextField(blank=True)
 
-    external = models.BooleanField()
+    external = models.BooleanField(default=False)
     url = models.URLField(blank=True)
 
     def __unicode__(self):
@@ -26,7 +26,7 @@ class Track(models.Model):
     date = models.DateField(blank=True, null=True)
     description = MarkdownTextField(blank=True)
     lyrics = models.TextField(blank=True)
-    featured = models.BooleanField()
+    featured = models.BooleanField(default=False)
 
     album = models.ForeignKey('Album', blank=True)
     track_number = models.IntegerField(blank=True)
