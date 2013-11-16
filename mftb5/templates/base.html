@@ -6,15 +6,16 @@
     {% compressed_css "base" %}
     <script src="{% static 'js/libs/jquery/jquery-2.0.3.min.js' %}"></script>
     <script src="{% static 'js/libs/audiojs/audio.min.js' %}"></script>
+    <script>
+      var playlistUrl = '{% url "music:playlist" %}';
+    </script>
   </head>
   <body>
     <header>
       <h1>Music for the Blind</h1>
     </header>
     <section id="playlist">
-      <ul>
-        {% include "playlist.html" %}
-      </ul>
+      <ul></ul>
     </section>
   </body>
 </html>
