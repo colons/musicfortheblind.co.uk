@@ -29,7 +29,7 @@ class Track(models.Model):
     featured = models.BooleanField(default=False)
 
     album = models.ForeignKey('Album', blank=True)
-    track_number = models.IntegerField(blank=True)
+    track_number = models.IntegerField(blank=True, null=True)
 
     mp3 = models.FileField(blank=True, upload_to=_upload_to)
     ogg = models.FileField(blank=True, upload_to=_upload_to)
