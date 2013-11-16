@@ -1,0 +1,4 @@
+django>=1.6,<1.7
+django-pipeline
+markdown
+yuglify

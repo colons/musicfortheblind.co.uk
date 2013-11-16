@@ -1,0 +1,20 @@
+{% load compressed static %}
+<!doctype html>
+<html>
+  <head>
+    <title>{% block title %}Home{% endblock %} | Music for the Blind</title>
+    {% compressed_css "base" %}
+    <script src="{% static 'js/libs/jquery/jquery-2.0.3.min.js' %}"></script>
+    <script src="{% static 'js/libs/audiojs/audio.min.js' %}"></script>
+  </head>
+  <body>
+    <header>
+      <h1>Music for the Blind</h1>
+    </header>
+    <section id="playlist">
+      <ul>
+        {% include "playlist.html" %}
+      </ul>
+    </section>
+  </body>
+</html>
