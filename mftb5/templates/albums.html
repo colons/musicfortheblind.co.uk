@@ -9,6 +9,11 @@
           <a href="{{ album.get_absolute_url }}">{{ album.name }}</a>
         </h2>
       {% endspaceless %}
+
+      {% if album.date %}
+        <p class="date">{{ album.date }}</p>
+      {% endif %}
+
       {{ album.description_html|safe }}
     {% endfor %}
   </section>

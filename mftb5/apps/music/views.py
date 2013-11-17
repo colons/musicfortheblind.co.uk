@@ -27,5 +27,6 @@ class AlbumsView(BreadcrumbMixin, PJAXResponseMixin, TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(AlbumsView, self).get_context_data(*args, **kwargs)
-        context['albums'] = Album.objects.all()
+        mftb = Album.objects.get(slug="requests")
+        context['albums'] = [mftb] + list(Album.objects.exclude(pk=mftb.pk))
         return context

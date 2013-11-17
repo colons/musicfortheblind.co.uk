@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
 
 
 class BreadcrumbMixin(object):
@@ -27,5 +28,5 @@ class PJAXResponseMixin(object):
 
 class DetailMixin(object):
     def get(self, *args, **kwargs):
-        self.object = self.model.objects.get(**kwargs)
+        self.object = get_object_or_404(self.model, **kwargs)
         return super(DetailMixin, self).get(*args, **kwargs)
