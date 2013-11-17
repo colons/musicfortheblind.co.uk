@@ -69,6 +69,7 @@ STATIC_ROOT = path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
 PIPELINE_COMPILERS = ('pipeline.compilers.less.LessCompiler',)
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.slimit.SlimItCompressor'
 
 PIPELINE_CSS = {
     'base': {
