@@ -47,9 +47,12 @@ class Track(models.Model):
     mp3 = models.FileField(blank=True, upload_to=_upload_to)
     ogg = models.FileField(blank=True, upload_to=_upload_to)
     flac = models.FileField(blank=True, upload_to=_upload_to)
-    karakoe_mp3 = models.FileField(blank=True, upload_to=_upload_to)
-    karakoe_ogg = models.FileField(blank=True, upload_to=_upload_to)
-    karakoe_flac = models.FileField(blank=True, upload_to=_upload_to)
+    karaoke_mp3 = models.FileField(blank=True, upload_to=_upload_to,
+                                   verbose_name='instrumental (mp3)')
+    karaoke_ogg = models.FileField(blank=True, upload_to=_upload_to,
+                                   verbose_name='instrumental (ogg)')
+    karaoke_flac = models.FileField(blank=True, upload_to=_upload_to,
+                                    verbose_name='instrumental (flac)')
 
     def __unicode__(self):
         return self.name
@@ -79,3 +82,19 @@ class Track(models.Model):
     @property
     def external(self):
         return self.album.external
+
+    def downloads(self):
+        downloads = []
+        for attr in ['mp3', 'ogg', 'flac', 'karaoke_mp3', 'karaoke_ogg',
+                     'karaoke_flac']:
+            field = getattr(self, attr)
+            if not field:
+                continue
+
+            url = field.url
+            for field in self._meta.fields:
+                if field.name == attr:
+                    label = field.verbose_name
+            downloads.append({'url': url, 'format': label})
+
+        return downloads

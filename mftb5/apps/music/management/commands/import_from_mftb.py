@@ -47,7 +47,7 @@ class Command(BaseCommand):
         for field, fmt, dest in [
             ('mp3', '%04i_%s.mp3', 'mp3'),
             ('flac', '%04i_%s.flac', 'flac'),
-            ('karaoke', '%04i_%s.karaoke.mp3', 'karakoe_mp3'),
+            ('karaoke', '%04i_%s.karaoke.mp3', 'karaoke_mp3'),
         ]:
             if fields[field]:
                 file_path = path.join(the_dir, fmt

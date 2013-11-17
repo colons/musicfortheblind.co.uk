@@ -20,7 +20,19 @@
     {{ track.description_html|safe }}
   </section>
 
-  <section class="lyrics">
-    <code>{{ track.lyrics|linebreaksbr }}</code>
+  <section class="links">
+    {% if track.external %}
+      <p class="external download"><a href="{{ track.url }}"><span class="fa fa-external-link-square"></span>Download</a></p>
+    {% else %}
+      {% for download in track.downloads %}
+        <p class="internal download"><a href="{{ download.url }}"><span class="fa fa-download"></span>Download {{ download.format }}</a></p>
+      {% endfor %}
+    {% endif %}
   </section>
+
+  {% if track.lyrics %}
+    <section class="lyrics">
+      <code>{{ track.lyrics|linebreaksbr }}</code>
+    </section>
+  {% endif %}
 {% endblock %}

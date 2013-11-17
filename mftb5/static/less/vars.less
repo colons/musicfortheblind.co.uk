@@ -14,7 +14,7 @@
   padding: 0 .5em;
 
   @media (min-width: @innerbreakpoint) {
-    padding: 0 2em;
+    padding: 0 2.5em;
   }
 }
 
@@ -47,5 +47,20 @@
   &::-moz-selection, ::-moz-selection {
     background-color: @bg;
     color: @fg;
+  }
+}
+
+.icon-left() {
+  display: inline;
+  color: @dark;
+  opacity: .2;
+  margin-right: .3em;
+
+  @media (min-width: @innerbreakpoint) {
+    margin-right: 0;
+    position: relative;
+    display: inline-block;
+    width: 0;
+    right: 1.2em;
   }
 }

@@ -105,6 +105,17 @@ header {
         margin: 0 0 .5em;
       }
     }
+
+    &.links {
+      p.download a {
+        span {
+          .icon-left();
+        }
+        &:hover span {
+          opacity: 1;
+        }
+      }
+    }
   }
 }
 
@@ -113,18 +124,7 @@ header {
 }
 
 .js .enqueue {
-  display: inline;
-  color: @dark;
-  opacity: .2;
-  margin-right: .3em;
-
-  @media (min-width: @innerbreakpoint) {
-    margin-right: 0;
-    position: relative;
-    display: inline-block;
-    width: 0;
-    right: 1.2em;
-  }
+  .icon-left();
 }
 
 
