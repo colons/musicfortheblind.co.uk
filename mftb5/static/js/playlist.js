@@ -207,6 +207,7 @@ function play() {
 }
 
 function remove(item) {
+  item.addClass('animating');
   item.animate({width: 0}, function() {
     item.remove();
     playlistChangeHook();
