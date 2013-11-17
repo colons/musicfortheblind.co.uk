@@ -171,6 +171,15 @@ class Command(BaseCommand):
         for thing in self.models['music.othertrack']:
             self.import_othertrack(thing)
 
+        for album in Album.objects.all():
+            tracks = album.tracks()
+            track_numbers = [t.track_number for t in tracks]
+
+            if set(track_numbers) == set([1]):
+                for track in tracks:
+                    track.track_number = None
+                    track.save()
+
         for thing in self.models['music.mftbtrack']:
             self.import_mftbtrack(thing)
 
