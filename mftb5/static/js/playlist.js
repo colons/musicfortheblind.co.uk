@@ -227,9 +227,11 @@ function selectTrack(track) {
 }
 
 function play() {
-  $('#playlist').addClass('playing');
   currentSound.play();
-  $pauseButton.removeClass('fa-play').addClass('fa-pause');
+  if (!currentSound.isPaused()) {
+    $pauseButton.removeClass('fa-play').addClass('fa-pause');
+    $('#playlist').addClass('playing');
+  }
 }
 
 function remove(item) {
