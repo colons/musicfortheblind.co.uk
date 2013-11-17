@@ -32,7 +32,7 @@
     <div id="controls">
       <div class="inner">
         <span class="transport prev fa fa-backward"></span><span class="transport pp fa fa-play"></span><span class="transport next fa fa-forward"></span><span class="transport shuffle fa fa-random"></span>
-        <span class="enqueued">Added to playlist</span>
+        <span id="notify"></span>
       </div>
     </div>
 
@@ -47,6 +47,7 @@
     <script type="text/javascript" src="{% static 'js/libs/pjax/jquery.pjax.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/handlebars/handlebars-v1.1.2.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/sticky/jquery.sticky.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/cookie/jquery.cookie.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/shuffle/jquery-shuffle.js' %}"></script>
 
     <script type="text/javascript">
@@ -55,7 +56,7 @@
 
     <script id="playlist-template" type="text/x-handlebars-template">
       {% verbatim %}
-        <li data-ogg="{{ogg}}" data-mp3="{{mp3}}" id="playlist-item-{{pk}}">
+      <li data-ogg="{{ogg}}" data-mp3="{{mp3}}" id="playlist-item-{{pk}}" data-pk="{{pk}}">
           <a href="{{url}}"><p class="title">{{name}}</p></a>
           <p class="album">from <a href="{{album.url}}">{{album.name}}</a></span>
           <a class="fa fa-times-circle remove"></a>

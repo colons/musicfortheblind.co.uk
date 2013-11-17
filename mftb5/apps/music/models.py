@@ -111,3 +111,9 @@ class Track(models.Model):
             downloads.append({'url': url, 'format': label})
 
         return downloads
+
+    @classmethod
+    def feature(cls):
+        """ The Feature """
+
+        return cls.objects.filter(featured=True).order_by('?')

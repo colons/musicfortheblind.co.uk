@@ -8,6 +8,12 @@ var $pauseButton;
 var $nextButton;
 var $prevButton;
 
+function saveState() {
+  var serial = $('#playlist ul').sortable('serialize', {key: 'id'});
+  var selected = $('#playlist .selected').attr('data-pk');
+  $.post(playlistUrl, serial + '&selected=' + selected);
+}
+
 function bindEnqueue() {
   $('.enqueue').off('click');
   $('.enqueue').on('click', function(e) {
@@ -59,9 +65,7 @@ function bindEnqueue() {
     $('.present-at-start').removeClass('present-at-start');
     playlistChangeHook();
 
-    var enqueuedTab = $('#controls .enqueued');
-    enqueuedTab.stop();
-    enqueuedTab.slideDown().animate({opacity: 1}, 3000).slideUp();
+    notify('Added to playlist');
 
     if (paused()) {
       if (!triedToAddSelectedTrack) {
@@ -105,7 +109,7 @@ function drawPlaylist() {
   $.getJSON(playlistUrl, function(data) {
     var element = $('#playlist ul');
     element.html('');
-    $.each(data, function(i, track) {
+    $.each(data.playlist, function(i, track) {
       element.append(playlistTemplate(track));
     });
 
@@ -120,7 +124,7 @@ function drawPlaylist() {
     playlistChangeHook();
     bindControls();
     loadHook();
-    selectTrack($('#playlist li').first());
+    selectTrack($('#playlist li[data-pk="' + data.selected.toString() + '"]'));
   });
 }
 
@@ -146,6 +150,7 @@ function selectPrevTrack() {
 function playlistChangeHook() {
   bindPlayable();
   bindRemove();
+  saveState();
 }
 
 function bindPlayable() {
@@ -262,7 +267,6 @@ function positionPlaylist(animate) {
 }
 
 $(function() {
-  sounds = {};
   $playlist = $('#playlist');
   playlistTemplate = Handlebars.compile($('#playlist-template').html());
   drawPlaylist();
