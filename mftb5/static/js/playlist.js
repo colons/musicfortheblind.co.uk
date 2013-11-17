@@ -26,8 +26,6 @@ function drawPlaylist() {
       element.append(playlistTemplate(track));
     });
 
-    $('#playlist .playable a[href]').off('click');
-
     $('#playlist ul').sortable({
       scroll: false,
       axis: "x",
@@ -64,8 +62,6 @@ function selectPrevTrack() {
 function bindPlayable() {
   playlist().on('click', function(e) {
     if (!$(this).hasClass('selected')) {
-      e.preventDefault();
-      e.stopPropagation();
       selectTrack($(this));
       play();
     }
