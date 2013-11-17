@@ -115,7 +115,7 @@
 
   .selection(@light, @dark);
 
-  &:before {
+  &::before {
     width: 100%;
     content: '';
     display: block;
@@ -136,22 +136,36 @@
     .inner();
 
     span {
-      cursor: pointer;
-
-      font-size: .8em;
-      width: 1.5em;
       display: inline-block;
       text-align: center;
       padding: .5em .5em .6em;
       border-radius: 0 0 .3em .3em;
-      
-      &.pp {
-        background-color: @dark;
+
+      &.transport {
+        cursor: pointer;
+
+        font-size: .8em;
+        width: 1.5em;
+        
+        &.pp {
+          background-color: @dark;
+          color: @light;
+          .selection(@dark, @light);
+        }
+        
+        &:hover {
+        }
+      }
+
+      &.enqueued {
+        display: none;
+        padding: .7em .5em .9em;
+        background-color: @highlight;
+        margin-right: 1em;
         color: @light;
         .selection(@dark, @light);
-      }
-      
-      &:hover {
+        float: right;
+        .heavy();
       }
     }
   }

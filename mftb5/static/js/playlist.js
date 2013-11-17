@@ -12,6 +12,8 @@ function bindEnqueue() {
   $('.enqueue').off('click');
   $('.enqueue').on('click', function(e) {
     e.preventDefault();
+    animateUpwards($(this).parent());
+
     var targetWidth = $('#playlist .selected').width();
 
     $('#playlist li').each(function() {
@@ -55,6 +57,10 @@ function bindEnqueue() {
       $('.present-at-start').removeClass('present-at-start');
       playlistChangeHook();
 
+      var enqueuedTab = $('#controls .enqueued');
+      enqueuedTab.stop();
+      enqueuedTab.slideDown().animate({opacity: 1}, 3000).slideUp();
+
       if (paused()) {
         if (!triedToAddSelectedTrack) {
           selectNextTrack();
@@ -62,6 +68,27 @@ function bindEnqueue() {
         play();
       }
     });
+  });
+}
+
+function animateUpwards(element) {
+  element.after(element.clone());
+  var dupe = element.next();
+  targetPos = element.position();
+  dupe.css({
+    'position': 'absolute',
+    'left': targetPos.left,
+    'top': targetPos.top,
+    'pointer-events': 'none',
+    'opacity': 0.5,
+    'width': element.width()
+  });
+
+  dupe.animate({
+    'top': targetPos.top - 100,
+    'opacity': 0
+  }, 1000, function() {
+    dupe.remove();
   });
 }
 
