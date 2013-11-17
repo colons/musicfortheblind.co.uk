@@ -113,6 +113,8 @@
   border-top: 4px solid @dark;
   width: 100%;
 
+  .selection(@light, @dark);
+
   &:before {
     width: 100%;
     content: '';
@@ -146,6 +148,7 @@
       &.pp {
         background-color: @dark;
         color: @light;
+        .selection(@dark, @light);
       }
       
       &:hover {
