@@ -1,4 +1,5 @@
 {% extends parent %}
+{% load mftb5 %}
 
 {% block title %}{{ track.name }}{% endblock %}
 
@@ -25,7 +26,7 @@
 
   <section class="links">
     {% if track.external %}
-      <p class="external"><a href="{{ track.url }}"><span class="fa fa-external-link-square"></span>Download</a></p>
+      <p class="external"><a href="{{ track.url }}"><span class="fa fa-external-link-square"></span>{{ track.url|service_from_url }}</a></p>
     {% else %}
       {% for download in track.downloads %}
         <p class="internal"><a download href="{{ download.url }}"><span class="fa fa-download"></span>Download {{ download.format }}</a></p>
