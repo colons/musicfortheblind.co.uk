@@ -13,7 +13,7 @@ html {
 }
 
 h1, h2, h3, h4, h5 {
-  font-weight: 500;
+  .heavy();
 }
 
 header {
@@ -66,6 +66,9 @@ header {
 }
 
 #breadcrumbs {
+  .light();
+  font-size: .9em;
+
   span {
     white-space: nowrap;
   }
@@ -127,6 +130,17 @@ header {
 
     p.date {
       .subheading();
+    }
+
+    h2 {
+      span.track-number {
+        margin-right: .2em;
+        .light();
+
+        &:after {
+          content: '.';
+        }
+      }
     }
 
     ul {

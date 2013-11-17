@@ -8,6 +8,10 @@
 @innerbreakpoint: 400px;
 @outerbreakpoint: 700px;
 
+.heavy() {font-weight: 500}
+.medium() {font-weight: 400}
+.light() {font-weight: 300}
+
 .inner() {
   max-width: @max-width; 
   margin: 0 auto;
@@ -66,7 +70,9 @@
 }
 
 .subheading() {
+  font-weight: 300;
   font-size: .9em;
   padding-left: .5em;
   margin: 0 0 .5em;
 }
+

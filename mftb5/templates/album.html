@@ -17,6 +17,9 @@
       {% spaceless %}
         <h2>
           {% include "enqueue.html" with object=track %}
+          {% if track.track_number %}
+            <span class="track-number">{{ track.track_number }}</span>
+          {% endif %}
           <a href="{{ track.get_absolute_url }}">{{ track.name }}</a>
         </h2>
       {% endspaceless %}
