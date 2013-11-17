@@ -33,6 +33,7 @@ function bindEnqueue() {
         var stale = $('.present-at-start#playlist-item-' + track.pk);
         stale.animate({width: 0}, function() {
           stale.remove();
+          playlistChangeHook();
           positionPlaylist(true);
         });
 
