@@ -21,7 +21,6 @@ function bindEnqueue() {
     $.getJSON($(this).attr('data-json-url'), function(data) {
       var triedToAddSelectedTrack = false;
 
-      console.log('writing to playlist');
       $.each(data, function(i, track) {
         // if we're already playing this track, don't bother adding it
         if ($('.present-at-start#playlist-item-' + track.pk + '.selected').length) {
