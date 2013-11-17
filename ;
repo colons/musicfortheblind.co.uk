@@ -81,7 +81,7 @@
   display: block;
   line-height: 0;
   border-top: 4px solid @dark;
-  padding-bottom: 2em;
+  padding-bottom: 1em;
   width: 100%;
 
   background: -moz-linear-gradient(top, rgba(250,250,250,1) 0%, rgba(250,250,250,0) 100%);

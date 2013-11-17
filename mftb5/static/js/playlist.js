@@ -74,6 +74,7 @@ function paused() {
 
 function bindControls() {
   $controls = $('#controls');
+  $controls.sticky();
   $pauseButton = $controls.find('.pp');
   $nextButton = $controls.find('.next');
   $prevButton = $controls.find('.prev');
@@ -102,7 +103,7 @@ function bindControls() {
 }
 
 function getOffset() {
-  var reference = $('#controls :first-child');
+  var reference = $('#controls .inner :first-child');
   return reference.position().left - $('#playlist .selected').position().left;
 }
 

@@ -27,7 +27,9 @@
     </section>
 
     <div id="controls">
-      <span class="prev fa fa-backward"></span><span class="pp fa fa-play"></span><span class="next fa fa-forward"></span>
+      <div class="inner">
+        <span class="prev fa fa-backward"></span><span class="pp fa fa-play"></span><span class="next fa fa-forward"></span>
+      </div>
     </div>
 
     <div id="content">
@@ -39,6 +41,7 @@
     <script type="text/javascript" src="{% static 'js/libs/buzz/buzz.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/pjax/jquery.pjax.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/handlebars/handlebars-v1.1.2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/libs/sticky/jquery.sticky.js' %}"></script>
 
     <script type="text/javascript">
       var playlistUrl = '{% url "music:playlist" %}';
