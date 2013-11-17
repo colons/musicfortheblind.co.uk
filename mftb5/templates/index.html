@@ -1,25 +1,13 @@
 {% extends parent %}
 {% block content %}
-  <section class="albums">
-    <h1><a href="{% url "music:albums" %}">Albums</a></h1>
-    {% for album in albums %}
-      {% spaceless %}
-        <h2>
-          {% include "enqueue.html" with object=album %}
-          <a href="{{ album.get_absolute_url }}">{{ album.name }}</a>
-        </h2>
-      {% endspaceless %}
-    {% endfor %}
-  </section>
-
-  <section class="news">
-    <h1><a href="{% url "news:stories" %}">News</a></h1>
-    {% for story in stories %}
-      {% spaceless %}
-        <h2>
-          <a href="{{ story.get_absolute_url }}">{{ story.headline }}</a>
-        </h2>
-      {% endspaceless %}
-    {% endfor %}
+  <section class="welcome">
+    <marquee><h1>Welcome to my WebZone!</h1></marquee>
+    <p>This website contains <a href="{% url "music:albums" %}">music</a>, but I also do other things. Among those that I'm comfortable talking about are the following:</p>
+    <ul class="other-things">
+      <li>writing code on <a href="https://github.com/colons">GitHub</a></li>
+      <li>posting verbiage to <a href="https://twitter.com/mftb">Twitter</a></li>
+      <li>reviewing things for <a href="http://opinions.musicfortheblind.co.uk/">The Music for the Blind Review</a></li>
+    </ul>
+    <p>There. Now that we're all acquainted, please peruse some <a href="{% url "music:albums" %}">albums</a> or <a href="{% url "news:stories" %}">news</a>. I promise if you just hit the play button, nothing bad will happen.</p>
   </section>
 {% endblock %}

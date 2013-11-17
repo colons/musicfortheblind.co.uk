@@ -124,6 +124,7 @@ function playlistChangeHook() {
 }
 
 function bindPlayable() {
+  $('#playlist li').off('click');
   $('#playlist li').on('click', function(e) {
     if (!$(this).hasClass('selected')) {
       selectTrack($(this));
@@ -184,6 +185,7 @@ function selectTrack(track) {
     selectNextTrack();
     play();
   });
+  playlistChangeHook();
   positionPlaylist(true);
 }
 
