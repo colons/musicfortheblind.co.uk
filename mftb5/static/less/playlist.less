@@ -28,6 +28,10 @@
       padding: .5em 0 .6em;
       opacity: .2;
 
+      .remove {
+        display: none;
+      }
+
       &.selected {
         opacity: 1;
       }
@@ -35,11 +39,8 @@
       &:not(.selected) {
         cursor: pointer;
 
-        &:hover {
-          opacity: .8;
-        }
-
         &::after {  // overlay
+          z-index: 1;
           content: '';
           display: block;
           position: absolute;
@@ -47,6 +48,27 @@
           top: 0;
           width: 100%;
           height: 100%;
+        }
+
+
+        &:hover {
+          opacity: 1;
+
+          .remove {
+            display: block;
+            position: absolute;
+            right: 1em;
+            font-size: 2em;
+            top: .7em;
+            z-index: 2;
+            color: @dark;
+            .glow(@light);
+
+            &:hover {
+              opacity: 1;
+              color: @highlight;
+            }
+          }
         }
         
         a {

@@ -31,11 +31,7 @@ function bindEnqueue() {
 
         // remove any tracks that were here when we started and are duplicates of this one
         var stale = $('.present-at-start#playlist-item-' + track.pk);
-        stale.animate({width: 0}, function() {
-          stale.remove();
-          playlistChangeHook();
-          positionPlaylist(true);
-        });
+        remove(stale);
 
         var anchorTrack;
         var manuallyAppendedTracks = $('#playlist .manually-appended');
@@ -122,15 +118,27 @@ function selectPrevTrack() {
 // things to run when the state of the playlist changes
 function playlistChangeHook() {
   bindPlayable();
+  bindRemove();
 }
 
 function bindPlayable() {
-  $('#playlist li').off('click');
-  $('#playlist li').on('click', function(e) {
+  var elements = $('#playlist li');
+  elements.off('click');
+  elements.on('click', function(e) {
     if (!$(this).hasClass('selected')) {
       selectTrack($(this));
       play();
     }
+  });
+}
+
+function bindRemove() {
+  var elements = $('#playlist li .remove');
+  elements.off('click');
+  elements.on('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    remove($(this).closest('li'));
   });
 }
 
@@ -194,6 +202,14 @@ function play() {
   $('#playlist').addClass('playing');
   currentSound.play();
   $pauseButton.removeClass('fa-play').addClass('fa-pause');
+}
+
+function remove(item) {
+  item.animate({width: 0}, function() {
+    item.remove();
+    playlistChangeHook();
+    positionPlaylist(true);
+  });
 }
 
 function pause() {

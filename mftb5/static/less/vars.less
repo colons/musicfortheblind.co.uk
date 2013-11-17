@@ -12,6 +12,17 @@
 .medium() {font-weight: 400}
 .light() {font-weight: 300}
 
+.glow(@colour) {
+  text-shadow: 0 0 .5em @colour,
+               0 0 .5em @colour,
+               0 0 1em @colour,
+               0 0 1em @colour,
+               0 0 1.5em @colour,
+               0 0 1.5em @colour,
+               0 0 2em @colour,
+               0 0 2em @colour;
+}
+
 .inner() {
   max-width: @max-width; 
   margin: 0 auto;
