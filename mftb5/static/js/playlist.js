@@ -140,6 +140,7 @@ function positionPlaylist(animate) {
   if (!animate) {
     ul.css(dest);
   } else {
+    ul.clearQueue();
     ul.animate(dest);
   }
 }
