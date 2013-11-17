@@ -6,7 +6,7 @@
   <section class="album">
     {% spaceless %}
       <h1>
-        {% include "enqueue.html" with object=album %}
+        {% include "includes/enqueue.html" with object=album %}
         <span>{{ album.name }}</span>
       </h1>
     {% endspaceless %}
@@ -16,7 +16,7 @@
     {% for track in album.tracks %}
       {% spaceless %}
         <h2>
-          {% include "enqueue.html" with object=track %}
+          {% include "includes/enqueue.html" with object=track %}
           {% if track.track_number %}
             <span class="track-number">{{ track.track_number }}</span>
           {% endif %}

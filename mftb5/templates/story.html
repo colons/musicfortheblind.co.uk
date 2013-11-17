@@ -2,7 +2,7 @@
 {% block content %}
   <section class="story">
     {% spaceless %}
-    <h1>{% include "storyheading.html" with story=story %}</h1>
+    <h1>{% include "includes/storyheading.html" with story=story %}</h1>
     {% endspaceless %}
     <p class="date">{{ story.date }}</p>
 

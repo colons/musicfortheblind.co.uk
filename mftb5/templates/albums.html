@@ -5,7 +5,7 @@
     {% for album in albums %}
       {% spaceless %}
         <h2>
-          {% include "enqueue.html" with object=album %}
+          {% include "includes/enqueue.html" with object=album %}
           <a href="{{ album.get_absolute_url }}">{{ album.name }}</a>
         </h2>
       {% endspaceless %}

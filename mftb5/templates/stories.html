@@ -4,7 +4,7 @@
   {% for story in object_list %}
     <section class="story">
       {% spaceless %}
-      <h2>{% include "storyheading.html" with story=story %}</h2>
+      <h2>{% include "includes/storyheading.html" with story=story %}</h2>
       {% endspaceless %}
       <p class="date">{{ story.date }}</p>
       {{ story.content_html|safe }}
