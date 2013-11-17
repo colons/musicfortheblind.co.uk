@@ -63,6 +63,6 @@ class PlaylistView(JSONView):
         }
 
     def reset_playlist(self, request):
-        playlist = [t.pk for t in Track.feature()]
-        request.session['playlist'] = playlist
+        playlist = Track.feature()
+        request.session['playlist'] = [p.pk for p in playlist]
         return playlist
