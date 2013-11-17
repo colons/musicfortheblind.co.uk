@@ -19,10 +19,7 @@ class Album(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        if self.external:
-            return self.url
-        else:
-            return reverse('music:album', kwargs={'slug': self.slug})
+        return reverse('music:album', kwargs={'slug': self.slug})
 
 
 def _upload_to(instance, filename):
@@ -65,12 +62,8 @@ class Track(models.Model):
         }
 
     def get_absolute_url(self):
-        if self.external:
-            return self.url
-        else:
-            return reverse('music:track',
-                           kwargs={'slug': self.slug,
-                                   'album__slug': self.album.slug})
+        return reverse('music:track', kwargs={'slug': self.slug,
+                                              'album__slug': self.album.slug})
 
     @property
     def external(self):

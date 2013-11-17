@@ -13,12 +13,7 @@ html {
 }
 
 h1, h2, h3, h4, h5 {
-  padding: .5em 0 0;
   font-weight: 500;
-}
-
-h2 {
-  font-size: 1.2em;
 }
 
 header {
@@ -63,6 +58,12 @@ header {
   }
 }
 
+#breadcrumbs {
+  span {
+    white-space: nowrap;
+  }
+}
+
 #content {
   .inner();
 
@@ -70,6 +71,18 @@ header {
 
   p {
     margin: .5em 0;
+  }
+
+  h1, h2, h3, h4, h5 {
+    padding: .5em 0 0;
+
+    a {
+      .arrowhover();
+    }
+  }
+
+  h2 {
+    font-size: 1.2em;
   }
 
   section {

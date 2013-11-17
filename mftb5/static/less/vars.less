@@ -20,3 +20,13 @@
     color: @light;
   }
 }
+
+.arrowhover() {
+  &:hover:before {
+    content: '»';
+    display: inline-block;
+    width: 0;
+    position: relative;
+    right: .8em;
+  }
+}

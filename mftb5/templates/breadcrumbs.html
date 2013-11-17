@@ -1,0 +1,7 @@
+{% if breadcrumbs %}
+  <p id="breadcrumbs">
+    {% for breadcrumb in breadcrumbs %}
+      <span><a href="{{ breadcrumb.1 }}">{{ breadcrumb.0 }}</a> » </span>
+    {% endfor %}
+  </p>
+{% endif %}
