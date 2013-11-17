@@ -6,4 +6,5 @@ function targetBlank() {
 $(function() {
   $(document).pjax('a', '#content');
   targetBlank();
+  $('#content').bind('pjax:end', targetBlank);
 });

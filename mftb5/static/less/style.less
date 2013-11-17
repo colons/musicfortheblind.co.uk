@@ -12,6 +12,15 @@ html {
   color: @dark;
 }
 
+h1, h2, h3, h4, h5 {
+  padding: .5em 0 0;
+  font-weight: 500;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
 header {
   .invert();
   text-align: center;
@@ -21,7 +30,6 @@ header {
 
     h1 {
       display: inline-block;
-      font-weight: 500;
       background-image: url(../img/logo.svg);
       background-repeat: no-repeat;
 
@@ -57,14 +65,14 @@ header {
 
 #content {
   .inner();
-  padding-top: 2em;
+  padding-top: 1em;
 
   p {
     margin: .5em 0;
   }
 
   section {
-    margin-bottom: 2em;
+    padding-bottom: 2em;
 
     &.track {
       p.source {
