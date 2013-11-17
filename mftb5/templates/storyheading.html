@@ -1,0 +1,9 @@
+{% if story.album %}
+  {% include 'enqueue.html' with object=story.album %}
+  <a href="{{ story.album.get_absolute_url }}">{{ story.headline }}</a>
+{% elif story.track %}
+  {% include 'enqueue.html' with object=story.track %}
+  <a href="{{ story.track.get_absolute_url }}">{{ story.headline }}</a>
+{% else %}
+  <span>{{ story.headline }}</span>
+{% endif %}

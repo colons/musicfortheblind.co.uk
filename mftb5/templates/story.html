@@ -2,17 +2,7 @@
 {% block content %}
   <section class="story">
     {% spaceless %}
-      <h1>
-        {% if story.album %}
-          {% include 'enqueue.html' with object=story.album %}
-          <a href="{{ story.album.get_absolute_url }}">{{ story.headline }}</a>
-        {% elif story.track %}
-          {% include 'enqueue.html' with object=story.track %}
-          <a href="{{ story.track.get_absolute_url }}">{{ story.headline }}</a>
-        {% else %}
-          <span>{{ story.headline }}</span>
-        {% endif %}
-      </h1>
+    <h1>{% include "storyheading.html" with story=story %}</h1>
     {% endspaceless %}
     <p class="date">{{ story.date }}</p>
 
