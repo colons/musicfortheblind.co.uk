@@ -111,10 +111,8 @@ header {
   section {
     padding-bottom: 2em;
 
-    &.track {
-      p.source {
-        .subheading();
-      }
+    p.source, p.date, p.link {
+      .subheading();
     }
 
     &.links {
@@ -126,10 +124,6 @@ header {
           opacity: 1;
         }
       }
-    }
-
-    p.date {
-      .subheading();
     }
 
     h2 {

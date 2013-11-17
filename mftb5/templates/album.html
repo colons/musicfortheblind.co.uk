@@ -1,4 +1,5 @@
 {% extends parent %}
+{% load mftb5 %}
 
 {% block title %}{{ album.name }}{% endblock %}
 
@@ -13,6 +14,15 @@
 
     {{ album.description_html|safe }}
 
+  </section>
+
+  {% if album.external %}
+    <section class="links">
+      <p class="external"><a href="{{ album.url }}"><span class="fa fa-external-link-square"></span>{{ album.url|service_from_url }}</a></p>
+    </section>
+  {% endif %}
+
+  <section class="tracks">
     {% for track in album.tracks %}
       {% spaceless %}
         <h2>
