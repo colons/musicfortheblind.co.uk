@@ -3,7 +3,12 @@
   <section class="albums">
     <h1>Albums</h1>
     {% for album in albums %}
-      <h2><a href="{{ album.get_absolute_url }}">{{ album.name }}</a></h2>
+      {% spaceless %}
+        <h2>
+          {% include "enqueue.html" with object=album %}
+          <a href="{{ album.get_absolute_url }}">{{ album.name }}</a>
+        </h2>
+      {% endspaceless %}
       {{ album.description_html|safe }}
     {% endfor %}
   </section>
