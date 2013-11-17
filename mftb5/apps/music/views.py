@@ -1,9 +1,10 @@
+from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, RedirectView
 
 from mftb5.apps.music.mixins import (
     AlbumMixin, TrackMixin, AlbumsBreadcrumbMixin)
-from mftb5.apps.music.models import Album
+from mftb5.apps.music.models import Album, Track
 from mftb5.mixins import PJAXResponseMixin, BreadcrumbMixin
 
 
@@ -30,3 +31,20 @@ class AlbumsView(BreadcrumbMixin, PJAXResponseMixin, TemplateView):
         mftb = Album.objects.get(slug="requests")
         context['albums'] = [mftb] + list(Album.objects.exclude(pk=mftb.pk))
         return context
+
+
+class AlbumRedirect(AlbumMixin, RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        return self.object.get_absolute_url()
+
+
+class MFTBRedirect(RedirectView):
+    model = Track
+
+    def get_redirect_url(self, *args, **kwargs):
+        return self.object.get_absolute_url()
+
+    def get(self, *args, **kwargs):
+        kwargs['album__slug'] = 'requests'
+        self.object = get_object_or_404(self.model, **kwargs)
+        return super(MFTBRedirect, self).get(*args, **kwargs)

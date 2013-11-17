@@ -1,10 +1,21 @@
 from django.conf.urls import patterns, url
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic.base import RedirectView
 
 from mftb5.apps.music import views, json_views
 
 
+def r(view, **kwargs):
+    return RedirectView.as_view(url=reverse_lazy(view, kwargs=kwargs),
+                                permanent=True)
+
+
 urlpatterns = patterns(
     '',
+    url(r'^music/$', r('music:album', slug='requests')),
+    url(r'^music/(?P<slug>[^/]+)/$', views.MFTBRedirect.as_view()),
+    url(r'^projects?/(?P<slug>[^/]+)/$', views.AlbumRedirect.as_view()),
+
     url('^playlist/$', json_views.PlaylistView.as_view(), name='playlist'),
     url('^albums/$', views.AlbumsView.as_view(), name='albums'),
 
