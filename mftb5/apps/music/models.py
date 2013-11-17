@@ -21,6 +21,12 @@ class Album(models.Model):
     def get_absolute_url(self):
         return reverse('music:album', kwargs={'slug': self.slug})
 
+    def json(self):
+        return [t.json() for t in self.tracks.all()]
+
+    def json_url(self):
+        return reverse('music:album_json', kwargs={'slug': self.slug})
+
 
 def _upload_to(instance, filename):
     return path.join(instance.album.slug, filename)
@@ -48,6 +54,10 @@ class Track(models.Model):
     def __unicode__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('music:track', kwargs={'slug': self.slug,
+                                              'album__slug': self.album.slug})
+
     def json(self):
         return {
             'mp3': self.mp3.url if self.mp3 else None,
@@ -60,10 +70,6 @@ class Track(models.Model):
                 'url': self.album.get_absolute_url()
             },
         }
-
-    def get_absolute_url(self):
-        return reverse('music:track', kwargs={'slug': self.slug,
-                                              'album__slug': self.album.slug})
 
     def json_url(self):
         return reverse('music:track_json',

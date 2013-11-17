@@ -1,9 +1,10 @@
-from mftb5.apps.music.models import Track
+from mftb5.apps.music.models import Album, Track
+from mftb5.mixins import DetailMixin
 
 
-class TrackMixin(object):
+class TrackMixin(DetailMixin):
     model = Track
 
-    def get(self, *args, **kwargs):
-        self.object = self.model.objects.get(**kwargs)
-        return super(TrackMixin, self).get(*args, **kwargs)
+
+class AlbumMixin(DetailMixin):
+    model = Album

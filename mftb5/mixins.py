@@ -23,3 +23,9 @@ class PJAXResponseMixin(object):
             context['parent'] = 'base.html'
 
         return context
+
+
+class DetailMixin(object):
+    def get(self, *args, **kwargs):
+        self.object = self.model.objects.get(**kwargs)
+        return super(DetailMixin, self).get(*args, **kwargs)

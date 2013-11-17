@@ -11,6 +11,7 @@ var $prevButton;
 function bindEnqueue() {
   $('.enqueue').click(function(e) {
     e.preventDefault();
+    var targetWidth = $('#playlist .selected').width();
 
     $.getJSON($(this).attr('data-json-url'), function(data) {
       $.each(data, function(i, track) {
@@ -24,7 +25,6 @@ function bindEnqueue() {
 
         var rendered = $(playlistTemplate(track));
         rendered.addClass('manually-appended').addClass('animating');
-        targetWidth = anchorTrack.width();
 
         rendered.css({width: 0});
         anchorTrack.after(rendered);
@@ -35,13 +35,11 @@ function bindEnqueue() {
         });
       });
 
-      bindPlayable();
+      playlistChangeHook();
 
       if (paused()) {
         selectNextTrack();
         play();
-      } else {
-        console.log('idk');
       }
     });
   });
@@ -63,7 +61,7 @@ function drawPlaylist() {
       }
     });
 
-    bindPlayable();
+    playlistChangeHook();
     bindControls();
     loadHook();
     selectTrack($('#playlist li').first());  // XXX respect state
@@ -86,6 +84,11 @@ function selectPrevTrack() {
   } else {
     selectTrack($('#playlist li').last());
   }
+}
+
+// things to run when the state of the playlist changes
+function playlistChangeHook() {
+  bindPlayable();
 }
 
 function bindPlayable() {

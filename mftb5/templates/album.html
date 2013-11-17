@@ -4,13 +4,19 @@
 
 {% block content %}
   <section class="album">
-    <h1>{{ album.name }}</h1>
+    {% spaceless %}
+      <h1>
+        {% include "enqueue.html" with object=album %}
+        <span>{{ album.name }}</span>
+      </h1>
+    {% endspaceless %}
+
     {{ album.description_html|safe }}
 
     {% for track in album.tracks.all %}
       {% spaceless %}
         <h2>
-          {% include "enqueue.html" with track=track %}
+          {% include "enqueue.html" with object=track %}
           <a href="{{ track.get_absolute_url }}">{{ track.name }}</a>
         </h2>
       {% endspaceless %}
