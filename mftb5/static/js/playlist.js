@@ -138,7 +138,9 @@ function bindRemove() {
   elements.on('click', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    remove($(this).closest('li'));
+    var removeButton = $(this);
+    removeButton.animate({opacity: 0}, 100);
+    remove(removeButton.closest('li'));
   });
 }
 
