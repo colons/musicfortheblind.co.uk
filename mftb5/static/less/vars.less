@@ -5,19 +5,27 @@
 @highlight: #c52;
 
 @max-width: 50em;
+@innerbreakpoint: 25em;
+@outerbreakpoint: 42em;
 
 .inner() {
   max-width: @max-width; 
   margin: 0 auto;
   padding: 0 .5em;
+
+  @media (min-width: @innerbreakpoint) {
+    padding: 0 2em;
+  }
 }
 
 .invert() {
   background-color: @dark;
   color: @light;
+  .selection(@light, @dark);
 
   a[href]:hover {
     color: @light;
+    .selection(@highlight, @dark);
   }
 }
 
@@ -28,5 +36,16 @@
     width: 0;
     position: relative;
     right: .8em;
+  }
+}
+
+.selection(@bg, @fg) {
+  &::selection, ::selection {
+    background-color: @bg;
+    color: @fg;
+  }
+  &::-moz-selection, ::-moz-selection {
+    background-color: @bg;
+    color: @fg;
   }
 }

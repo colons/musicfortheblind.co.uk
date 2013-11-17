@@ -65,6 +65,11 @@ class Track(models.Model):
         return reverse('music:track', kwargs={'slug': self.slug,
                                               'album__slug': self.album.slug})
 
+    def json_url(self):
+        return reverse('music:track_json',
+                       kwargs={'slug': self.slug,
+                               'album__slug': self.album.slug})
+
     @property
     def external(self):
         return self.album.external

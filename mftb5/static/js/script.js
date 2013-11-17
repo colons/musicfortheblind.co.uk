@@ -3,8 +3,14 @@ function targetBlank() {
   $('a[href^="http://"], a[href^="https://"]').attr('target', '_blank');
 }
 
+// things to run after updating the DOM
+function loadHook() {
+  targetBlank();
+  bindEnqueue();
+}
+
 $(function() {
   $(document).pjax('a', '#content');
   targetBlank();
-  $('#content').bind('pjax:end', targetBlank);
+  $('#content').bind('pjax:end', loadHook);
 });

@@ -19,6 +19,7 @@
     li {
       width: 15em;
       display: inline-block;
+      overflow: hidden;
       position: relative;
       padding: .5em 0 .6em;
       opacity: .2;
@@ -27,7 +28,7 @@
         opacity: 1;
       }
 
-      &.playable {
+      &:not(.selected) {
         cursor: pointer;
 
         &:hover {
@@ -54,7 +55,10 @@
         white-space: nowrap;
         overflow: hidden;
         width: 100%;
-        text-overflow: ellipsis;
+
+        &:not(.animating) {
+          text-overflow: ellipsis;
+        }
 
         &.title {
           font-weight: 500;

@@ -8,7 +8,12 @@
     {{ album.description_html|safe }}
 
     {% for track in album.tracks.all %}
-      <h2><a href="{{ track.get_absolute_url }}">{{ track.name }}</a></h2>
+      {% spaceless %}
+        <h2>
+          {% include "enqueue.html" with track=track %}
+          <a href="{{ track.get_absolute_url }}">{{ track.name }}</a>
+        </h2>
+      {% endspaceless %}
       {{ track.description_html|safe }}
     {% endfor %}
   </section>

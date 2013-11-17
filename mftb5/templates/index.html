@@ -1,8 +1,10 @@
 {% extends parent %}
 {% block content %}
-  <section>
-    <h2>wait hang on where do i put the nav</h2>
-    <p>no seriously i didn't think this through at all and now i don't know what to dooooooooo<p>
-    <p>like a sidebar or something? that seems like it might work
+  <section class="albums">
+    <h1>Albums</h1>
+    {% for album in albums %}
+      <h2><a href="{{ album.get_absolute_url }}">{{ album.name }}</a></h2>
+      {{ album.description_html|safe }}
+    {% endfor %}
   </section>
 {% endblock %}

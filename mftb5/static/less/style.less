@@ -28,12 +28,19 @@ header {
       background-image: url(../img/logo.svg);
       background-repeat: no-repeat;
 
-      background-position: 0 -5px;
-      background-size: 82px 98px;
-      padding: 50px 0 10px 75px;
-      font-size: 25px;
+      background-position: 0 -4px;
+      background-size: 66px 78px;
+      padding: 40px 0 8px 60px;
+      font-size: 20px;
 
-      @media (min-width: 42em) {
+      @media (min-width: @innerbreakpoint) {
+        background-position: 0 -5px;
+        background-size: 82px 98px;
+        padding: 50px 0 10px 75px;
+        font-size: 25px;
+      }
+
+      @media (min-width: @outerbreakpoint) {
       background-position: 0 -10px;
         background-size: 164px 195px;
         padding: 100px 0 20px 150px;
@@ -76,8 +83,13 @@ header {
   h1, h2, h3, h4, h5 {
     padding: .5em 0 0;
 
-    a {
-      .arrowhover();
+    &:hover .enqueue {
+      color: @highlight;
+      opacity: 1;
+
+      &:hover {
+        color: @dark;
+      }
     }
   }
 
@@ -96,9 +108,33 @@ header {
   }
 }
 
-a[href] {
+.enqueue {
+  display: none;
+}
+
+.js .enqueue {
+  display: inline;
+  color: @dark;
+  opacity: .2;
+  margin-right: .3em;
+
+  @media (min-width: @innerbreakpoint) {
+    margin-right: 0;
+    position: relative;
+    display: inline-block;
+    width: 0;
+    right: 1.2em;
+  }
+}
+
+
+.selection(@dark, @light);
+
+a {
   color: @highlight;
   text-decoration: none;
+  cursor: pointer;
+  .selection(@highlight, @light);
 
   &:hover {
     color: @dark;

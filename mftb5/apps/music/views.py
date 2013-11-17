@@ -1,14 +1,11 @@
-import json
-
-from django.http import HttpResponse
-from django.views.generic import View, DetailView
-
-from mftb5.mixins import PJAXResponseMixin, BreadcrumbMixin
+from django.views.generic import DetailView
 
 from mftb5.apps.music.models import Album, Track
+from mftb5.apps.music.mixins import TrackMixin
+from mftb5.mixins import PJAXResponseMixin, BreadcrumbMixin
 
 
-class TrackView(BreadcrumbMixin, PJAXResponseMixin, DetailView):
+class TrackView(TrackMixin, BreadcrumbMixin, PJAXResponseMixin, DetailView):
     template_name = 'track.html'
     model = Track
 
@@ -21,21 +18,3 @@ class TrackView(BreadcrumbMixin, PJAXResponseMixin, DetailView):
 class AlbumView(BreadcrumbMixin, PJAXResponseMixin, DetailView):
     template_name = 'album.html'
     model = Album
-
-
-class JSONView(View):
-    def get(self, request, *args, **kwargs):
-        data = self.get_json_data(request, *args, **kwargs)
-        return HttpResponse(json.dumps(data), content_type='application/json')
-
-
-class PlaylistView(JSONView):
-    def get_json_data(self, request):
-        if 'playlist' in request.session:
-            playlist = [Track.objects.get(pk=pk)
-                        for pk in request.session['playlist']]
-        else:
-            playlist = Track.objects.filter(featured=True).order_by('?')
-            request.session['playlist'] = [t.pk for t in playlist]
-
-        return [t.json() for t in playlist]

@@ -8,14 +8,43 @@ var $pauseButton;
 var $nextButton;
 var $prevButton;
 
-function getState() {
-  state = {
-    'playing': "16"  // could also be null
-  };
-}
+function bindEnqueue() {
+  $('.enqueue').click(function(e) {
+    e.preventDefault();
 
-function playlist() {
-  return $('#playlist li');
+    $.getJSON($(this).attr('data-json-url'), function(data) {
+      $.each(data, function(i, track) {
+        var anchorTrack;
+        var manuallyAppendedTracks = $('#playlist .manually-appended');
+        if (manuallyAppendedTracks.length) {
+          anchorTrack = manuallyAppendedTracks.last();
+        } else {
+          anchorTrack = $('#playlist .selected');
+        }
+
+        var rendered = $(playlistTemplate(track));
+        rendered.addClass('manually-appended').addClass('animating');
+        targetWidth = anchorTrack.width();
+
+        rendered.css({width: 0});
+        anchorTrack.after(rendered);
+
+        rendered.animate({width: targetWidth}, function() {
+          rendered.css({width: ''});
+          rendered.removeClass('animating');
+        });
+      });
+
+      bindPlayable();
+
+      if (paused()) {
+        selectNextTrack();
+        play();
+      } else {
+        console.log('idk');
+      }
+    });
+  });
 }
 
 function drawPlaylist() {
@@ -36,8 +65,8 @@ function drawPlaylist() {
 
     bindPlayable();
     bindControls();
-    targetBlank();
-    selectTrack(playlist().first());  // XXX respect state
+    loadHook();
+    selectTrack($('#playlist li').first());  // XXX respect state
   });
 }
 
@@ -46,7 +75,7 @@ function selectNextTrack() {
   if (next.length) {
     selectTrack(next);
   } else {
-    selectTrack(playlist().first());
+    selectTrack($('#playlist li').first());
   }
 }
 
@@ -55,12 +84,12 @@ function selectPrevTrack() {
   if (prev.length) {
     selectTrack(prev);
   } else {
-    selectTrack(playlist().last());
+    selectTrack($('#playlist li').last());
   }
 }
 
 function bindPlayable() {
-  playlist().on('click', function(e) {
+  $('#playlist li').on('click', function(e) {
     if (!$(this).hasClass('selected')) {
       selectTrack($(this));
       play();
@@ -108,8 +137,9 @@ function getOffset() {
 }
 
 function selectTrack(track) {
-  track.siblings().removeClass('selected').addClass('playable');
-  track.addClass('selected').removeClass('playable');
+  track.siblings().removeClass('selected');
+  track.siblings().removeClass('manually-appended');
+  track.addClass('selected');
 
   buzz.all().stop();
   currentSound = new buzz.sound(track.attr('data-mp3'), {
@@ -149,7 +179,6 @@ $(function() {
   sounds = {};
   $playlist = $('#playlist');
   playlistTemplate = Handlebars.compile($('#playlist-template').html());
-  getState();
   drawPlaylist();
   $(window).resize(function() {
     positionPlaylist(false);
