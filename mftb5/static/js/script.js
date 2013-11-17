@@ -10,7 +10,7 @@ function loadHook() {
 }
 
 $(function() {
-  $(document).pjax('a', '#content');
+  $(document).pjax('a[href^="/"]:not([download])', '#content');
   targetBlank();
   $('#content').bind('pjax:end', loadHook);
 });

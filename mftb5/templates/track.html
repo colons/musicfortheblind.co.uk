@@ -25,10 +25,10 @@
 
   <section class="links">
     {% if track.external %}
-      <p class="external download"><a href="{{ track.url }}"><span class="fa fa-external-link-square"></span>Download</a></p>
+      <p class="external"><a href="{{ track.url }}"><span class="fa fa-external-link-square"></span>Download</a></p>
     {% else %}
       {% for download in track.downloads %}
-        <p class="internal download"><a href="{{ download.url }}"><span class="fa fa-download"></span>Download {{ download.format }}</a></p>
+        <p class="internal"><a download href="{{ download.url }}"><span class="fa fa-download"></span>Download {{ download.format }}</a></p>
       {% endfor %}
     {% endif %}
   </section>
