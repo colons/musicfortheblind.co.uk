@@ -58,10 +58,20 @@ header {
 #content {
   .inner();
   padding-top: 2em;
-}
 
-p {
-  margin: .5em 0;
+  p {
+    margin: .5em 0;
+  }
+
+  section {
+    margin-bottom: 2em;
+
+    &.track {
+      p.source {
+        margin: 0 0 .5em;
+      }
+    }
+  }
 }
 
 a[href] {

@@ -1,6 +1,6 @@
-{% extends "base.html" %}
+{% extends parent %}
 {% block content %}
-  <section>
+  <section class="album">
     <h1>{{ album.name }}</h1>
     {{ album.description_html|safe }}
 

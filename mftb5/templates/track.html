@@ -1,15 +1,18 @@
-{% extends "base.html" %}
+{% extends parent %}
 {% block content %}
-  <section>
+  <section class="track">
     <h1>{{ track.name }}</h1>
     <p class="source">
       {% if track.track_number %}
-        Track {{ track.track_number }} on <a href="{{ track.album.get_absolute_url }}">{{ track.album.name }}</a></p>
+        <a href="{{ track.album.get_absolute_url }}">{{ track.album.name }}</a>, track {{ track.track_number }}</p>
       {% else %}
         from <a href="{{ track.album.get_absolute_url }}">{{ track.album.name }}</a></p>
       {% endif %}
     </p>
     {{ track.description_html|safe }}
+  </section>
+
+  <section class="lyrics">
     <code>{{ track.lyrics|linebreaksbr }}</code>
   </section>
 {% endblock %}

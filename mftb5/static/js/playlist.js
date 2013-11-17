@@ -26,6 +26,8 @@ function drawPlaylist() {
       element.append(playlistTemplate(track));
     });
 
+    $('#playlist .playable a[href]').off('click');
+
     $('#playlist ul').sortable({
       scroll: false,
       axis: "x",
@@ -36,6 +38,7 @@ function drawPlaylist() {
 
     bindPlayable();
     bindControls();
+    targetBlank();
     selectTrack(playlist().first());  // XXX respect state
   });
 }
@@ -62,6 +65,7 @@ function bindPlayable() {
   playlist().on('click', function(e) {
     if (!$(this).hasClass('selected')) {
       e.preventDefault();
+      e.stopPropagation();
       selectTrack($(this));
       play();
     }

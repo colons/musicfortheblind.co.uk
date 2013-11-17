@@ -82,6 +82,7 @@ PIPELINE_CSS = {
 PIPELINE_JS = {
     'base': {
         'source_filenames': [
+            'js/script.js',
             'js/playlist.js',
         ],
         'output_filename': 'js/min/script.js',

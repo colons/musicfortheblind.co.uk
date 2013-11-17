@@ -3,15 +3,17 @@ import json
 from django.http import HttpResponse
 from django.views.generic import View, DetailView
 
+from mftb5.utils.pjax import PJAXResponseMixin
+
 from mftb5.apps.music.models import Album, Track
 
 
-class TrackView(DetailView):
+class TrackView(PJAXResponseMixin, DetailView):
     template_name = 'track.html'
     model = Track
 
 
-class AlbumView(DetailView):
+class AlbumView(PJAXResponseMixin, DetailView):
     template_name = 'album.html'
     model = Album
 
