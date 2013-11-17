@@ -8,12 +8,15 @@ from mftb5.utils.mdfield import MarkdownTextField
 
 class Album(models.Model):
     name = models.CharField(max_length=300)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     date = models.DateField(blank=True, null=True)
     description = MarkdownTextField(blank=True)
 
     external = models.BooleanField(default=False)
     url = models.URLField(blank=True)
+
+    class Meta:
+        ordering = ['-date']
 
     def __unicode__(self):
         return self.name
@@ -22,10 +25,18 @@ class Album(models.Model):
         return reverse('music:album', kwargs={'slug': self.slug})
 
     def json(self):
-        return [t.json() for t in self.tracks.all()]
+        return [t.json() for t in self.tracks()]
 
     def json_url(self):
         return reverse('music:album_json', kwargs={'slug': self.slug})
+
+    def tracks(self):
+        if self.slug == 'requests':
+            ordering = '-track_number'
+        else:
+            ordering = 'track_number'
+
+        return self._tracks.order_by(ordering)
 
 
 def _upload_to(instance, filename):
@@ -34,14 +45,14 @@ def _upload_to(instance, filename):
 
 class Track(models.Model):
     name = models.CharField(max_length=300)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     date = models.DateField(blank=True, null=True)
     description = MarkdownTextField(blank=True)
     lyrics = models.TextField(blank=True)
     featured = models.BooleanField(default=False)
     url = models.URLField(blank=True)
 
-    album = models.ForeignKey('Album', blank=True, related_name='tracks')
+    album = models.ForeignKey('Album', blank=True, related_name='_tracks')
     track_number = models.IntegerField(blank=True, null=True)
 
     mp3 = models.FileField(blank=True, upload_to=_upload_to)
@@ -53,6 +64,9 @@ class Track(models.Model):
                                    verbose_name='instrumental (ogg)')
     karaoke_flac = models.FileField(blank=True, upload_to=_upload_to,
                                     verbose_name='instrumental (flac)')
+
+    class Meta:
+        ordering = ['-album__date', 'track_number']
 
     def __unicode__(self):
         return self.name

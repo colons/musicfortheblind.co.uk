@@ -6,6 +6,7 @@ from mftb5.apps.music import views, json_views
 urlpatterns = patterns(
     '',
     url('^playlist/$', json_views.PlaylistView.as_view(), name='playlist'),
+    url('^albums/$', views.AlbumsView.as_view(), name='albums'),
 
     url('^(?P<album__slug>[^/]+)/(?P<slug>[^/]+)\.json$',
         json_views.TrackView.as_view(), name='track_json'),

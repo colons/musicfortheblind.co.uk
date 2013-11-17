@@ -20,6 +20,7 @@ INSTALLED_APPS = (
     'pipeline',
 
     'mftb5.apps.music',
+    'mftb5.apps.news',
 )
 
 MIDDLEWARE_CLASSES = (

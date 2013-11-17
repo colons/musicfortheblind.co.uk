@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu+Mono" />
     <link rel="stylesheet" type="text/css" href="{% static "js/libs/font-awesome/css/font-awesome.min.css" %}" />
     {% compressed_css "base" %}
+    <link rel="shortcut icon" href="{% static "favicon.ico" %}" type="image/vnd.microsoft.icon">
 
     <title>{% block title %}Home{% endblock %} | Music for the Blind</title>
   </head>
@@ -53,7 +54,7 @@
 
     <script id="playlist-template" type="text/x-handlebars-template">
       {% verbatim %}
-        <li data-ogg="{{ogg}}" data-mp3="{{mp3}}" id={{pk}}>
+        <li data-ogg="{{ogg}}" data-mp3="{{mp3}}" id="playlist-item-{{pk}}">
           <a href="{{url}}"><p class="title">{{name}}</p></a>
           <p class="album">from <a href="{{album.url}}">{{album.name}}</a></span>
         </li>

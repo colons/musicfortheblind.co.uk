@@ -72,7 +72,7 @@ function drawPlaylist() {
     playlistChangeHook();
     bindControls();
     loadHook();
-    selectTrack($('#playlist li').first());  // XXX respect state
+    selectTrack($('#playlist li').first());
   });
 }
 

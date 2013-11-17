@@ -10,8 +10,9 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     url('^$', IndexView.as_view(), name='index'),
+    url(r'^news/', include('mftb5.apps.news.urls', namespace='news')),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('mftb5.apps.music.urls', namespace='music')),
-    url(r'^admin', include(admin.site.urls)),
 )
 
 if settings.DEBUG:

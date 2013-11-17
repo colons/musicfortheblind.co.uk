@@ -1,10 +1,11 @@
-import json
+import ujson
 from os import path
 
 from django.core.files import File
 from django.core.management.base import BaseCommand
 
 from mftb5.apps.music.models import Album, Track
+from mftb5.apps.news.models import Story
 
 
 class Command(BaseCommand):
@@ -27,8 +28,18 @@ class Command(BaseCommand):
         the_dir = path.join(self.media_dir, 'music', 'mftb')
         fields = thing['fields']
 
-        # XXX still need to get client
-        description = '> %s' % fields['request']
+        if fields['client_credit_implicit']:
+            description = fields['request']
+        else:
+            for client in self.models['music.client']:
+                if client['pk'] == fields['client']:
+                    the_client = client['fields']['name']
+                    break
+
+            description = '> %s\n\n-%s' % (fields['request'], the_client)
+
+        if fields['comments']:
+            description = description + '\n\n' + fields['comments']
 
         track = Track(
             album=self.mftb,
@@ -70,7 +81,8 @@ class Command(BaseCommand):
             slug=fields['slug'],
             track_number=fields['tracknum'],
             url=fields['page_url'],
-            album=album
+            album=album,
+            date=fields.get('date', None),
         )
         the_dir = path.join(self.media_dir, 'music', album.slug)
 
@@ -96,10 +108,33 @@ class Command(BaseCommand):
 
         track.save()
 
+    def import_newsitem(self, thing):
+        fields = thing['fields']
+
+        if fields['mftb']:
+            track = Track.objects.get(
+                album=self.mftb,
+                track_number=fields['mftb'],
+            )
+        else:
+            track = None
+
+        story = Story(
+            headline=fields['headline'],
+            date=fields['date'],
+            content=fields['pre_jump'] + '\n\n' + fields['post_jump'],
+            deck=fields['summary'],
+            slug=fields['slug'],
+            track=track,
+        )
+
+        story.save()
+
     def handle(self, dump_path, media_dir, **kwargs):
         with open(path.expanduser(dump_path)) as dump_file:
-            things = json.load(dump_file)
+            things = ujson.load(dump_file)
 
+        # XXX
         # if raw_input('yo, you sure? ') != 'yes':
         #     return
 
@@ -108,6 +143,7 @@ class Command(BaseCommand):
 
         Album.objects.all().delete()
         Track.objects.all().delete()
+        Story.objects.all().delete()
 
         self.models = {
             'music.client': [],
@@ -137,3 +173,6 @@ class Command(BaseCommand):
 
         for thing in self.models['music.mftbtrack']:
             self.import_mftbtrack(thing)
+
+        for thing in self.models['music.newsitem']:
+            self.import_newsitem(thing)

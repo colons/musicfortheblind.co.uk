@@ -13,7 +13,7 @@
 
     {{ album.description_html|safe }}
 
-    {% for track in album.tracks.all %}
+    {% for track in album.tracks %}
       {% spaceless %}
         <h2>
           {% include "enqueue.html" with object=track %}

@@ -1,7 +1,7 @@
 {% extends parent %}
 {% block content %}
   <section class="albums">
-    <h1>Albums</h1>
+    <h1><a href="{% url "music:albums" %}">Albums</a></h1>
     {% for album in albums %}
       {% spaceless %}
         <h2>
@@ -9,7 +9,17 @@
           <a href="{{ album.get_absolute_url }}">{{ album.name }}</a>
         </h2>
       {% endspaceless %}
-      {{ album.description_html|safe }}
+    {% endfor %}
+  </section>
+
+  <section class="news">
+    <h1><a href="{% url "news:stories" %}">News</a></h1>
+    {% for story in stories %}
+      {% spaceless %}
+        <h2>
+          <a href="{{ story.get_absolute_url }}">{{ story.headline }}</a>
+        </h2>
+      {% endspaceless %}
     {% endfor %}
   </section>
 {% endblock %}
