@@ -9,12 +9,32 @@ var $nextButton;
 var $prevButton;
 
 function bindEnqueue() {
-  $('.enqueue').click(function(e) {
+  $('.enqueue').off('click');
+  $('.enqueue').on('click', function(e) {
     e.preventDefault();
     var targetWidth = $('#playlist .selected').width();
 
+    $('#playlist li').each(function() {
+      $(this).addClass('present-at-start');
+    });
+
     $.getJSON($(this).attr('data-json-url'), function(data) {
+      var triedToAddSelectedTrack = false;
+
+      console.log('writing to playlist');
       $.each(data, function(i, track) {
+        // if we're already playing this track, don't bother adding it
+        if ($('.present-at-start#playlist-item-' + track.pk + '.selected').length) {
+          triedToAddSelectedTrack = true;
+          return true;
+        }
+
+        // remove any tracks that were here when we started and are duplicates of this one
+        var stale = $('.present-at-start#playlist-item-' + track.pk);
+        stale.animate({width: 0}, function() {
+          stale.remove();
+        });
+
         var anchorTrack;
         var manuallyAppendedTracks = $('#playlist .manually-appended');
         if (manuallyAppendedTracks.length) {
@@ -35,10 +55,13 @@ function bindEnqueue() {
         });
       });
 
+      $('.present-at-start').removeClass('present-at-start');
       playlistChangeHook();
 
       if (paused()) {
-        selectNextTrack();
+        if (!triedToAddSelectedTrack) {
+          selectNextTrack();
+        }
         play();
       }
     });

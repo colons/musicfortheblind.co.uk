@@ -11,6 +11,9 @@
       </h1>
     {% endspaceless %}
     <p class="source">
+      {% if track.date %}
+        {{ track.date }},
+      {% endif %}
       {% if track.track_number %}
         <a href="{{ track.album.get_absolute_url }}">{{ track.album.name }}</a>, track {{ track.track_number }}</p>
       {% else %}

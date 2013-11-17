@@ -66,7 +66,7 @@ class Track(models.Model):
                                     verbose_name='instrumental (flac)')
 
     class Meta:
-        ordering = ['-album__date', 'track_number']
+        ordering = ['track_number']
 
     def __unicode__(self):
         return self.name

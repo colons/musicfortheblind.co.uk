@@ -20,6 +20,9 @@
           <a href="{{ track.get_absolute_url }}">{{ track.name }}</a>
         </h2>
       {% endspaceless %}
+      {% if track.date %}
+        <p class="date">{{ track.date }}</p>
+      {% endif %}
       {{ track.description_html|safe }}
     {% endfor %}
   </section>
