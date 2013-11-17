@@ -45,6 +45,14 @@ function bindEnqueue() {
   });
 }
 
+function bindShuffle() {
+  $('#controls .shuffle').click(function(e) {
+    e.preventDefault();
+    $('#playlist li').shuffle();
+    positionPlaylist(false);
+  });
+}
+
 function drawPlaylist() {
   $.getJSON(playlistUrl, function(data) {
     var element = $('#playlist ul');
@@ -183,6 +191,8 @@ $(function() {
   $playlist = $('#playlist');
   playlistTemplate = Handlebars.compile($('#playlist-template').html());
   drawPlaylist();
+  bindShuffle();
+  bindEnqueue();
   $(window).resize(function() {
     positionPlaylist(false);
   });
