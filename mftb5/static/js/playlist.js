@@ -20,54 +20,55 @@ function bindEnqueue() {
       $(this).addClass('present-at-start');
     });
 
-    $.getJSON($(this).attr('data-json-url'), function(data) {
-      var triedToAddSelectedTrack = false;
+    var jsonString = decodeURIComponent($(this).attr('data-json'));
+    var data = $.parseJSON(jsonString);
 
-      $.each(data, function(i, track) {
-        // if we're already playing this track, don't bother adding it
-        if ($('.present-at-start#playlist-item-' + track.pk + '.selected').length) {
-          triedToAddSelectedTrack = true;
-          return true;
-        }
+    var triedToAddSelectedTrack = false;
 
-        // remove any tracks that were here when we started and are duplicates of this one
-        var stale = $('.present-at-start#playlist-item-' + track.pk);
-        remove(stale);
-
-        var anchorTrack;
-        var manuallyAppendedTracks = $('#playlist .manually-appended');
-        if (manuallyAppendedTracks.length) {
-          anchorTrack = manuallyAppendedTracks.last();
-        } else {
-          anchorTrack = $('#playlist .selected');
-        }
-
-        var rendered = $(playlistTemplate(track));
-        rendered.addClass('manually-appended').addClass('animating');
-
-        rendered.css({width: 0});
-        anchorTrack.after(rendered);
-
-        rendered.animate({width: targetWidth}, function() {
-          rendered.css({width: ''});
-          rendered.removeClass('animating');
-        });
-      });
-
-      $('.present-at-start').removeClass('present-at-start');
-      playlistChangeHook();
-
-      var enqueuedTab = $('#controls .enqueued');
-      enqueuedTab.stop();
-      enqueuedTab.slideDown().animate({opacity: 1}, 3000).slideUp();
-
-      if (paused()) {
-        if (!triedToAddSelectedTrack) {
-          selectNextTrack();
-        }
-        play();
+    $.each(data, function(i, track) {
+      // if we're already playing this track, don't bother adding it
+      if ($('.present-at-start#playlist-item-' + track.pk + '.selected').length) {
+        triedToAddSelectedTrack = true;
+        return true;
       }
+
+      // remove any tracks that were here when we started and are duplicates of this one
+      var stale = $('.present-at-start#playlist-item-' + track.pk);
+      remove(stale);
+
+      var anchorTrack;
+      var manuallyAppendedTracks = $('#playlist .manually-appended');
+      if (manuallyAppendedTracks.length) {
+        anchorTrack = manuallyAppendedTracks.last();
+      } else {
+        anchorTrack = $('#playlist .selected');
+      }
+
+      var rendered = $(playlistTemplate(track));
+      rendered.addClass('manually-appended').addClass('animating');
+
+      rendered.css({width: 0});
+      anchorTrack.after(rendered);
+
+      rendered.animate({width: targetWidth}, function() {
+        rendered.css({width: ''});
+        rendered.removeClass('animating');
+      });
     });
+
+    $('.present-at-start').removeClass('present-at-start');
+    playlistChangeHook();
+
+    var enqueuedTab = $('#controls .enqueued');
+    enqueuedTab.stop();
+    enqueuedTab.slideDown().animate({opacity: 1}, 3000).slideUp();
+
+    if (paused()) {
+      if (!triedToAddSelectedTrack) {
+        selectNextTrack();
+      }
+      play();
+    }
   });
 }
 

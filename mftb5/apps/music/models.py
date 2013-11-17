@@ -1,4 +1,5 @@
 from os import path
+import ujson
 
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -24,11 +25,11 @@ class Album(models.Model):
     def get_absolute_url(self):
         return reverse('music:album', kwargs={'slug': self.slug})
 
-    def json(self):
-        return [t.json() for t in self.tracks()]
+    def json_data(self):
+        return [t.json_data() for t in self.tracks()]
 
-    def json_url(self):
-        return reverse('music:album_json', kwargs={'slug': self.slug})
+    def json(self):
+        return ujson.dumps(self.json_data())
 
     def tracks(self):
         if self.slug == 'requests':
@@ -75,7 +76,7 @@ class Track(models.Model):
         return reverse('music:track', kwargs={'slug': self.slug,
                                               'album__slug': self.album.slug})
 
-    def json(self):
+    def json_data(self):
         return {
             'mp3': self.mp3.url if self.mp3 else None,
             'ogg': self.ogg.url if self.ogg else None,
@@ -88,10 +89,8 @@ class Track(models.Model):
             },
         }
 
-    def json_url(self):
-        return reverse('music:track_json',
-                       kwargs={'slug': self.slug,
-                               'album__slug': self.album.slug})
+    def json(self):
+        return ujson.dumps([self.json_data()])
 
     @property
     def external(self):
