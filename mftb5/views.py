@@ -2,7 +2,7 @@ from django.views.generic.base import TemplateView
 
 from mftb5.apps.music.models import Album
 from mftb5.apps.news.models import Story
-from mftb5.utils.pjax import PJAXResponseMixin
+from mftb5.mixins import PJAXResponseMixin
 
 
 class IndexView(PJAXResponseMixin, TemplateView):
