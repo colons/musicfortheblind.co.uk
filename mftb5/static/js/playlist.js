@@ -204,6 +204,8 @@ function bindControls() {
     selectPrevTrack();
     if (!wasPaused) {play();}
   });
+
+  $controls.find('.inner').animate({'bottom': 0}, 300);
 }
 
 function getOffset() {
