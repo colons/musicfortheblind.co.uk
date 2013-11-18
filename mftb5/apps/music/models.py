@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 
 from mftb5.utils.mdfield import MarkdownTextField
-from mftb5.apps.music.utils import decode_flac, encode_vorbis
+from mftb5.apps.music.utils import decode_flac, decode_mp3, encode_vorbis
 
 
 class Album(models.Model):
@@ -128,11 +128,18 @@ class Track(models.Model):
         return markdown(self.truncated_description())
 
     def save(self):
-        if self.flac and not self.ogg:
-            wav = open(decode_flac(self.flac))
-            ogg = open(encode_vorbis(wav))
-            self.ogg.save('%s.ogg' % self.slug, File(ogg))
-            wav.close()
-            ogg.close()
+        if not self.ogg:
+            wav = None
+            if self.flac:
+                wav = open(decode_flac(self.flac))
+            elif self.mp3:
+                # i am so, so sorry :<
+                wav = open(decode_mp3(self.mp3))
+
+            if wav is not None:
+                ogg = open(encode_vorbis(wav))
+                self.ogg.save('%s.ogg' % self.slug, File(ogg))
+                wav.close()
+                ogg.close()
 
         super(Track, self).save()
