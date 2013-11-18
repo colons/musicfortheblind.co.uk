@@ -18,7 +18,7 @@
 
   {% if album.external %}
     <section class="links">
-      <p class="external"><a href="{{ album.url }}"><span class="fa fa-external-link-square"></span>{{ album.url|service_from_url }}</a></p>
+      <p class="external"><a href="{{ album.url }}">{{ album.url|service_from_url }}</a></p>
     </section>
   {% endif %}
 

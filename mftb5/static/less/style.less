@@ -1,4 +1,5 @@
 @import 'vars.less';
+@import '../fa/less/font-awesome.less';
 
 * {
   border: none;
@@ -116,11 +117,20 @@ header {
     }
 
     &.links {
-      p a {
-        span {
+      p {
+        a::before {
           .icon-left();
         }
-        &:hover span {
+
+        &.external a::before {
+          .fa(@fa-var-external-link-square);
+        }
+
+        &.internal a::before {
+          .fa(@fa-var-download);
+        }
+
+        a:hover::before {
           opacity: 1;
         }
       }
@@ -153,6 +163,10 @@ header {
 
 .js .enqueue {
   .icon-left();
+
+  &::before {
+    .fa(@fa-var-headphones)
+  }
 }
 
 
