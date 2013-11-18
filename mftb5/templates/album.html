@@ -11,6 +11,9 @@
         <span>{{ album.name }}</span>
       </h1>
     {% endspaceless %}
+    {% if album.date %}
+      <p class="date">{{ album.date }}</p>
+    {% endif %}
 
     {{ album.description_html|safe }}
 
