@@ -114,7 +114,6 @@ body.audio #controls {
   border-top: 4px solid @dark;
   width: 100%;
   height: 2em;
-  overflow: hidden;
 
   .selection(@light, @dark);
 
@@ -137,39 +136,43 @@ body.audio #controls {
 
   .inner {
     .inner();
-    position: relative;
-    bottom: 2em;
+    overflow: hidden;
 
-    span {
-      display: inline-block;
-      text-align: center;
-      padding: .5em .5em .6em;
-      border-radius: 0 0 .3em .3em;
+    p {
+      position: relative;
+      bottom: 2em;
 
-      &.transport {
-        cursor: pointer;
+      span {
+        display: inline-block;
+        text-align: center;
+        padding: .5em .5em .6em;
+        border-radius: 0 0 .3em .3em;
 
-        font-size: .8em;
-        width: 1.5em;
-        
-        &.pp {
-          background-color: @dark;
+        &.transport {
+          cursor: pointer;
+
+          font-size: .8em;
+          width: 1.5em;
+          
+          &.pp {
+            background-color: @dark;
+            color: @light;
+            .selection(@dark, @light);
+          }
+          
+          &:hover {
+          }
+        }
+
+        &#notify {
+          display: none;
+          padding: .7em .5em .9em;
+          background-color: @highlight;
           color: @light;
           .selection(@dark, @light);
+          float: right;
+          .heavy();
         }
-        
-        &:hover {
-        }
-      }
-
-      &#notify {
-        display: none;
-        padding: .7em .5em .9em;
-        background-color: @highlight;
-        color: @light;
-        .selection(@dark, @light);
-        float: right;
-        .heavy();
       }
     }
   }

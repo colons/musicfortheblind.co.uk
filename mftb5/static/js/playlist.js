@@ -207,7 +207,7 @@ function bindControls() {
     if (!wasPaused) {play();}
   });
 
-  $controls.find('.inner').animate({'bottom': 0}, 300);
+  $controls.find('.inner p').animate({'bottom': 0}, 300);
 }
 
 function getOffset() {
