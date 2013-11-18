@@ -3,10 +3,12 @@ from os import path
 import ujson
 from markdown import markdown
 
+from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.db import models
 
 from mftb5.utils.mdfield import MarkdownTextField
+from mftb5.apps.music.utils import decode_flac, encode_vorbis
 
 
 class Album(models.Model):
@@ -124,3 +126,13 @@ class Track(models.Model):
 
     def truncated_description_html(self):
         return markdown(self.truncated_description())
+
+    def save(self):
+        if self.flac and not self.ogg:
+            wav = decode_flac(self.flac)
+            ogg = encode_vorbis(wav)
+            self.ogg.save('%s.ogg' % self.slug, File(ogg))
+            wav.close()
+            ogg.close()
+
+        super(Track, self).save()
