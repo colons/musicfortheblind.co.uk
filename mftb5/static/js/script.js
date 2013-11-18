@@ -36,6 +36,7 @@ function notify(message) {
 
 $(function() {
   $(document).pjax('a[href^="/"]:not([download])', '#content');
+  $.pjax.defaults.timeout = 3000;
   targetBlank();
   loadCsrf();
   $('#content').bind('pjax:end', loadHook);
