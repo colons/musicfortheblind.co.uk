@@ -100,8 +100,7 @@ class Track(models.Model):
 
     def downloads(self):
         downloads = []
-        for attr in ['mp3', 'ogg', 'flac', 'karaoke_mp3', 'karaoke_ogg',
-                     'karaoke_flac']:
+        for attr in ['mp3', 'flac', 'karaoke_mp3', 'karaoke_flac']:
             field = getattr(self, attr)
             if not field:
                 continue
