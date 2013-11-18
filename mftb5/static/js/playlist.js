@@ -1,4 +1,6 @@
 var playlistTemplate;
+var audioTemplate;
+var currentAudio;
 var state;
 
 var $playlist;
@@ -6,7 +8,6 @@ var $controls;
 var $pauseButton;
 var $nextButton;
 var $prevButton;
-var $currentAudio;
 
 function saveState() {
   var serial = $('#playlist ul').sortable('serialize', {key: 'id'});
@@ -213,11 +214,42 @@ function getOffset() {
   return reference.offset().left - $('#playlist .selected').position().left;
 }
 
+function formatsFromTrack(track) {
+  var formats = [];
+
+  $.each(['mp3', 'ogg'], function(i, type) {
+    formats.push({
+      mime: 'audio/' + type,
+      url: track.attr('data-' + type)
+    });
+  });
+
+  return formats;
+}
+
 function selectTrack(track) {
   track.siblings().removeClass('selected');
   track.siblings().removeClass('manually-appended');
   track.addClass('selected');
-  $(currentAudio).attr('src', track.attr('data-mp3'));
+
+  var audioDefined = currentAudio !== undefined;
+  var wasPaused = !audioDefined || currentAudio.paused;
+
+  if (!wasPaused && audioDefined) {
+    currentAudio.pause();
+  }
+
+  $(currentAudio).remove();
+  $(document.body).append(audioTemplate({formats: formatsFromTrack(track)}));
+  currentAudio = document.getElementsByTagName('audio')[0];
+  currentAudio.addEventListener('ended', function(e) {
+    selectNextTrack();
+    play();
+  });
+
+  if (!wasPaused) {
+    currentAudio.play();
+  }
   playlistChangeHook();
   positionPlaylist(true);
 }
@@ -257,17 +289,9 @@ function positionPlaylist(animate) {
 }
 
 $(function() {
-  $('body').append(
-    '<audio id="current-audio" preload="auto"></audio>'
-  );
-  currentAudio = document.getElementById('current-audio');
-  currentAudio.addEventListener('ended', function(e) {
-    selectNextTrack();
-    play();
-  });
-
   $playlist = $('#playlist');
   playlistTemplate = Handlebars.compile($('#playlist-template').html());
+  audioTemplate = Handlebars.compile($('#audio-template').html());
   drawPlaylist();
   bindShuffle();
   bindEnqueue();

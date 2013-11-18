@@ -53,11 +53,21 @@
 
     <script id="playlist-template" type="text/x-handlebars-template">
       {% verbatim %}
-      <li data-ogg="{{ogg}}" data-mp3="{{mp3}}" id="playlist-item-{{pk}}" data-pk="{{pk}}">
+        <li data-ogg="{{ogg}}" data-mp3="{{mp3}}" id="playlist-item-{{pk}}" data-pk="{{pk}}">
           <a href="{{url}}"><p class="title">{{name}}</p></a>
           <p class="album">from <a href="{{album.url}}">{{album.name}}</a></span>
           <a class="fa fa-times-circle remove"></a>
         </li>
+      {% endverbatim %}
+    </script>
+
+    <script id="audio-template" type="text/x-handlebars-template">
+      {% verbatim %}
+        <audio preload="auto">
+          {{#each formats}}
+            <source src="{{url}}" type="{{mime}}">
+          {{/each}}
+        </audio>
       {% endverbatim %}
     </script>
 

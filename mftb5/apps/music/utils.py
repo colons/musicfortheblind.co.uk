@@ -13,7 +13,7 @@ def read_x_into_y(x, y):
 
 
 def scratchpad():
-    return path.join(gettempdir() + str(random()))
+    return path.join(gettempdir(), str(random()))
 
 
 def decode_flac(flacfile):
@@ -21,7 +21,7 @@ def decode_flac(flacfile):
     decode = subprocess.Popen(['flac', '-d', '-', '-o', filename],
                               stdin=subprocess.PIPE)
     read_x_into_y(flacfile, decode.stdin)
-    return open(filename)
+    return filename
 
 
 def encode_vorbis(wavfile):
@@ -29,4 +29,4 @@ def encode_vorbis(wavfile):
     encode = subprocess.Popen(['oggenc', '-q', '8', '-o', filename, '-'],
                               stdin=subprocess.PIPE)
     read_x_into_y(wavfile, encode.stdin)
-    return open(filename)
+    return filename

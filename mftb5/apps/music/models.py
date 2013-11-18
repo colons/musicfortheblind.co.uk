@@ -129,8 +129,8 @@ class Track(models.Model):
 
     def save(self):
         if self.flac and not self.ogg:
-            wav = decode_flac(self.flac)
-            ogg = encode_vorbis(wav)
+            wav = open(decode_flac(self.flac))
+            ogg = open(encode_vorbis(wav))
             self.ogg.save('%s.ogg' % self.slug, File(ogg))
             wav.close()
             ogg.close()
