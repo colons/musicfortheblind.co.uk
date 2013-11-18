@@ -259,6 +259,10 @@ $(function() {
     '<audio id="current-audio" preload="auto"></audio>'
   );
   currentAudio = document.getElementById('current-audio');
+  currentAudio.addEventListener('ended', function(e) {
+    selectNextTrack();
+    play();
+  });
 
   $playlist = $('#playlist');
   playlistTemplate = Handlebars.compile($('#playlist-template').html());
