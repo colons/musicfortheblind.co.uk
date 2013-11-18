@@ -52,6 +52,8 @@ TEMPLATE_DIRS = (
     path.join(BASE_DIR, 'templates'),
 )
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.contrib.auth.context_processors.auth',
