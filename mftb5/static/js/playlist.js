@@ -209,8 +209,8 @@ function bindControls() {
 }
 
 function getOffset() {
-  var reference = $('#controls .inner :first-child');
-  return reference.position().left - $('#playlist .selected').position().left;
+  var reference = $('#controls .inner > :first-child');
+  return reference.offset().left - $('#playlist .selected').position().left;
 }
 
 function selectTrack(track) {
