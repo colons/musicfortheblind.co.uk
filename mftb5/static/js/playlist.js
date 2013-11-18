@@ -1,12 +1,12 @@
 var playlistTemplate;
 var state;
-var currentSound;
 
 var $playlist;
 var $controls;
 var $pauseButton;
 var $nextButton;
 var $prevButton;
+var $currentAudio;
 
 function saveState() {
   var serial = $('#playlist ul').sortable('serialize', {key: 'id'});
@@ -65,13 +65,14 @@ function bindEnqueue() {
     $('.present-at-start').removeClass('present-at-start');
     playlistChangeHook();
 
-    notify('Added to playlist');
-
-    if (paused()) {
+    if (currentAudio.paused) {
       if (!triedToAddSelectedTrack) {
         selectNextTrack();
       }
       play();
+      notify('Now playing');
+    } else {
+      notify('Added to playlist');
     }
   });
 }
@@ -176,10 +177,6 @@ function bindRemove() {
   });
 }
 
-function paused() {
-  return currentSound && currentSound.isPaused();
-}
-
 function bindControls() {
   $controls = $('#controls');
   $controls.sticky();
@@ -188,8 +185,7 @@ function bindControls() {
   $prevButton = $controls.find('.prev');
 
   $pauseButton.click(function() {
-    var wasPaused = paused();
-    currentSound.togglePlay();
+    var wasPaused = currentAudio.paused;
     if (wasPaused) {
       play();
     } else {
@@ -198,13 +194,13 @@ function bindControls() {
   });
 
   $nextButton.click(function() {
-    var wasPaused = paused();
+    var wasPaused = currentAudio.paused;
     selectNextTrack();
     if (!wasPaused) {play();}
   });
 
   $prevButton.click(function() {
-    var wasPaused = paused();
+    var wasPaused = currentAudio.paused;
     selectPrevTrack();
     if (!wasPaused) {play();}
   });
@@ -219,22 +215,14 @@ function selectTrack(track) {
   track.siblings().removeClass('selected');
   track.siblings().removeClass('manually-appended');
   track.addClass('selected');
-
-  buzz.all().stop();
-  currentSound = new buzz.sound(track.attr('data-mp3'), {
-    autoplay: false
-  });
-  currentSound.bindOnce("ended", function() {
-    selectNextTrack();
-    play();
-  });
+  $(currentAudio).attr('src', track.attr('data-mp3'));
   playlistChangeHook();
   positionPlaylist(true);
 }
 
 function play() {
-  currentSound.play();
-  if (!currentSound.isPaused()) {
+  currentAudio.play();
+  if (!currentAudio.paused) {
     $pauseButton.removeClass('fa-play').addClass('fa-pause');
     $('#playlist').addClass('playing');
   }
@@ -251,7 +239,7 @@ function remove(item) {
 
 function pause() {
   $('#playlist').removeClass('playing');
-  currentSound.pause();
+  currentAudio.pause();
   $pauseButton.removeClass('fa-pause').addClass('fa-play');
 }
 
@@ -267,6 +255,11 @@ function positionPlaylist(animate) {
 }
 
 $(function() {
+  $('body').append(
+    '<audio id="current-audio" preload="auto"></audio>'
+  );
+  currentAudio = document.getElementById('current-audio');
+
   $playlist = $('#playlist');
   playlistTemplate = Handlebars.compile($('#playlist-template').html());
   drawPlaylist();
