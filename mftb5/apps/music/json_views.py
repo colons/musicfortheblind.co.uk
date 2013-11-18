@@ -45,7 +45,7 @@ class PlaylistView(JSONView):
 
         selected = request.session.get('selected')
 
-        if selected not in pks:
+        if (not pks) or (selected is None) or selected not in pks:
             selected = playlist[0].pk
 
         return {
