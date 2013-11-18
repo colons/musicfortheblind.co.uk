@@ -1,5 +1,7 @@
 from os import path
+
 import ujson
+from markdown import markdown
 
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -117,3 +119,9 @@ class Track(models.Model):
         """ The Feature """
 
         return cls.objects.filter(featured=True).order_by('?')
+
+    def truncated_description(self):
+        return self.description.split('\n\n----\n\n', 1)[0]
+
+    def truncated_description_html(self):
+        return markdown(self.truncated_description())

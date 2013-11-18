@@ -39,7 +39,7 @@
       {% if track.date %}
         <p class="date">{{ track.date }}</p>
       {% endif %}
-      {{ track.description_html|safe }}
+      {{ track.truncated_description_html|safe }}
     {% endfor %}
   </section>
 {% endblock %}

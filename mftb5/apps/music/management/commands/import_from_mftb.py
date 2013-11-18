@@ -38,8 +38,47 @@ class Command(BaseCommand):
 
             description = '> %s\n\n-%s' % (fields['request'], the_client)
 
+        credit_already = False
+
+        for credit in self.models['music.mftbcredit']:
+            if credit['fields']['track'] == thing['pk']:
+                for creator in self.models['music.creator']:
+                    if creator['pk'] == credit['fields']['creator']:
+                        the_creator = creator
+                        break
+
+                if credit['fields']['url']:
+                    role_string = '[%s](%s)' % (
+                        credit['fields']['role'],
+                        credit['fields']['url']
+                    )
+                else:
+                    role_string = credit['fields']['role']
+
+                if the_creator['fields']['home']:
+                    creator_string = '[%s](%s)' % (
+                        the_creator['fields']['name'],
+                        the_creator['fields']['home']
+                    )
+                else:
+                    creator_string = the_creator['fields']['name']
+
+                credit_string = '%s by %s' % (role_string, creator_string)
+
+                if credit_already:
+                    breaker = '\n\n'
+                else:
+                    breaker = '\n\n----\n\n'
+
+                description = description + breaker + credit_string
+
+                credit_already = True
+
         if fields['comments']:
-            description = description + '\n\n' + fields['comments']
+            description = (
+                description + '\n\n----\n\n' +
+                fields['comments'].replace('\r\n', '\n\n')
+            )
 
         track = Track(
             album=self.mftb,
