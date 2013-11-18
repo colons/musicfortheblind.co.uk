@@ -22,3 +22,9 @@ class Story(models.Model):
 
     def get_absolute_url(self):
         return reverse('news:story', kwargs={'slug': self.slug})
+
+    def pertinent_object(self):
+        if self.album:
+            return self.album
+        elif self.track:
+            return self.track

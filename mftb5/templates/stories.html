@@ -1,10 +1,18 @@
 {% extends parent %}
+
+{% block title %}News{% endblock %}
+
 {% block content %}
   <h1>News</h1>
   {% for story in object_list %}
     <section class="story">
       {% spaceless %}
-      <h2>{% include "includes/storyheading.html" with story=story %}</h2>
+        <h2>
+          {% if story.pertinent_object %}
+            {% include 'includes/enqueue.html' with object=story.pertinent_object %}
+          {% endif %}
+          <a href="{{ story.get_absolute_url }}">{{ story.headline }}</a></h1>
+        </h2>
       {% endspaceless %}
       <p class="date">{{ story.date }}</p>
       {{ story.content_html|safe }}
