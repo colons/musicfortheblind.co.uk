@@ -120,6 +120,7 @@ function drawPlaylist() {
       scroll: false,
       axis: "x",
       update: function() {
+        playlistChangeHook();
         positionPlaylist(true);
       }
     });

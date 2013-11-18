@@ -36,15 +36,15 @@ class PlaylistView(JSONView):
 
     def get_json_data(self, request):
         pks = request.session.get('playlist')
+        selected = request.session.get('selected')
 
         if pks is None:
             playlist = Track.feature()
+            pks = [t.pk for t in playlist]
         else:
             playlist = [Track.objects.get(pk=pk) for pk in pks]
 
-        selected = request.session.get('selected')
-
-        if (not pks) or (selected is None) or selected not in pks:
+        if selected is None or selected not in pks:
             selected = playlist[0].pk
 
         return {
