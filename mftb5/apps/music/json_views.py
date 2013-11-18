@@ -18,8 +18,7 @@ class PlaylistView(JSONView):
     """
 
     def post(self, request):
-        # rudimentary validation, liable to 500
-        pks = [int(pk) for pk in request.session['playlist']
+        pks = [int(pk) for pk in request.POST.getlist('id', [])
                if Track.objects.filter(pk=int(pk)).exists()]
 
         selected_str = request.POST.get('selected')
