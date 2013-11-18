@@ -1,13 +1,14 @@
 var playlistTemplate;
-var audioTemplate;
-var currentAudio;
 var state;
+var canPlayMP3;
+var canPlayVorbis;
 
 var $playlist;
 var $controls;
 var $pauseButton;
 var $nextButton;
 var $prevButton;
+var $currentAudio;
 
 function saveState() {
   var serial = $('#playlist ul').sortable('serialize', {key: 'id'});
@@ -214,42 +215,14 @@ function getOffset() {
   return reference.offset().left - $('#playlist .selected').position().left;
 }
 
-function formatsFromTrack(track) {
-  var formats = [];
-
-  $.each(['mp3', 'ogg'], function(i, type) {
-    formats.push({
-      mime: 'audio/' + type,
-      url: track.attr('data-' + type)
-    });
-  });
-
-  return formats;
-}
-
 function selectTrack(track) {
   track.siblings().removeClass('selected');
   track.siblings().removeClass('manually-appended');
   track.addClass('selected');
 
-  var audioDefined = currentAudio !== undefined;
-  var wasPaused = !audioDefined || currentAudio.paused;
-
-  if (!wasPaused && audioDefined) {
-    currentAudio.pause();
-  }
-
-  $(currentAudio).remove();
-  $(document.body).append(audioTemplate({formats: formatsFromTrack(track)}));
-  currentAudio = document.getElementsByTagName('audio')[0];
-  currentAudio.addEventListener('ended', function(e) {
-    selectNextTrack();
-    play();
-  });
-
-  if (!wasPaused) {
-    currentAudio.play();
-  }
+  var attr;
+  if (canPlayMP3) {attr = 'data-mp3';} else {attr = 'data-ogg';}
+  $(currentAudio).attr('src', track.attr(attr));
   playlistChangeHook();
   positionPlaylist(true);
 }
@@ -288,10 +261,35 @@ function positionPlaylist(animate) {
   }
 }
 
+function canPlayFormat(format) {
+  return !!(currentAudio.canPlayType && currentAudio.canPlayType(format).replace(/no/, ''));
+}
+
+function giveUp() {
+  // our magic is useless here, let us pretend we do not exist
+  $('body').removeClass('audio');
+}
+
 $(function() {
+  $('body').append(
+    '<audio id="current-audio" preload="auto"></audio>'
+  );
+  currentAudio = document.getElementById('current-audio');
+  currentAudio.addEventListener('ended', function(e) {
+    selectNextTrack();
+    play();
+  });
+
+  canPlayMP3 = canPlayFormat('audio/mpeg;');
+  canPlayVorbis = canPlayFormat('audio/ogg; codecs="vorbis"');
+
+  if (!canPlayMP3 && !canPlayVorbis) {
+    giveUp();
+    return;
+  }
+
   $playlist = $('#playlist');
   playlistTemplate = Handlebars.compile($('#playlist-template').html());
-  audioTemplate = Handlebars.compile($('#audio-template').html());
   drawPlaylist();
   bindShuffle();
   bindEnqueue();

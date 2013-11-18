@@ -13,7 +13,7 @@
   <body>
     {% csrf_token %}
     <script type="text/javascript">
-      document.body.className += ' js';
+      document.body.className += ' js audio';
     </script>
     <a href="{% url "index" %}">
       <header>
@@ -58,16 +58,6 @@
           <p class="album">from <a href="{{album.url}}">{{album.name}}</a></span>
           <a class="fa fa-times-circle remove"></a>
         </li>
-      {% endverbatim %}
-    </script>
-
-    <script id="audio-template" type="text/x-handlebars-template">
-      {% verbatim %}
-        <audio preload="auto">
-          {{#each formats}}
-            <source src="{{url}}" type="{{mime}}">
-          {{/each}}
-        </audio>
       {% endverbatim %}
     </script>
 
