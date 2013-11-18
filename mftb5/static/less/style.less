@@ -137,6 +137,35 @@ header {
       }
     }
 
+    &.dispatch {
+      p {
+        text-align: center;
+
+        a {
+          display: inline-block;
+          padding: .7em 1em;
+          background-color: @highlight;
+          color: @light;
+          border-radius: .5em;
+
+          font-size: 1.5em;
+
+          @media (min-width: @innerbreakpoint) {
+            font-size: 1.7em;
+          }
+
+          @media (min-width: @outerbreakpoint) {
+            font-size: 2.3em;
+          }
+
+          &:hover {
+            background-color: @dark;
+          }
+        }
+      }
+    }
+
+
     h2 {
       span.track-number {
         margin-right: .2em;
