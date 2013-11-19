@@ -106,10 +106,10 @@ function bindShuffle() {
   $('#controls .shuffle').click(function(e) {
     e.preventDefault();
     $('#playlist li').shuffle();
-    $('#playlist').css({'background-color': '#c52'});
-    $('#playlist').animate({'background-color': 'none'});
-    positionPlaylist();
+    $('#playlist').stop().css({'background-color': '#c52'}).animate({'background-color': ''});
+    positionPlaylistAnimated();
     notify('Playlist shuffled');
+    defer('shufflehook', playlistChangeHook);
   });
 }
 
@@ -167,7 +167,7 @@ function defer(name, func) {
   if (name in timeouts) {
     clearTimeout(timeouts[name]);
   }
-  timeouts[name] = setTimeout(func, 100);
+  timeouts[name] = setTimeout(func, 200);
 }
 
 function bindPlayable() {
