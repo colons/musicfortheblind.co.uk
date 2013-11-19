@@ -85,7 +85,7 @@ body.audio #playlist {
           text-overflow: ellipsis;
         }
 
-        &.title {
+        &.name {
           font-weight: 500;
           font-size: 1.1em;
         }
@@ -157,20 +157,32 @@ body.audio #controls {
           }
         }
 
-        &#notify {
-          display: none;
-          padding: .75em .5em .9em;
-          background-color: @highlight;
-          border: 3px solid @light;
-          border-width: 0 3px 3px;
-          color: @light;
-          .selection(@dark, @light);
-          position: absolute;
-          top: 0;
+        &#np {
+          .dropdown();
+          .transition(opacity .2s linear);
+          opacity: 0;
+          .invert();
           right: 0;
+          display: inline-block;
+          max-width: 40%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        &#notify {
+          .dropdown();
+          display: none;
+          background-color: @highlight;
+          color: @light;
           .heavy();
+          right: 0;
         }
       }
     }
   }
+}
+
+.is-sticky #np {
+  opacity: 1 !important;
 }

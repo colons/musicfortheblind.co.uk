@@ -30,7 +30,7 @@
     <div id="controls">
       <div class="inner">
         <p>
-          <span class="transport prev fa fa-backward"></span><span class="transport pp fa fa-play"></span><span class="transport next fa fa-forward"></span><span class="transport shuffle fa fa-random"></span>
+          <span class="transport prev fa fa-backward"></span><span class="transport pp fa fa-play"></span><span class="transport next fa fa-forward"></span><span class="transport shuffle fa fa-random"></span><span id="np"></span>
         </p>
       </div>
     </div>
@@ -50,8 +50,8 @@
 
     <script id="playlist-template" type="text/x-handlebars-template">
       {% verbatim %}
-        <li data-ogg="{{ogg}}" data-mp3="{{mp3}}" id="playlist-item-{{pk}}" data-pk="{{pk}}">
-          <a href="{{url}}"><p class="title">{{name}}</p></a>
+        <li data-ogg="{{ogg}}" data-mp3="{{mp3}}" id="playlist-item-{{pk}}" data-pk="{{pk}}" data-name="{{name}}">
+          <a href="{{url}}"><p class="name">{{name}}</p></a>
           <p class="album">from <a href="{{album.url}}">{{album.name}}</a></span>
           <a class="fa fa-times-circle remove"></a>
         </li>

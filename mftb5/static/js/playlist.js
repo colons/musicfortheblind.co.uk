@@ -240,6 +240,7 @@ function selectTrack(track) {
   track.siblings().removeClass('selected');
   track.siblings().removeClass('manually-appended');
   track.addClass('selected');
+  $('#np').text(track.attr('data-name'));
   assignTrack(currentAudio, track);
   playlistChangeHook();
   positionPlaylistAnimated();
