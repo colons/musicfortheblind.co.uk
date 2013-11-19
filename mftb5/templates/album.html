@@ -30,9 +30,7 @@
       {% spaceless %}
         <h2>
           {% include "includes/enqueue.html" with object=track %}
-          {% if track.track_number %}
-            <span class="track-number">{{ track.track_number }}</span>
-          {% endif %}
+          <span class="track-number">{% firstof track.track_number forloop.counter %}</span>
           <a href="{{ track.get_absolute_url }}">{{ track.name }}</a>
         </h2>
       {% endspaceless %}
