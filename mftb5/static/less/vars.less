@@ -7,6 +7,7 @@
 @max-width: 750px;
 @innerbreakpoint: 400px;
 @outerbreakpoint: 700px;
+@tooltipbreakpoint: 930px;
 
 @ipadlandscape: 768px;
 @ipadportrait: 1024px;
@@ -98,4 +99,11 @@
   font-weight: 300;
   font-size: .9em;
   margin: .2em 0 .5em;
+}
+
+.transition(@transition) {
+  -webkit-transition: @transition;
+  -moz-transition: @transition;
+  -o-transition: @transition;
+  transition: @transition;
 }

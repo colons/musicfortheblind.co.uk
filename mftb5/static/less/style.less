@@ -197,8 +197,45 @@ main {
     .fa(@fa-var-headphones)
   }
 
+  &::after {
+    opacity: 0;
+    content: attr(data-title);
+
+    .medium();
+    font-size: .65em;
+    background-color: @highlight;
+    color: @light;
+    padding: .2em .4em;
+    border-radius: .4em;
+    box-shadow: 0 .1em .5em @light;
+
+    display: block;
+    position: absolute;
+    left: 2em;
+    top: .1em;
+    pointer-events: none;
+    white-space: nowrap;
+
+    @media (min-width: @tooltipbreakpoint) {
+      .transition(opacity 0.2s linear);
+      background: none;
+      border: none;
+      color: dark;
+      .light();
+      left: auto;
+      color: @dark;
+      top: 0;
+      right: 2em;
+    }
+  }
   &:hover {
     opacity: 1;
+
+    @media (min-width: @innerbreakpoint) {
+      &::after {
+        opacity: .95;
+      }
+    }
   }
 }
 
