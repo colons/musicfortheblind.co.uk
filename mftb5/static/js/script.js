@@ -36,9 +36,9 @@ function notify(message) {
 }
 
 $(function() {
-  $(document).pjax('a[href^="/"]:not([download])', '#content');
+  $(document).pjax('a[href^="/"]:not([download])', 'main');
   $.pjax.defaults.timeout = 3000;
   targetBlank();
   loadCsrf();
-  $('#content').bind('pjax:end', loadHook);
+  $('main').bind('pjax:end', loadHook);
 });
