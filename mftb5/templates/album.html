@@ -37,7 +37,9 @@
       {% if track.date %}
         <p class="date">{{ track.date }}</p>
       {% endif %}
-      {{ track.truncated_description_html|safe }}
+      <div class="list-description">
+        {{ track.truncated_description_html|safe }}
+      </div>
     {% endfor %}
   </section>
 {% endblock %}

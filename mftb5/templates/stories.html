@@ -15,7 +15,9 @@
         </h2>
       {% endspaceless %}
       <p class="date">{{ story.date }}</p>
-      {{ story.content_html|safe }}
+      <div class="list-description">
+        {{ story.content_html|safe }}
+      </div>
     </section>
   {% endfor %}
 {% endblock %}

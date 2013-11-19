@@ -14,7 +14,9 @@
         <p class="date">{{ album.date }}</p>
       {% endif %}
 
-      {{ album.description_html|safe }}
+      <div class="list-description">
+        {{ album.description_html|safe }}
+      </div>
     {% endfor %}
   </section>
 {% endblock %}
