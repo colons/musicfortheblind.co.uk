@@ -129,7 +129,7 @@ function drawPlaylist() {
     bindControls();
     loadHook();
     selectTrack($('#playlist li[data-pk="' + data.selected.toString() + '"]'));
-  });
+  }).fail(giveUp);
 }
 
 function selectNextTrack() {
