@@ -107,3 +107,11 @@
   -o-transition: @transition;
   transition: @transition;
 }
+
+.vertical-gradient(@gradient) {
+  background: -moz-linear-gradient(top, @gradient);
+  background: -webkit-linear-gradient(top, @gradient);
+  background: -o-linear-gradient(top, @gradient);
+  background: -ms-linear-gradient(top, @gradient);
+  background: linear-gradient(to bottom, @gradient);
+}
