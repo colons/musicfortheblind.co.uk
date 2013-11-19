@@ -2,13 +2,14 @@ var playlistTemplate;
 var state;
 var canPlayMP3;
 var canPlayVorbis;
+var currentAudio;
+var preloadAudio;
 
 var $playlist;
 var $controls;
 var $pauseButton;
 var $nextButton;
 var $prevButton;
-var $currentAudio;
 
 function saveState() {
   var serial = $('#playlist ul').sortable('serialize', {key: 'id'});
@@ -69,7 +70,7 @@ function bindEnqueue() {
 
     if (currentAudio.paused) {
       if (!triedToAddSelectedTrack) {
-        selectNextTrack();
+        selectTrack(nextTrack());
       }
       play();
       notify('Now playing');
@@ -137,21 +138,21 @@ function drawPlaylist() {
   }).fail(giveUp);
 }
 
-function selectNextTrack() {
+function nextTrack() {
   var next = $('#playlist .selected').next();
   if (next.length) {
-    selectTrack(next);
+    return next;
   } else {
-    selectTrack($('#playlist li').first());
+    return $('#playlist li').first();
   }
 }
 
-function selectPrevTrack() {
+function prevTrack() {
   var prev = $('#playlist .selected').prev();
   if (prev.length) {
-    selectTrack(prev);
+    return prev;
   } else {
-    selectTrack($('#playlist li').last());
+    return $('#playlist li').last();
   }
 }
 
@@ -160,6 +161,9 @@ function playlistChangeHook() {
   bindPlayable();
   bindRemove();
   saveState();
+  if ($(preloadAudio).attr('data-pk') !== nextTrack().attr('data-pk')) {
+    assignTrack(preloadAudio, nextTrack());
+  }
 }
 
 function bindPlayable() {
@@ -203,13 +207,13 @@ function bindControls() {
 
   $nextButton.click(function() {
     var wasPaused = currentAudio.paused;
-    selectNextTrack();
+    selectTrack(nextTrack());
     if (!wasPaused) {play();}
   });
 
   $prevButton.click(function() {
     var wasPaused = currentAudio.paused;
-    selectPrevTrack();
+    selectTrack(prevTrack());
     if (!wasPaused) {play();}
   });
 
@@ -217,8 +221,21 @@ function bindControls() {
 }
 
 function getOffset() {
-  var reference = $('#controls .inner > :first-child');
+  var reference = $('#controls .inner p > :first-child');
   return reference.offset().left - $('#playlist .selected').position().left;
+}
+
+function assignTrack(audio, track) {
+  var attr;
+  if (canPlayMP3) {attr = 'data-mp3';} else {attr = 'data-ogg';}
+  $(audio).attr('src', track.attr(attr));
+  $(audio).attr('data-pk', track.attr('data-pk'));
+}
+
+function swapDecks() {
+  var demoting = currentAudio;
+  currentAudio = preloadAudio;
+  preloadAudio = demoting;
 }
 
 function selectTrack(track) {
@@ -226,9 +243,12 @@ function selectTrack(track) {
   track.siblings().removeClass('manually-appended');
   track.addClass('selected');
 
-  var attr;
-  if (canPlayMP3) {attr = 'data-mp3';} else {attr = 'data-ogg';}
-  $(currentAudio).attr('src', track.attr(attr));
+  if ($(preloadAudio).attr('data-pk') === track.attr('data-pk')) {
+    swapDecks();
+  } else {
+    assignTrack(currentAudio, track);
+  }
+
   playlistChangeHook();
   positionPlaylist(true);
 }
@@ -276,14 +296,21 @@ function giveUp() {
   $('body').removeClass('audio');
 }
 
+function handleEndedTrack(e) {
+  selectTrack(nextTrack());
+  play();
+}
+
 $(function() {
   $('body').append(
-    '<audio id="current-audio" preload="auto"></audio>'
+    '<audio id="deck-a" preload="auto"></audio>' +
+    '<audio id="deck-b" preload="auto"></audio>'
   );
-  currentAudio = document.getElementById('current-audio');
-  currentAudio.addEventListener('ended', function(e) {
-    selectNextTrack();
-    play();
+  currentAudio = document.getElementById('deck-a');
+  preloadAudio = document.getElementById('deck-b');
+
+  $('audio').each(function(i, audio) {
+    audio.addEventListener('ended', handleEndedTrack);
   });
 
   canPlayMP3 = canPlayFormat('audio/mpeg;');
