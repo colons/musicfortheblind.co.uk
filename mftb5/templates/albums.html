@@ -1,6 +1,6 @@
 {% extends parent %}
 {% block content %}
-  <section class="albums">
+  <section class="albums description">
     <h1>Albums</h1>
     {% for album in albums %}
       {% spaceless %}
@@ -14,9 +14,7 @@
         <p class="date">{{ album.date }}</p>
       {% endif %}
 
-      <div class="list-description">
-        {{ album.description_html|safe }}
-      </div>
+      {{ album.description_html|safe }}
     {% endfor %}
   </section>
 {% endblock %}

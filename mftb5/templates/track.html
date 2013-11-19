@@ -4,9 +4,9 @@
 {% block title %}{{ track.name }}{% endblock %}
 
 {% block content %}
-  <section class="track">
+  <section class="track description">
     {% spaceless %}
-      <h1>
+      <h1 class="track-title">
         {% include "includes/enqueue.html" with object=track %}
         <span>{{ track.name }}</span>
       </h1>

@@ -4,7 +4,7 @@
 {% block title %}{{ album.name }}{% endblock %}
 
 {% block content %}
-  <section class="album">
+  <section class="album description">
     {% spaceless %}
       <h1>
         {% include "includes/enqueue.html" with object=album %}
@@ -25,21 +25,20 @@
     </section>
   {% endif %}
 
-  <section class="tracks">
+  <section class="tracks description">
+    <h2>Tracks</h2>
     {% for track in album.tracks %}
       {% spaceless %}
-        <h2>
+        <h3 class="track-title">
           {% include "includes/enqueue.html" with object=track %}
           <span class="track-number">{% firstof track.track_number forloop.counter %}</span>
           <a href="{{ track.get_absolute_url }}">{{ track.name }}</a>
-        </h2>
+        </h3>
       {% endspaceless %}
       {% if track.date %}
         <p class="date">{{ track.date }}</p>
       {% endif %}
-      <div class="list-description">
-        {{ track.truncated_description_html|safe }}
-      </div>
+      {{ track.truncated_description_html|safe }}
     {% endfor %}
   </section>
 {% endblock %}

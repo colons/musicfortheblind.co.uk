@@ -5,7 +5,7 @@
 {% block content %}
   <h1>News</h1>
   {% for story in object_list %}
-    <section class="story">
+    <section class="story description">
       {% spaceless %}
         <h2>
           {% if story.pertinent_object %}
@@ -15,9 +15,7 @@
         </h2>
       {% endspaceless %}
       <p class="date">{{ story.date }}</p>
-      <div class="list-description">
-        {{ story.content_html|safe }}
-      </div>
+      {{ story.content_html|safe }}
     </section>
   {% endfor %}
 {% endblock %}

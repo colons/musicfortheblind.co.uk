@@ -108,7 +108,7 @@ main {
       .subheading();
     }
 
-    div.list-description {
+    &.description p {
       .indent();
     }
 
@@ -161,7 +161,7 @@ main {
     }
 
 
-    h2 {
+    .track-title {
       span.track-number {
         margin-right: .2em;
         .light();
@@ -201,31 +201,28 @@ main {
     opacity: 0;
     content: attr(data-title);
 
-    .medium();
-    font-size: .65em;
-    background-color: @highlight;
-    color: @light;
-    padding: .2em .4em;
-    border-radius: .4em;
-    box-shadow: 0 .1em .5em @light;
-
-    display: block;
+    font-size: .7em;
     position: absolute;
-    left: 2em;
-    top: .1em;
-    pointer-events: none;
-    white-space: nowrap;
-
     @media (min-width: @tooltipbreakpoint) {
       .transition(opacity 0.2s linear);
-      background: none;
-      border: none;
-      color: dark;
       .light();
-      left: auto;
-      color: @dark;
+      top: .2em;
+      right: 2.3em;
+      pointer-events: none;
+    }
+
+    @media (max-width: @tooltipbreakpoint) {
+      .medium();
+      background-color: @highlight;
+      color: @light;
+      border-radius: .4em;
+      box-shadow: 0 .2em .5em @light;
+      padding: .3em .4em;
+      z-index: 5;
+
+      left: 1.7em;
       top: 0;
-      right: 2em;
+      white-space: nowrap;
     }
   }
   &:hover {
@@ -233,7 +230,7 @@ main {
 
     @media (min-width: @innerbreakpoint) {
       &::after {
-        opacity: .95;
+        opacity: 1;
       }
     }
   }
