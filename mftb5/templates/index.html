@@ -1,7 +1,10 @@
 {% extends parent %}
 {% block content %}
+  <section class="dispatch">
+    <p><a href="{% url "music:albums" %}">Show me all the noises</a></p>
+  </section>
+
   <section class="welcome">
-    <marquee><h1>Welcome to my WebZone!</h1></marquee>
     <p>This website contains <a href="{% url "music:albums" %}">music</a>, but I also do other things. Among those that I'm comfortable talking about are the following:</p>
     <ul class="other-things">
       <li>writing code on <a href="https://github.com/colons">GitHub</a></li>
@@ -9,9 +12,5 @@
       <li>reviewing things for <a href="http://opinions.musicfortheblind.co.uk/">The Music for the Blind Review</a></li>
     </ul>
     <p>There. Now that we're all acquainted, please peruse some <a href="{% url "music:albums" %}">albums</a>. <span class="audio-required">I promise if you just hit the play button, nothing bad will happen.</span></p>
-  </section>
-
-  <section class="dispatch">
-    <p><a href="{% url "music:albums" %}">Show me everything</a></p>
   </section>
 {% endblock %}
