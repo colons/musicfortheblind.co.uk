@@ -187,6 +187,7 @@ function playlistChangeHook() {
   saveState();
   bindPlayable();
   bindRemove();
+  bindIndexButtons();
 }
 
 // if it's not urgent and you don't know how many times you might call it unnecessarily, wrap it with this
@@ -251,10 +252,17 @@ function bindControls() {
   $controls.find('.inner p').animate({'bottom': 0}, 300);
 }
 
+function bindIndexButtons() {
+  bindAnything();
+  $('#watfk').attr('href', $('#playlist .selected a.track').attr('href'));
+}
+
 function bindAnything() {
-  $('#anything').off('click');
-  $('#anything').on('click', function() {
+  var anything = $('#anything');
+  anything.off('click');
+  anything.on('click', function(e) {
     flashPlaylist();  // hide all the gross shit that's about to happen
+    $('main section').hide();  // yes, all of it
 
     $('#playlist li').remove();
 
@@ -271,6 +279,7 @@ function bindAnything() {
     playlistChangeHook();
     positionPlaylist();
     play();
+    $('#watfk').click();
   });
 }
 
@@ -300,7 +309,7 @@ function play() {
   currentAudio.play();
   if (!currentAudio.paused) {
     $pauseButton.removeClass('fa-play').addClass('fa-pause');
-    $('#playlist').addClass('playing');
+    $('body').addClass('playing');
   }
 }
 
@@ -314,7 +323,7 @@ function remove(item) {
 }
 
 function pause() {
-  $('#playlist').removeClass('playing');
+  $('body').removeClass('playing');
   currentAudio.pause();
   $pauseButton.removeClass('fa-pause').addClass('fa-play');
 }
@@ -366,7 +375,7 @@ $(function() {
   bindShuffle();
   bindEnqueue();
   bindNp();
-  bindAnything();
+  bindIndexButtons();
   $(window).resize(function() {
     positionPlaylist();
   });

@@ -148,7 +148,10 @@ main {
             background-color: @dark;
           }
 
-          &#anything {
+          &.big-button {
+            &#watfk {
+              display: none;
+            }
             font-size: 1.5em;
             span {
               white-space: nowrap;
@@ -295,6 +298,15 @@ a {
 
   &:active {
     color: @highlight;
+  }
+}
+
+body.playing {
+  #anything {
+    display: none;
+  }
+  #watfk {
+    display: inline-block !important;
   }
 }
 
