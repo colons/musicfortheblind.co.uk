@@ -106,7 +106,10 @@ function bindShuffle() {
   $('#controls .shuffle').click(function(e) {
     e.preventDefault();
     $('#playlist li').shuffle();
+    $('#playlist').css({'background-color': '#c52'});
+    $('#playlist').animate({'background-color': 'none'});
     positionPlaylist(false);
+    notify('Playlist shuffled');
   });
 }
 
