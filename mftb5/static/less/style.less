@@ -91,15 +91,6 @@ main {
 
   h1, h2, h3, h4, h5 {
     padding: .8em 0 0;
-
-    &:hover .enqueue {
-      color: @highlight;
-      opacity: 1;
-
-      &:hover {
-        color: @dark;
-      }
-    }
   }
 
   h1 {
@@ -200,6 +191,10 @@ main {
 
   &::before {
     .fa(@fa-var-headphones)
+  }
+
+  &:hover {
+    opacity: 1;
   }
 }
 
