@@ -275,7 +275,7 @@ function bindAnything() {
     });
 
     $('#playlist li').shuffle();
-    selectTrack($('#playlist li').first());
+    selectTrack($('#playlist li').first(), true);
     playlistChangeHook();
     positionPlaylist();
     play();
@@ -295,14 +295,14 @@ function assignTrack(audio, track) {
   $(audio).attr('data-pk', track.attr('data-pk'));
 }
 
-function selectTrack(track) {
+function selectTrack(track, skipAnimation) {
   track.siblings().removeClass('selected');
   track.siblings().removeClass('manually-appended');
   track.addClass('selected');
   $np.text(track.attr('data-name'));
   assignTrack(currentAudio, track);
   playlistChangeHook();
-  positionPlaylistAnimated();
+  positionPlaylist(!skipAnimation);
 }
 
 function play() {
