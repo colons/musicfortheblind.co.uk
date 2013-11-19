@@ -168,6 +168,7 @@ body.audio #controls {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          pointer-events: none;
         }
 
         &#notify {
@@ -177,6 +178,7 @@ body.audio #controls {
           color: @light;
           .heavy();
           right: 0;
+          pointer-events: none;
         }
       }
     }
@@ -185,4 +187,5 @@ body.audio #controls {
 
 .is-sticky #np {
   opacity: 1 !important;
+  pointer-events: auto !important;
 }

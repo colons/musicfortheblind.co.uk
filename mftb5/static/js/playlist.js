@@ -10,6 +10,7 @@ var $controls;
 var $pauseButton;
 var $nextButton;
 var $prevButton;
+var $np;
 
 function saveState() {
   var serial = $('#playlist ul').sortable('serialize', {key: 'id'});
@@ -78,6 +79,15 @@ function bindEnqueue() {
     } else {
       notify('Added to playlist');
     }
+  });
+}
+
+function bindNp() {
+  $np = $('#np');
+  $np.click(function() {
+    $('html, body').animate({
+      scrollTop: 0
+    });
   });
 }
 
@@ -240,7 +250,7 @@ function selectTrack(track) {
   track.siblings().removeClass('selected');
   track.siblings().removeClass('manually-appended');
   track.addClass('selected');
-  $('#np').text(track.attr('data-name'));
+  $np.text(track.attr('data-name'));
   assignTrack(currentAudio, track);
   playlistChangeHook();
   positionPlaylistAnimated();
@@ -316,6 +326,7 @@ $(function() {
   drawPlaylist();
   bindShuffle();
   bindEnqueue();
+  bindNp();
   $(window).resize(function() {
     positionPlaylist();
   });
