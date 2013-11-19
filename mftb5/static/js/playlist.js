@@ -163,7 +163,7 @@ function playlistChangeHook() {
 }
 
 // if it's not urgent and you don't know how many times you might call it unnecessarily, wrap it with this
-function cheap(name, func) {
+function defer(name, func) {
   if (name in timeouts) {
     clearTimeout(timeouts[name]);
   }
@@ -257,8 +257,8 @@ function remove(item) {
   item.addClass('animating');
   item.animate({width: 0}, function() {
     item.remove();
-    cheap('removeHook', playlistChangeHook);
-    cheap('removeAnimate', positionPlaylistAnimated);
+    defer('removeHook', playlistChangeHook);
+    defer('removeAnimate', positionPlaylistAnimated);
   });
 }
 
