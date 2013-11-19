@@ -36,7 +36,12 @@ class Command(BaseCommand):
                     the_client = client['fields']['name']
                     break
 
-            description = '> %s\n\n-%s' % (fields['request'], the_client)
+            fmt = '%s\n\n-%s'
+
+            if fields['is_quote']:
+                fmt = '> ' + fmt
+
+            description = fmt % (fields['request'], the_client)
 
         credit_already = False
 
