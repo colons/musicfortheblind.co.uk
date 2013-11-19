@@ -3,6 +3,7 @@ var state;
 var canPlayMP3;
 var canPlayVorbis;
 var currentAudio;
+var timeouts = {};
 
 var $playlist;
 var $controls;
@@ -22,7 +23,7 @@ function bindEnqueue() {
     e.preventDefault();
     animateUpwards($(this).parent());
 
-    var targetWidth = $('#playlist .selected').width();
+    var targetWidth = $('#playlist .selected').css('max-width');
 
     $('#playlist li').each(function() {
       $(this).addClass('present-at-start');
@@ -54,14 +55,13 @@ function bindEnqueue() {
 
       var rendered = $(playlistTemplate(track));
       rendered.addClass('manually-appended').addClass('animating');
-
-      rendered.css({width: 0});
+      rendered.css({'max-width': 0});
       anchorTrack.after(rendered);
+    });
 
-      rendered.animate({width: targetWidth}, function() {
-        rendered.css({width: ''});
-        rendered.removeClass('animating');
-      });
+    $('#playlist .animating').animate({'max-width': targetWidth}, function() {
+      $(this).css({'max-width': ''});
+      $(this).removeClass('animating');
     });
 
     $('.present-at-start').removeClass('present-at-start');
@@ -108,7 +108,7 @@ function bindShuffle() {
     $('#playlist li').shuffle();
     $('#playlist').css({'background-color': '#c52'});
     $('#playlist').animate({'background-color': 'none'});
-    positionPlaylist(false);
+    positionPlaylist();
     notify('Playlist shuffled');
   });
 }
@@ -126,7 +126,7 @@ function drawPlaylist() {
       axis: "x",
       update: function() {
         playlistChangeHook();
-        positionPlaylist(true);
+        positionPlaylistAnimated();
       }
     });
 
@@ -157,9 +157,17 @@ function prevTrack() {
 
 // things to run when the state of the playlist changes
 function playlistChangeHook() {
+  saveState();
   bindPlayable();
   bindRemove();
-  saveState();
+}
+
+// if it's not urgent and you don't know how many times you might call it unnecessarily, wrap it with this
+function cheap(name, func) {
+  if (name in timeouts) {
+    clearTimeout(timeouts[name]);
+  }
+  timeouts[name] = setTimeout(func, 100);
 }
 
 function bindPlayable() {
@@ -234,7 +242,7 @@ function selectTrack(track) {
   track.addClass('selected');
   assignTrack(currentAudio, track);
   playlistChangeHook();
-  positionPlaylist(true);
+  positionPlaylistAnimated();
 }
 
 function play() {
@@ -249,8 +257,8 @@ function remove(item) {
   item.addClass('animating');
   item.animate({width: 0}, function() {
     item.remove();
-    playlistChangeHook();
-    positionPlaylist(true);
+    cheap('removeHook', playlistChangeHook);
+    cheap('removeAnimate', positionPlaylistAnimated);
   });
 }
 
@@ -270,6 +278,8 @@ function positionPlaylist(animate) {
     ul.animate(dest);
   }
 }
+
+function positionPlaylistAnimated() { positionPlaylist(true); }
 
 function canPlayFormat(format) {
   return !!(currentAudio.canPlayType && currentAudio.canPlayType(format).replace(/no/, ''));
@@ -306,6 +316,6 @@ $(function() {
   bindShuffle();
   bindEnqueue();
   $(window).resize(function() {
-    positionPlaylist(false);
+    positionPlaylist();
   });
 });
