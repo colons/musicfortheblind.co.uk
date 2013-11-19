@@ -12,6 +12,15 @@ class JSONView(View):
         return HttpResponse(json.dumps(data), content_type='application/json')
 
 
+def coercible_to_int(string):
+    try:
+        int(string)
+    except ValueError:
+        return False
+    else:
+        return True
+
+
 class PlaylistView(JSONView):
     """
     This whole thing is gross.
@@ -19,7 +28,8 @@ class PlaylistView(JSONView):
 
     def post(self, request):
         pks = [int(pk) for pk in request.POST.getlist('id', [])
-               if Track.objects.filter(pk=int(pk)).exists()]
+               if coercible_to_int(pk) and
+               Track.objects.filter(pk=int(pk)).exists()]
 
         selected_str = request.POST.get('selected')
 
@@ -38,7 +48,7 @@ class PlaylistView(JSONView):
         pks = request.session.get('playlist')
         selected = request.session.get('selected')
 
-        if pks is None:
+        if not pks:
             playlist = Track.feature()
             pks = [t.pk for t in playlist]
         else:

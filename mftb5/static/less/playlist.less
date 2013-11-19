@@ -5,7 +5,7 @@
 }
 
 body.audio .audio-required {
-  display: inline;
+  display: block;
 }
 
 body.audio #playlist {
@@ -107,7 +107,6 @@ body.audio #playlist {
 }
 
 body.audio #controls {
-  font-size: 1.2em;
   display: block;
   line-height: 0;
   border-top: 4px solid @dark;
@@ -131,6 +130,7 @@ body.audio #controls {
   .inner {
     .inner();
     overflow: hidden;
+    font-size: 1.2em;
 
     p {
       position: relative;

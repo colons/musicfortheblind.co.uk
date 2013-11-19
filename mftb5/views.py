@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView
 
-from mftb5.apps.music.models import Album
+from mftb5.apps.music.models import Album, Track
 from mftb5.apps.news.models import Story
 from mftb5.mixins import PJAXResponseMixin
 
@@ -12,4 +12,5 @@ class IndexView(PJAXResponseMixin, TemplateView):
         context = super(IndexView, self).get_context_data(*args, **kwargs)
         context['albums'] = Album.objects.all()
         context['stories'] = Story.objects.all()
+        context['feature'] = Track.json_feature()
         return context

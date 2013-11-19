@@ -5,7 +5,6 @@ var canPlayVorbis;
 var currentAudio;
 var timeouts = {};
 
-var $playlist;
 var $controls;
 var $pauseButton;
 var $nextButton;
@@ -18,67 +17,73 @@ function saveState() {
   $.post(playlistUrl, serial + '&selected=' + selected);
 }
 
+function queueTracks(tracks) {
+  var targetWidth = $('#playlist .selected').css('max-width');
+  var triedToAddSelectedTrack = false;
+  var playlistUl = $('#playlist ul');
+
+  $('#playlist li').each(function() {
+    $(this).addClass('present-at-start');
+  });
+
+  $.each(tracks, function(i, track) {
+    // if we're already playing this track, don't bother adding it
+    if ($('.present-at-start#playlist-item-' + track.pk + '.selected').length) {
+      triedToAddSelectedTrack = true;
+      return true;
+    }
+
+    // remove any tracks that were here when we started and are duplicates of this one
+    var stale = $('.present-at-start#playlist-item-' + track.pk);
+    remove(stale);
+
+    var anchorTrack;
+    var manuallyAppendedTracks = $('#playlist .manually-appended');
+    if (manuallyAppendedTracks.length) {
+      anchorTrack = manuallyAppendedTracks.last();
+    } else {
+      anchorTrack = $('#playlist .selected');
+    }
+
+    var rendered = $(playlistTemplate(track));
+    rendered.addClass('manually-appended');
+    rendered.css({'max-width': 0}).addClass('animating');
+    
+    if (anchorTrack) {
+      anchorTrack.after(rendered);
+    } else {
+      playlistUl.append(rendered);
+    }
+  });
+
+  $('#playlist .animating').animate({'max-width': targetWidth}, function() {
+    $(this).css({'max-width': ''});
+    $(this).removeClass('animating');
+  });
+
+  $('.present-at-start').removeClass('present-at-start');
+  playlistChangeHook();
+
+  if (currentAudio.paused) {
+    if (!triedToAddSelectedTrack) {
+      selectTrack(nextTrack());
+    }
+    play();
+    notify('Now playing');
+  } else if (triedToAddSelectedTrack && data.length === 1) {
+    notify('Already playing');
+  } else {
+    notify('Added to playlist');
+  }
+}
+
 function bindEnqueue() {
   $('.enqueue').off('click');
   $('.enqueue').on('click', function(e) {
     e.preventDefault();
     animateUpwards($(this).parent());
-
-    var targetWidth = $('#playlist .selected').css('max-width');
-
-    $('#playlist li').each(function() {
-      $(this).addClass('present-at-start');
-    });
-
     var jsonString = decodeURIComponent($(this).attr('data-json'));
-    var data = $.parseJSON(jsonString);
-
-    var triedToAddSelectedTrack = false;
-
-    $.each(data, function(i, track) {
-      // if we're already playing this track, don't bother adding it
-      if ($('.present-at-start#playlist-item-' + track.pk + '.selected').length) {
-        triedToAddSelectedTrack = true;
-        return true;
-      }
-
-      // remove any tracks that were here when we started and are duplicates of this one
-      var stale = $('.present-at-start#playlist-item-' + track.pk);
-      remove(stale);
-
-      var anchorTrack;
-      var manuallyAppendedTracks = $('#playlist .manually-appended');
-      if (manuallyAppendedTracks.length) {
-        anchorTrack = manuallyAppendedTracks.last();
-      } else {
-        anchorTrack = $('#playlist .selected');
-      }
-
-      var rendered = $(playlistTemplate(track));
-      rendered.addClass('manually-appended').addClass('animating');
-      rendered.css({'max-width': 0});
-      anchorTrack.after(rendered);
-    });
-
-    $('#playlist .animating').animate({'max-width': targetWidth}, function() {
-      $(this).css({'max-width': ''});
-      $(this).removeClass('animating');
-    });
-
-    $('.present-at-start').removeClass('present-at-start');
-    playlistChangeHook();
-
-    if (currentAudio.paused) {
-      if (!triedToAddSelectedTrack) {
-        selectTrack(nextTrack());
-      }
-      play();
-      notify('Now playing');
-    } else if (triedToAddSelectedTrack && data.length === 1) {
-      notify('Already playing');
-    } else {
-      notify('Added to playlist');
-    }
+    queueTracks($.parseJSON(jsonString));
   });
 }
 
@@ -112,11 +117,16 @@ function animateUpwards(element) {
   });
 }
 
+function flashPlaylist() {
+  $('#playlist').stop().css({'background-color': '#c52'}).animate({'background-color': ''});
+  $('#playlist .selected').stop().css({'opacity': '0'}).animate({'opacity': '1'});
+}
+
 function bindShuffle() {
   $('#controls .shuffle').click(function(e) {
     e.preventDefault();
     $('#playlist li').shuffle();
-    $('#playlist').stop().css({'background-color': '#c52'}).animate({'background-color': ''});
+    flashPlaylist();
     positionPlaylistAnimated();
     notify('Playlist shuffled');
     defer('shufflehook', playlistChangeHook);
@@ -148,8 +158,8 @@ function drawPlaylist() {
 }
 
 function nextTrack() {
-  var next = $('#playlist .selected').next();
-  if (next.length) {
+  var next = relativeTrack('next');
+  if (next && next.length) {
     return next;
   } else {
     return $('#playlist li').first();
@@ -157,11 +167,18 @@ function nextTrack() {
 }
 
 function prevTrack() {
-  var prev = $('#playlist .selected').prev();
-  if (prev.length) {
+  var prev = relativeTrack('prev');
+  if (prev && prev.length) {
     return prev;
   } else {
     return $('#playlist li').last();
+  }
+}
+
+function relativeTrack(attr) {
+  var selected = $('#playlist .selected');
+  if (selected.length) {
+    return selected[attr]();
   }
 }
 
@@ -232,6 +249,29 @@ function bindControls() {
   });
 
   $controls.find('.inner p').animate({'bottom': 0}, 300);
+}
+
+function bindAnything() {
+  $('#anything').off('click');
+  $('#anything').on('click', function() {
+    flashPlaylist();  // hide all the gross shit that's about to happen
+
+    $('#playlist li').remove();
+
+    var jsonString = decodeURIComponent($(this).attr('data-feature'));
+    var tracks = $.parseJSON(jsonString);
+    var element = $('#playlist ul');
+
+    $.each(tracks, function(i, track) {
+      element.append(playlistTemplate(track));
+    });
+
+    $('#playlist li').shuffle();
+    selectTrack($('#playlist li').first());
+    playlistChangeHook();
+    positionPlaylist();
+    play();
+  });
 }
 
 function getOffset() {
@@ -321,12 +361,12 @@ $(function() {
     return;
   }
 
-  $playlist = $('#playlist');
   playlistTemplate = Handlebars.compile($('#playlist-template').html());
   drawPlaylist();
   bindShuffle();
   bindEnqueue();
   bindNp();
+  bindAnything();
   $(window).resize(function() {
     positionPlaylist();
   });

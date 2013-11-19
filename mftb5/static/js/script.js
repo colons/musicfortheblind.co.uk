@@ -9,6 +9,7 @@ function targetBlank() {
 function loadHook() {
   targetBlank();
   bindEnqueue();
+  bindAnything();
 }
 
 function loadCsrf() {
