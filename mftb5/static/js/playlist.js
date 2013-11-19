@@ -73,6 +73,8 @@ function bindEnqueue() {
       }
       play();
       notify('Now playing');
+    } else if (triedToAddSelectedTrack && data.length === 1) {
+      notify('Already playing');
     } else {
       notify('Added to playlist');
     }

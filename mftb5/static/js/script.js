@@ -28,9 +28,10 @@ function loadCsrf() {
 }
 
 function notify(message) {
+  $('#notify').remove();
+  $('#controls p').append('<span id="notify"></span>');
   var tab = $('#notify');
   tab.text(message);
-  tab.stop();
   tab.slideDown().animate({opacity: 1}, 3000).slideUp();
 }
 
