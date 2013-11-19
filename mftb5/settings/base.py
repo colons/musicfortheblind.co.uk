@@ -86,6 +86,11 @@ PIPELINE_CSS = {
 PIPELINE_JS = {
     'base': {
         'source_filenames': [
+            'js/libs/pjax/jquery.pjax.js',
+            'js/libs/handlebars/handlebars-v1.1.2.js',
+            'js/libs/sticky/jquery.sticky.js',
+            'js/libs/cookie/jquery.cookie.js',
+            'js/libs/shuffle/jquery-shuffle.js',
             'js/script.js',
             'js/playlist.js',
         ],
