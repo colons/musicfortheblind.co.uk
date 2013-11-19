@@ -90,7 +90,7 @@ function animateUpwards(element) {
     'left': targetPos.left,
     'top': targetPos.top,
     'pointer-events': 'none',
-    'opacity': 0.5,
+    'opacity': 1,
     'width': element.width()
   });
 
