@@ -131,14 +131,14 @@ body.audio #controls {
     p {
       position: relative;
       bottom: 3em;
+      white-space: nowrap;
 
-      span {
-        display: inline-block;
-        text-align: center;
-        padding: .5em .5em .6em;
-        border-radius: 0 0 .3em .3em;
-
-        &.transport {
+      span#transport {
+        span {
+          display: inline-block;
+          text-align: center;
+          padding: .5em .5em .6em;
+          border-radius: 0 0 .3em .3em;
           cursor: pointer;
 
           width: 1.5em;
@@ -152,29 +152,35 @@ body.audio #controls {
           &:hover {
           }
         }
+      }
 
-        &#np {
+      span#dropdowns {
+        span {
           .dropdown();
-          .transition(opacity .2s linear);
-          opacity: 0;
-          .invert();
-          right: 0;
           display: inline-block;
-          max-width: 40%;
+          pointer-events: none;
           white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          pointer-events: none;
-        }
-
-        &#notify {
-          .dropdown();
-          display: none;
-          background-color: @highlight;
-          color: @light;
-          .heavy();
+          position: absolute;
+          top: 0;
           right: 0;
-          pointer-events: none;
+          max-width: 50%;
+
+          @media (max-width: @innerbreakpoint) {
+            max-width: 40%;
+          }
+
+          &#np {
+            .invert();
+            .transition(opacity .2s linear);
+            opacity: 0;
+          }
+
+          &#notify {
+            .heavy();
+            display: none;
+            background-color: @highlight;
+            color: @light;
+          }
         }
       }
     }

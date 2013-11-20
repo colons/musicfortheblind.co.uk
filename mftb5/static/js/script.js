@@ -30,7 +30,7 @@ function loadCsrf() {
 
 function notify(message) {
   $('#notify').remove();
-  $('#controls p').append('<span id="notify"></span>');
+  $('#dropdowns').append('<span id="notify"></span>');
   var tab = $('#notify');
   tab.text(message);
   tab.slideDown().animate({opacity: 1}, 3000).slideUp();
