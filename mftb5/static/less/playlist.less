@@ -150,6 +150,13 @@ body.audio #controls {
             color: @light;
             .selection(@dark, @light);
           }
+
+          &.shuffle {
+            padding-left: 0;
+            @media (max-width: @innerbreakpoint) {
+              display: none;
+            }
+          }
           
           &:hover {}  // not sure how to handle this
           &::before {
@@ -169,8 +176,8 @@ body.audio #controls {
           right: 0;
           max-width: 50%;
 
-          @media (max-width: @innerbreakpoint) {
-            max-width: 40%;
+          @media (max-width: @middlebreakpoint) and (min-width: @innerbreakpoint) {
+            max-width: 45%;
           }
 
           &#np {
