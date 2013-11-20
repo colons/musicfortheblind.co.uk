@@ -163,10 +163,20 @@ class Command(BaseCommand):
         else:
             track = None
 
+        content = fields['pre_jump'] + '\n\n' + fields['post_jump']
+
+        for source, dest in {
+            '</div>': '</figure>',
+            '<div class="figkey">': '<figure>',
+            '<div class="fig">': '<figure class="sub">',
+            '<div class="figleft">': '<figure class="sub alt">',
+        }.iteritems():
+            content = content.replace(source, dest)
+
         story = Story(
             headline=fields['headline'],
             date=fields['date'],
-            content=fields['pre_jump'] + '\n\n' + fields['post_jump'],
+            content=content,
             deck=fields['summary'],
             slug=fields['slug'],
             track=track,
