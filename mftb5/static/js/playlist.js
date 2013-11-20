@@ -324,7 +324,7 @@ function bindAnything() {
 }
 
 function getOffset() {
-  var reference = $('#controls .inner p > :first-child');
+  var reference = $('main :first-child');
   return reference.offset().left - $('#playlist .selected').position().left;
 }
 
