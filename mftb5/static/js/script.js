@@ -39,6 +39,7 @@ function notify(message) {
 $(function() {
   $(document).pjax('a[href^="/"]:not([download])', 'main');
   $.pjax.defaults.timeout = 3000;
+  FastClick.attach(document.body);
   targetBlank();
   loadCsrf();
   $('main').bind('pjax:end', loadHook);
