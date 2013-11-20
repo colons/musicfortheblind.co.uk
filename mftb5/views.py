@@ -1,6 +1,7 @@
 from django.views.generic.base import TemplateView
 
 from mftb5.apps.music.models import Album, Track
+from mftb5.apps.music.utils import is_stranger
 from mftb5.apps.news.models import Story
 from mftb5.mixins import PJAXResponseMixin
 
@@ -13,4 +14,5 @@ class IndexView(PJAXResponseMixin, TemplateView):
         context['albums'] = Album.objects.all()
         context['stories'] = Story.objects.all()
         context['feature'] = Track.json_feature()
+        context['stranger'] = 'stranger' if is_stranger(self.request) else ''
         return context

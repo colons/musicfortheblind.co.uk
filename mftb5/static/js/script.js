@@ -12,6 +12,12 @@ function loadHook() {
   bindIndexButtons();
 }
 
+// things to run after loading a main
+function pageLoadHook() {
+  $('body').removeClass('stranger');
+  loadHook();
+}
+
 function loadCsrf() {
   csrftoken = $.cookie('csrftoken');
   function csrfSafeMethod(method) {
@@ -42,5 +48,5 @@ $(function() {
   $.pjax.defaults.timeout = 3000;
   targetBlank();
   loadCsrf();
-  $('main').bind('pjax:end', loadHook);
+  $('main').bind('pjax:end', pageLoadHook);
 });
