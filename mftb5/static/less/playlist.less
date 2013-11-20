@@ -190,28 +190,36 @@ body.audio #controls {
   }
 
   #spinner {
-    position: absolute;
-    top: 25%;
-    left: 0;
-    display: inline-block !important;
+    display: none !important;
   }
-  &[data-state=okay] {}
-  &[data-state=loading] {
-    span.pp {
-      position: relative;
-      &::before {
-        opacity: 0;
+}
+
+body.playing {
+  #controls {
+    #spinner {
+      position: absolute;
+      top: 20%;
+      left: 0;
+      display: inline-block !important;
+    }
+    &[data-state=okay] {}
+    &[data-state=loading] {
+      span.pp {
+        position: relative;
+        &::before {
+          opacity: 0;
+        }
       }
     }
-  }
-  &[data-state=error] {
-    span.pp::before {
-      content: @fa-var-exclamation-triangle;
+    &[data-state=error] {
+      span.pp::before {
+        content: @fa-var-exclamation-triangle;
+      }
     }
-  }
-  &[data-state=unsure] {
-    span.pp::before {
-      content: @fa-var-question-circle;
+    &[data-state=unsure] {
+      span.pp::before {
+        content: @fa-var-question-circle;
+      }
     }
   }
 }

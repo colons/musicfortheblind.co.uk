@@ -206,7 +206,6 @@ function bindAudioEvents() {
     'playing': 'okay',
     'ended': 'okay',
     'canplaythrough': 'okay',
-    'stalled': 'unsure',
     'abort': 'okay'
   };
 
