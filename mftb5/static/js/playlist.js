@@ -302,7 +302,7 @@ function bindAnything() {
   anything.off('click');
   anything.on('click', function(e) {
     flashPlaylist();  // hide all the gross shit that's about to happen
-    $('main section').hide();  // yes, all of it
+    $('main section').css({opacity: '0'});  // yes, all of it
 
     $('#playlist li').remove();
 
