@@ -9,7 +9,7 @@
 
 html {
   background-color: @light;
-  font-family: "Ubuntu", sans-serif;
+  font-family: @font;
   color: @dark;
 }
 
@@ -241,7 +241,7 @@ main {
   .icon-left();
 
   &::before {
-    .fa(@fa-var-headphones)
+    .fa(@fa-var-headphones);
   }
 
   &::after {

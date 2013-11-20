@@ -1,5 +1,4 @@
 var playlistTemplate;
-var state;
 var canPlayMP3;
 var canPlayVorbis;
 var currentAudio;
@@ -123,7 +122,7 @@ function flashPlaylist() {
 }
 
 function bindShuffle() {
-  $('#controls .shuffle').click(function(e) {
+  $controls.find('.shuffle').click(function(e) {
     e.preventDefault();
     $('#playlist li').shuffle();
     flashPlaylist();
@@ -198,6 +197,31 @@ function defer(name, func) {
   timeouts[name] = setTimeout(func, 200);
 }
 
+function bindAudioEvents() {
+  currentAudio.addEventListener('ended', handleEndedTrack);
+  var states = {
+    'waiting': 'loading',
+    'error': 'error',
+    'loadstart': 'loading',
+    'playing': 'okay',
+    'ended': 'okay',
+    'canplaythrough': 'okay',
+    'stalled': 'unsure',
+    'abort': 'okay'
+  };
+
+  $.each(states, function(state, stateAttr) {
+    currentAudio.addEventListener(state, function() {
+      $controls.attr('data-state', stateAttr);
+      destroySpinner();
+      if (stateAttr === 'loading') {
+        makeSpinner();
+      }
+    });
+  });
+  $controls.attr('data-state', 'okay');
+}
+
 function bindPlayable() {
   var elements = $('#playlist li');
   elements.off('click');
@@ -249,7 +273,24 @@ function bindControls() {
     if (!wasPaused) {play();}
   });
 
+  bindAudioEvents();
+  bindShuffle();
+
   $controls.find('.inner p').animate({'bottom': 0}, 300);
+}
+
+function makeSpinner() {
+  new Spinner({
+    radius: 3,
+    length: 3,
+    width: 2,
+    lines: 9,
+    color: '#fafafa'
+  }).spin(document.getElementById('spinner'));
+}
+
+function destroySpinner() {
+  $('#spinner').html('');
 }
 
 function bindIndexButtons() {
@@ -360,8 +401,6 @@ $(function() {
     '<audio id="deck-a" preload="auto"></audio>'
   );
   currentAudio = document.getElementById('deck-a');
-  currentAudio.addEventListener('ended', handleEndedTrack);
-
   canPlayMP3 = canPlayFormat('audio/mpeg;');
   canPlayVorbis = canPlayFormat('audio/ogg; codecs="vorbis"');
 
@@ -372,7 +411,6 @@ $(function() {
 
   playlistTemplate = Handlebars.compile($('#playlist-template').html());
   drawPlaylist();
-  bindShuffle();
   bindEnqueue();
   bindNp();
   bindIndexButtons();

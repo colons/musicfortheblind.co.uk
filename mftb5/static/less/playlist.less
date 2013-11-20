@@ -1,4 +1,5 @@
 @import 'vars.less';
+@import '../fa/less/font-awesome.less';
 
 #playlist, #controls, .audio-required {
   display: none;
@@ -149,7 +150,9 @@ body.audio #controls {
             .selection(@dark, @light);
           }
           
-          &:hover {
+          &:hover {}  // not sure how to handle this
+          &::before {
+            display: block;  // allows .rotate() to do its magic
           }
         }
       }
@@ -183,6 +186,32 @@ body.audio #controls {
           }
         }
       }
+    }
+  }
+
+  #spinner {
+    position: absolute;
+    top: 25%;
+    left: 0;
+    display: inline-block !important;
+  }
+  &[data-state=okay] {}
+  &[data-state=loading] {
+    span.pp {
+      position: relative;
+      &::before {
+        opacity: 0;
+      }
+    }
+  }
+  &[data-state=error] {
+    span.pp::before {
+      content: @fa-var-exclamation-triangle;
+    }
+  }
+  &[data-state=unsure] {
+    span.pp::before {
+      content: @fa-var-question-circle;
     }
   }
 }

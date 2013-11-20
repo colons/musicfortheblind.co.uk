@@ -91,6 +91,7 @@ PIPELINE_JS = {
             'js/libs/sticky/jquery.sticky.js',
             'js/libs/cookie/jquery.cookie.js',
             'js/libs/shuffle/jquery-shuffle.js',
+            'js/libs/spin/spin.js',
             'js/script.js',
             'js/playlist.js',
         ],
