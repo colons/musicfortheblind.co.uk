@@ -68,9 +68,8 @@ that I'm scared of it breaking.
   should be scrolling to the new position of the selected track. The playlist
   should be in a new, random order.
 
-- Click an enqueued but not selected track. After it starts playing, hit
-  shuffle and click another. The track that you first clicked should not remain
-  opaque.
+- Hit shuffle and then select a different track. The track that was selected
+  should not remain opaque.
 
 - Find the Neko Desu jingle and play it. At the end of the track, whatever's
   next in the playlist should load and start playing. Move the Neko Desu jingle
