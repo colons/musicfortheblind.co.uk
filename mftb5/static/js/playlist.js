@@ -301,13 +301,13 @@ function bindAnything() {
   var anything = $('#anything');
   anything.off('click');
   anything.on('click', function(e) {
-    flashPlaylist();  // hide all the gross shit that's about to happen
-    $('main section').css({opacity: '0'});  // yes, all of it
-
     // If they're a stranger, we're not showing the playlist, and the playlist
     // can only be populated with the feature. It'll be quicker and less abusive
     // of their bandwidth to play the track we already selected.
     if (!$('body.stranger').length) {
+      flashPlaylist();  // hide all the gross shit that's about to happen
+      $('main section').css({opacity: '0'});  // yes, all of it
+
       $('#playlist li').remove();
 
       var jsonString = decodeURIComponent($(this).attr('data-feature'));
