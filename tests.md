@@ -100,3 +100,6 @@ that I'm scared of it breaking.
   'Show me something', the playlist should never be visible and tracks should
   not have headphones next to them. Page load times will be worse, but
   everything else should behave the same.
+
+- Visit /projects/[slug]/ for a few albums. You should be redirected to the
+  appropriate album page.

@@ -8,3 +8,10 @@ class StoriesBreadcrumbMixin(BreadcrumbMixin):
         return super(StoriesBreadcrumbMixin, self).get_breadcrumbs() + [
             ('News', reverse('news:stories'))
         ]
+
+
+class StoryBreadcrumbMixin(StoriesBreadcrumbMixin):
+    def get_breadcrumbs(self):
+        return super(StoryBreadcrumbMixin, self).get_breadcrumbs() + [
+            (self.object.headline, self.object.get_absolute_url())
+        ]

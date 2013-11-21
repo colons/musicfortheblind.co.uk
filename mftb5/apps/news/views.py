@@ -1,16 +1,16 @@
 from django.views.generic import DetailView
 from django.views.generic import ListView
 
-from mftb5.apps.news.mixins import StoriesBreadcrumbMixin
+from mftb5.apps.news.mixins import StoriesBreadcrumbMixin, StoryBreadcrumbMixin
 from mftb5.apps.news.models import Story
-from mftb5.mixins import PJAXResponseMixin, BreadcrumbMixin
+from mftb5.mixins import PJAXResponseMixin
 
 
-class StoryView(StoriesBreadcrumbMixin, PJAXResponseMixin, DetailView):
+class StoryView(StoryBreadcrumbMixin, PJAXResponseMixin, DetailView):
     template_name = 'story.html'
     model = Story
 
 
-class StoriesView(BreadcrumbMixin, PJAXResponseMixin, ListView):
+class StoriesView(StoriesBreadcrumbMixin, PJAXResponseMixin, ListView):
     template_name = 'stories.html'
     model = Story

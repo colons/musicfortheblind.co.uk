@@ -1,29 +1,24 @@
 from django.shortcuts import get_object_or_404
-from django.views.generic import DetailView
 from django.views.generic.base import TemplateView, RedirectView
 
 from mftb5.apps.music.mixins import (
-    AlbumMixin, TrackMixin, AlbumsBreadcrumbMixin)
+    AlbumsBreadcrumbMixin, AlbumBreadcrumbMixin, TrackBreadcrumbMixin)
 from mftb5.apps.music.models import Album, Track
-from mftb5.mixins import PJAXResponseMixin, BreadcrumbMixin
+from mftb5.mixins import PJAXResponseMixin, DetailMixin
+from mftb5.views import DetailView
 
 
-class TrackView(TrackMixin, AlbumsBreadcrumbMixin, PJAXResponseMixin,
-                DetailView):
+class TrackView(TrackBreadcrumbMixin, PJAXResponseMixin, DetailView):
+    model = Track
     template_name = 'track.html'
 
-    def get_breadcrumbs(self):
-        return super(TrackView, self).get_breadcrumbs() + [
-            (self.object.album.name, self.object.album.get_absolute_url())
-        ]
 
-
-class AlbumView(AlbumMixin, AlbumsBreadcrumbMixin, PJAXResponseMixin,
-                DetailView):
+class AlbumView(AlbumBreadcrumbMixin, PJAXResponseMixin, DetailView):
+    model = Album
     template_name = 'album.html'
 
 
-class AlbumsView(BreadcrumbMixin, PJAXResponseMixin, TemplateView):
+class AlbumsView(AlbumsBreadcrumbMixin, PJAXResponseMixin, TemplateView):
     template_name = 'albums.html'
 
     def get_context_data(self, *args, **kwargs):
@@ -33,7 +28,9 @@ class AlbumsView(BreadcrumbMixin, PJAXResponseMixin, TemplateView):
         return context
 
 
-class AlbumRedirect(AlbumMixin, RedirectView):
+class AlbumRedirect(DetailMixin, RedirectView):
+    model = Album
+
     def get_redirect_url(self, *args, **kwargs):
         return self.object.get_absolute_url()
 
