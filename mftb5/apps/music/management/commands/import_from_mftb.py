@@ -16,7 +16,7 @@ class Command(BaseCommand):
         album = Album(
             pk=thing['pk'],
             name=fields['name'],
-            external=bool(fields['external']),
+            external=fields['slug'] == 'pyrrha',
             date=fields['date'],
             description=fields['comments'],
             slug=fields['slug'],
