@@ -41,6 +41,9 @@ that I'm scared of it breaking.
   and a box should appear to their right advertising the title of the currently
   playing song. Clicking that title should scroll the page back to the top.
 
+- With the now playing box for an Alter Locus track visible, resize the page
+  all the way down and ensure that at no point are there any gross overlaps.
+
 - Skip back from the first track and forward from the last. The playlist should
   wrap.
 
