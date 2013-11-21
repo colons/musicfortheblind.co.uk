@@ -23,7 +23,7 @@ that I'm scared of it breaking.
   should happen.
 
 - Find another track. Click the headphone link. It should be queued up after
-  the currently playing track.
+  the currently playing track and the text 'Added to playlist' should be shown.
 
 - Find an album and do the same. It should be queued up after the track you
   just queued up.
