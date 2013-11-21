@@ -39,7 +39,3 @@ def encode_vorbis(wavfile):
     pipe_file_through_command(wavfile,
                               ['oggenc', '-q', '6', '-o', filename, '-'])
     return filename
-
-
-def is_stranger(request):
-    return not request.session.get('playlist')

@@ -13,7 +13,7 @@ var $np;
 function saveState() {
   var serial = $('#playlist ul').sortable('serialize', {key: 'id'});
   var selected = $('#playlist .selected').attr('data-pk');
-  $.post(playlistUrl, serial + '&selected=' + selected);
+  $.post(playlistUrl, serial + '&selected=' + selected + '&stranger=' + $('body.stranger').length.toString());
 }
 
 function queueTracks(tracks) {
@@ -132,28 +132,40 @@ function bindShuffle() {
   });
 }
 
-function drawPlaylist() {
-  $.getJSON(playlistUrl, function(data) {
-    var element = $('#playlist ul');
-    element.html('');
-    $.each(data.playlist, function(i, track) {
-      element.append(playlistTemplate(track));
-    });
+function getPlaylist() {
+  var embeddedPlaylist = $('[data-feature]');
 
-    $('#playlist ul').sortable({
-      scroll: false,
-      axis: "x",
-      update: function() {
-        playlistChangeHook();
-        positionPlaylistAnimated();
-      }
-    });
+  if (embeddedPlaylist.length) {
+    var jsonString = decodeURIComponent(embeddedPlaylist.attr('data-feature'));
+    var playlist = $.parseJSON(jsonString);
+    drawPlaylist(playlist, playlist[0].pk);
+  } else {
+    $.getJSON(playlistUrl, function(data) {
+      drawPlaylist(data.playlist, data.selected);
+    }).fail(giveUp);
+  }
+}
 
-    playlistChangeHook();
-    bindControls();
-    loadHook();
-    selectTrack($('#playlist li[data-pk="' + data.selected.toString() + '"]'));
-  }).fail(giveUp);
+function drawPlaylist(playlist, selected) {
+  var element = $('#playlist ul');
+  element.html('');
+  $.each(playlist, function(i, track) {
+    element.append(playlistTemplate(track));
+  });
+
+  $('#playlist ul').sortable({
+    scroll: false,
+    axis: "x",
+    update: function() {
+      playlistChangeHook();
+      positionPlaylistAnimated();
+    }
+  });
+
+  playlistChangeHook();
+  bindControls();
+  loadHook();
+  selectTrack($('#playlist li[data-pk="' + selected.toString() + '"]'));
 }
 
 function nextTrack() {
@@ -299,6 +311,7 @@ function bindIndexButtons() {
 
 function bindAnything() {
   var anything = $('#anything');
+
   anything.off('click');
   anything.on('click', function(e) {
     // If they're a stranger, we're not showing the playlist, and the playlist
@@ -306,7 +319,6 @@ function bindAnything() {
     // of their bandwidth to play the track we already selected.
     if (!$('body.stranger').length) {
       flashPlaylist();  // hide all the gross shit that's about to happen
-      $('main section').css({opacity: '0'});  // yes, all of it
 
       $('#playlist li').remove();
 
@@ -318,7 +330,6 @@ function bindAnything() {
         element.append(playlistTemplate(track));
       });
 
-      $('#playlist li').shuffle();
       notify('Playlist reset');
     }
 
@@ -415,10 +426,10 @@ $(function() {
     return;
   }
 
-  playlistTemplate = Handlebars.compile($('#playlist-template').html());
-  drawPlaylist();
-  bindEnqueue();
   bindNp();
+  playlistTemplate = Handlebars.compile($('#playlist-template').html());
+  getPlaylist();
+  bindEnqueue();
   bindIndexButtons();
   $(window).resize(function() {
     positionPlaylist();

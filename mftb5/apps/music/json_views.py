@@ -42,6 +42,7 @@ class PlaylistView(JSONView):
 
         request.session['playlist'] = pks
         request.session['selected'] = selected
+        request.session['stranger'] = bool(int(request.POST['stranger']))
         return HttpResponse()
 
     def get_json_data(self, request):
