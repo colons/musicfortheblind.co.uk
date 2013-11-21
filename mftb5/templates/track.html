@@ -25,9 +25,10 @@
   </section>
 
   <section class="links">
-    {% if track.external %}
+    {% if track.url %}
       <p class="external"><a href="{{ track.url }}">{{ track.url|service_from_url }}</a></p>
-    {% else %}
+    {% endif %}
+    {% if not track.external %}
       {% for download in track.downloads %}
         <p class="internal"><a download href="{{ download.url }}">Download {{ download.format }}</a></p>
       {% endfor %}
