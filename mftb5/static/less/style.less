@@ -221,5 +221,28 @@ a {
   }
 }
 
+figure {
+  text-align: center;
+  font-size: .9em;
+  margin: 2em auto;
+
+  &.sub {
+    margin: 1em;
+
+    @media (min-width: @middlebreakpoint) {
+      max-width: 200px;
+      float: right;
+
+      &.alt {
+        float: left;
+      }
+    }
+  }
+
+  img {
+    max-width: 100%;
+  }
+}
+
 @import 'playlist.less';
 @import 'index.less';
