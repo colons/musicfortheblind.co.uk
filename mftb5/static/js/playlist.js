@@ -118,7 +118,9 @@ function animateUpwards(element) {
 
 function flashPlaylist() {
   $('#playlist').stop().css({'background-color': '#c52'}).animate({'background-color': ''});
-  $('#playlist .selected').stop().css({'opacity': '0'}).animate({'opacity': '1'});
+  $('#playlist .selected').stop().css({'opacity': '0'}).animate({'opacity': '1'}, function() {
+    $(this).css({'opacity': ''});
+  });
 }
 
 function bindShuffle() {
