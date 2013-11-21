@@ -120,10 +120,6 @@ class Track(models.Model):
         """ The Feature """
         return cls.objects.filter(featured=True).order_by('?')
 
-    @classmethod
-    def json_feature(cls):
-        return ujson.dumps([t.json_data() for t in cls.feature()])
-
     def truncated_description(self):
         return self.description.split('\n\n----\n\n', 1)[0]
 

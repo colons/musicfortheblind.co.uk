@@ -78,6 +78,7 @@ PIPELINE_CSS = {
     'base': {
         'source_filenames': [
             'less/style.less',
+            'less/anything.less',
         ],
         'output_filename': 'css/style.css',
     },

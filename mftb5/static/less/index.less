@@ -1,0 +1,89 @@
+// Styles for the front page.
+// Shit's complicated.
+
+section.dispatch {
+  p {
+    text-align: center;
+
+    a {
+      display: inline-block;
+      margin: 1em 0 0;
+      padding: .7em 1em;
+      color: @light;
+      border-radius: .5em;
+      background-color: @highlight;
+
+      &:hover {
+        background-color: @dark;
+      }
+
+      &.big-button {
+        font-size: 1.5em;
+        span {
+          white-space: nowrap;
+          display: block;
+        }
+        @media (min-width: @innerbreakpoint) {font-size: 1.7em}
+        @media (min-width: @outerbreakpoint) {font-size: 2.3em}
+      }
+
+      &#albums {
+        .light();
+        background-color: @dark;
+        opacity: .5;
+        &:hover {
+          opacity: 1;
+        }
+        font-size: 1em;
+        @media (min-width: @innerbreakpoint) {font-size: 1.2em}
+        @media (min-width: @outerbreakpoint) {font-size: 1.5em}
+      }
+    }
+  }
+}
+
+section.welcome {
+  ul.engage {
+    font-size: 1.3em;
+    line-height: 1.5em;
+    @media (min-width: @innerbreakpoint) {font-size: 1.8em}
+    @media (min-width: @outerbreakpoint) {font-size: 2em}
+
+    text-align: center;
+    padding: 0;
+
+    list-style: none;
+
+    li {
+      margin: 0 .5em;
+      display: inline-block;
+      a::before {
+        padding-right: .3em;
+        opacity: .5;
+        color: @dark;
+      }
+
+      a:hover::before {
+        opacity: 1;
+      }
+
+      &.github a::before {.fa(@fa-var-github)}
+      &.email a::before {.fa(@fa-var-envelope)}
+      &.twitter a::before {.fa(@fa-var-twitter)}
+    }
+  }
+}
+
+#stranger, #not-stranger {display: none}
+
+body.audio {
+  #nojs {display: none}
+  #not-stranger {display: inline}
+}
+
+#stranger {display: none}
+
+body.stranger {
+  #stranger {display: inline !important}
+  #not-stranger {display: none}
+}

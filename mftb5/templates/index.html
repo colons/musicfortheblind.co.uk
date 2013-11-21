@@ -1,15 +1,20 @@
 {% extends parent %}
 {% block content %}
   <section class="dispatch">
-    <p class="audio-required">
-      <a class="big-button" id="anything" data-feature="{{ feature|urlencode }}">
-        <span>I am easily distracted;</span> <span>just play me something</span>
-      </a>
-      <a class="big-button" id="watfk" data-feature="{{ feature|urlencode }}">
-        <span>What are you even</span> <span>playing me?</span>
+    <p>
+      <a class="big-button" id="anything" data-feature="{{ feature|urlencode }}" href="{{ first_track.get_absolute_url }}">
+        <span id="stranger">
+          <span>Play me something</span>
+        </span>
+        <span id="nojs">
+          <span>Show me something</span>
+        </span>
+        <span id="not-stranger">
+          <span>Play me something else</span>
+        </span>
       </a>
     </p>
-    <p><a id="albums" href="{% url "music:albums" %}">Show me all the noises</a></p>
+    <p><a id="albums" href="{% url "music:albums" %}">Show me everything</a></p>
   </section>
 
   <section class="welcome">
