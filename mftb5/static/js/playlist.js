@@ -319,6 +319,7 @@ function bindAnything() {
       });
 
       $('#playlist li').shuffle();
+      notify('Playlist reset');
     }
 
     selectTrack($('#playlist li').first(), true);
