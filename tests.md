@@ -95,3 +95,8 @@ that I'm scared of it breaking.
 
 - Disconnect from the internet and ensure the play/pause button becomes a
   warning triangle.
+
+- Disable javascript. The big orange button on the front page should now read
+  'Show me something', the playlist should never be visible and tracks should
+  not have headphones next to them. Page load times will be worse, but
+  everything else should behave the same.
