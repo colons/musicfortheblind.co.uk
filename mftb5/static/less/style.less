@@ -258,7 +258,7 @@ main {
       pointer-events: none;
     }
 
-    @media (max-width: @tooltipbreakpoint) {
+    @media (max-width: (@tooltipbreakpoint - 1)) {
       .medium();
       background-color: @highlight;
       color: @light;
