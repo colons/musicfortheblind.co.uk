@@ -69,9 +69,20 @@ header {
 #breadcrumbs {
   .light();
   font-size: .9em;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   span {
     white-space: nowrap;
+  }
+
+  @media (min-width: @outerbreakpoint) {
+    // this is, of course, assuming that Alter Locus remains our only source of
+    // prohibitively long breadcrumbs.
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
