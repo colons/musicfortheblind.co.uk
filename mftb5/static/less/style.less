@@ -189,12 +189,13 @@ main {
 
     font-size: .7em;
     position: absolute;
+    pointer-events: none;
+
     @media (min-width: @tooltipbreakpoint) {
       .transition(opacity .2s linear);
       .light();
       top: .2em;
       right: 2.3em;
-      pointer-events: none;
     }
 
     @media (max-width: (@tooltipbreakpoint - 1)) {
