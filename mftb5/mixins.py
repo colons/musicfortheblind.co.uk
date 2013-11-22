@@ -30,3 +30,10 @@ class DetailMixin(object):
     def get(self, *args, **kwargs):
         self.object = get_object_or_404(self.model, **kwargs)
         return super(DetailMixin, self).get(*args, **kwargs)
+
+
+class ContactBreadcrumbMixin(BreadcrumbMixin):
+    def get_breadcrumbs(self):
+        return super(ContactBreadcrumbMixin, self).get_breadcrumbs() + [
+            ('Contact', reverse('contact'))
+        ]

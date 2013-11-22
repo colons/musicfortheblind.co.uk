@@ -46,6 +46,8 @@ section.welcome {
   ul.engage {
     font-size: 1.3em;
     line-height: 1.5em;
+    margin: 0 auto;
+    max-width: 16em;
     @media (min-width: @innerbreakpoint) {font-size: 1.8em}
     @media (min-width: @outerbreakpoint) {font-size: 2em}
 
@@ -70,6 +72,7 @@ section.welcome {
       &.github a::before {.fa(@fa-var-github)}
       &.email a::before {.fa(@fa-var-envelope)}
       &.twitter a::before {.fa(@fa-var-twitter)}
+      &.else a::before {.fa(@fa-var-bullhorn)}
     }
   }
 }

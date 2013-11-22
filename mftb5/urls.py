@@ -3,7 +3,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.views.generic.base import RedirectView
 
-from mftb5.views import IndexView
+from mftb5.views import IndexView, ContactView
 
 
 admin.autodiscover()
@@ -14,6 +14,7 @@ urlpatterns = patterns(
         RedirectView.as_view(url=settings.STATIC_URL + 'favicon.ico')),
 
     url('^$', IndexView.as_view(), name='index'),
+    url('^contact/$', ContactView.as_view(), name='contact'),
     url(r'^news/', include('mftb5.apps.news.urls', namespace='news')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('mftb5.apps.music.urls', namespace='music')),
