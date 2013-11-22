@@ -1,4 +1,4 @@
-# [Music for the Blind 5](http://www.musicfortheblind.co.uk/)
+# [Music for the Blind](http://www.musicfortheblind.co.uk/)
 
 A narcissistic browser-based music player.
 
