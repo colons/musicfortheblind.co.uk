@@ -15,6 +15,7 @@ function loadHook() {
 // things to run after loading a main
 function pageLoadHook() {
   $('body').removeClass('stranger');
+  bindClickFade('main a');
   loadHook();
 }
 
@@ -42,11 +43,24 @@ function notify(message) {
   tab.slideDown().animate({opacity: 1}, 3000).slideUp();
 }
 
+function bindClickFade(selector) {
+  // pjax and/or fastclick prevents clicks from looking like anything has happened.
+  // I repeatedly found myself tapping over and over again on some links on my phone,
+  // so we have to provide some other feedback mechanism for links. Dumb, I know.
+  $(selector).click(function(e) {
+    var currentOpacity = $(this).css('opacity');
+    $(this).css({opacity: '0'}).animate({opacity: currentOpacity}, function() {
+      $(this).css({opacity: ''});
+    });
+  });
+}
+
 $(function() {
   FastClick.attach(document.body);
   $(document).pjax('a[href^="/"]:not([download])', 'main');
   $.pjax.defaults.timeout = 3000;
   targetBlank();
   loadCsrf();
+  bindClickFade('main a');
   $('main').bind('pjax:end', pageLoadHook);
 });
