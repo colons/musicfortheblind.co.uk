@@ -137,7 +137,7 @@ function bindShuffle() {
 function getPlaylist() {
   var embeddedPlaylist = $('[data-feature]');
 
-  if (embeddedPlaylist.length) {
+  if ($('body.stranger').length && embeddedPlaylist.length) {
     var jsonString = decodeURIComponent(embeddedPlaylist.attr('data-feature'));
     var playlist = $.parseJSON(jsonString);
     drawPlaylist(playlist, playlist[0].pk);
