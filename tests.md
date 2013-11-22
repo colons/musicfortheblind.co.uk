@@ -1,4 +1,4 @@
-# Tests for Music for the Blind 5
+# Tests for Music for the Blind
 
 Because I can't be bothered to automate them but this thing is complex enough
 that I'm scared of it breaking.
