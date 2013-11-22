@@ -56,6 +56,7 @@ function bindClickFade(selector) {
 }
 
 $(function() {
+  $('body').removeClass('first-load');
   FastClick.attach(document.body);
   $(document).pjax('a[href^="/"]:not([download])', 'main');
   $.pjax.defaults.timeout = 3000;

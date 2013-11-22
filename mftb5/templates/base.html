@@ -16,7 +16,7 @@
   <body class="{% if stranger %}stranger{% endif %}">
     {% csrf_token %}
     <script type="text/javascript">
-      document.body.className += ' js audio';
+      document.body.className += ' js audio first-load';
     </script>
     <a href="{% url "index" %}">
       <header>

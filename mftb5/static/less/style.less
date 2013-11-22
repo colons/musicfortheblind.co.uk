@@ -259,5 +259,9 @@ figure {
   }
 }
 
+body.first-load main {
+  pointer-events: none;  // prevent people from clicking before stuff's been bound
+}
+
 @import 'playlist.less';
 @import 'index.less';
