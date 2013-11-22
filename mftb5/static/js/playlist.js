@@ -226,10 +226,6 @@ function bindAudioEvents() {
   $.each(states, function(state, stateAttr) {
     currentAudio.addEventListener(state, function() {
       $controls.attr('data-state', stateAttr);
-      destroySpinner();
-      if (stateAttr === 'loading') {
-        makeSpinner();
-      }
     });
   });
   $controls.attr('data-state', 'okay');
@@ -339,7 +335,6 @@ function bindAnything() {
     playlistChangeHook();
     positionPlaylist();
     play();
-    $('#watfk').click();
   });
 }
 
@@ -433,6 +428,7 @@ $(function() {
   getPlaylist();
   bindEnqueue();
   bindIndexButtons();
+  makeSpinner();
   $(window).resize(function() {
     positionPlaylist();
   });

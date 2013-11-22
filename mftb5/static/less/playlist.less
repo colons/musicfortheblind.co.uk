@@ -146,9 +146,22 @@ body.audio #controls {
           width: 1.5em;
           
           &.pp {
+            position: relative;
             background-color: @dark;
             color: @light;
             .selection(@dark, @light);
+
+            #spinner {
+              position: absolute;
+              top: .45em;
+              left: 0;
+              display: none;
+              pointer-events: none;
+
+              .spinner {
+                margin: 0 auto;
+              }
+            }
           }
 
           &.shuffle {
@@ -198,25 +211,16 @@ body.audio #controls {
       }
     }
   }
-
-  #spinner {
-    pointer-events: none;
-    display: none !important;
-  }
 }
 
 body.playing {
   #controls {
-    #spinner {
-      position: absolute;
-      top: .45em;
-      left: 0;
-      display: inline-block !important;
-    }
     &[data-state=okay] {}
     &[data-state=loading] {
       span.pp {
-        position: relative;
+        #spinner {
+          display: block !important;
+        }
         &::before {
           opacity: 0;
         }
