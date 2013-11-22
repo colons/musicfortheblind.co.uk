@@ -8,6 +8,7 @@ I am unspeakably grateful for the existence of the following:
 
 - [Django](https://www.djangoproject.com/)
 - [LESS](http://lesscss.org/)
+- [Font Awesome](http://fortawesome.github.io/Font-Awesome/)
 - [django-pipeline](https://github.com/cyberdelia/django-pipeline)
 - [jQuery](http://jquery.com/)
 - [Python-Markdown](http://pythonhosted.org/Markdown/)
