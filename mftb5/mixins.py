@@ -32,8 +32,8 @@ class DetailMixin(object):
         return super(DetailMixin, self).get(*args, **kwargs)
 
 
-class ContactBreadcrumbMixin(BreadcrumbMixin):
+class MetaBreadcrumbMixin(BreadcrumbMixin):
     def get_breadcrumbs(self):
-        return super(ContactBreadcrumbMixin, self).get_breadcrumbs() + [
-            ('Contact', reverse('contact'))
+        return super(MetaBreadcrumbMixin, self).get_breadcrumbs() + [
+            ('Meta', reverse('meta'))
         ]
