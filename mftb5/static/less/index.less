@@ -42,14 +42,29 @@ section.dispatch {
   }
 }
 
+section.latest-news {
+  text-align: center;
+  font-size: 1em;
+  @media (min-width: @innerbreakpoint) {font-size: 1.3em}
+  @media (min-width: @outerbreakpoint) {font-size: 1.4em}
+
+  .enqueue {
+    // prevent icon-left from fucking up our alignment
+    position: static !important;
+    margin-right: .3em;
+    padding: 0;
+    width: auto;
+  }
+}
+
 section.welcome {
   ul.engage {
-    font-size: 1.2em;
+    font-size: 1em;
     line-height: 1.5em;
     margin: 0 auto;
     max-width: 16em;
-    @media (min-width: @innerbreakpoint) {font-size: 1.7em}
-    @media (min-width: @outerbreakpoint) {font-size: 1.9em}
+    @media (min-width: @innerbreakpoint) {font-size: 1.2em}
+    @media (min-width: @outerbreakpoint) {font-size: 1.4em}
 
     text-align: center;
     padding: 0;
@@ -74,18 +89,6 @@ section.welcome {
       &.twitter a::before {.fa(@fa-var-twitter)}
       &.else a::before {.fa(@fa-var-comments)}
     }
-  }
-}
-
-section.latest-news {
-  text-align: center;
-
-  .enqueue {
-    // prevent icon-left from fucking up our alignment
-    position: static !important;
-    margin-right: .3em;
-    padding: 0;
-    width: auto;
   }
 }
 
