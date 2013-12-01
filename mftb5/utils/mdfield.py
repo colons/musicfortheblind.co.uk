@@ -1,5 +1,10 @@
-from django.db.models import TextField
 from markdown import markdown
+
+from django.db.models import TextField
+
+from south.modelsinspector import add_introspection_rules
+
+add_introspection_rules([], ["^mftb5\.utils\.mdfield\.MarkdownTextField"])
 
 
 class MarkdownTextField(TextField):

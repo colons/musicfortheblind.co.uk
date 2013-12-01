@@ -16,6 +16,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
 
     'pipeline',
+    'south',
 
     'mftb5',
     'mftb5.apps.music',
