@@ -16,6 +16,7 @@ class Album(models.Model):
     slug = models.SlugField(unique=True)
     date = models.DateField(blank=True, null=True)
     description = MarkdownTextField(blank=True)
+    published = models.BooleanField(default=True)
 
     external = models.BooleanField(default=False)
     url = models.URLField(blank=True)
@@ -56,6 +57,7 @@ class Track(models.Model):
     lyrics = models.TextField(blank=True)
     featured = models.BooleanField(default=False)
     url = models.URLField(blank=True)
+    published = models.BooleanField(default=True)
 
     album = models.ForeignKey('Album', blank=True, related_name='_tracks')
     track_number = models.IntegerField(blank=True, null=True)

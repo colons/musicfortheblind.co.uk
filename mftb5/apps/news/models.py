@@ -10,6 +10,7 @@ class Story(models.Model):
     content = MarkdownTextField()
     slug = models.SlugField()
     date = models.DateField(blank=True, null=True)
+    published = models.BooleanField(default=True)
 
     album = models.ForeignKey('music.Album', blank=True, null=True)
     track = models.ForeignKey('music.Track', blank=True, null=True)
