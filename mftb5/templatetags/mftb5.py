@@ -12,9 +12,12 @@ def service_from_url(url):
     if host.startswith('www.'):
         host = host[4:]
 
+    bandcamp = 'download on Bandcamp'
+
     return {
         'soundcloud.com': 'listen on SoundCloud',
-        'nivi.bandcamp.com': 'download on Bandcamp',
+        'nivi.bandcamp.com': bandcamp,
+        'desus.bandcamp.com': bandcamp,
         'globalgamejam.org': 'see the game on The Global Game Jam',
         'moddb.com': 'see the game on Mod DB',
     }.get(host, host)
