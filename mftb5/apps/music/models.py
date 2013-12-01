@@ -36,13 +36,16 @@ class Album(models.Model):
     def json(self):
         return ujson.dumps(self.json_data())
 
-    def tracks(self):
+    def all_tracks(self):
         if self.slug == 'requests':
             ordering = '-track_number'
         else:
             ordering = 'track_number'
 
         return self._tracks.order_by(ordering)
+
+    def tracks(self):
+        return self.all_tracks().filter(published=True)
 
 
 def _upload_to(instance, filename):

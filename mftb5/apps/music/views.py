@@ -24,7 +24,11 @@ class AlbumsView(AlbumsBreadcrumbMixin, PJAXResponseMixin, TemplateView):
     def get_context_data(self, *args, **kwargs):
         context = super(AlbumsView, self).get_context_data(*args, **kwargs)
         mftb = Album.objects.get(slug="requests")
-        context['albums'] = [mftb] + list(Album.objects.exclude(pk=mftb.pk))
+
+        context['albums'] = [mftb] + list(
+            Album.objects.filter(published=True).exclude(pk=mftb.pk)
+        )
+
         return context
 
 

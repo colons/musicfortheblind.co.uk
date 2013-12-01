@@ -13,4 +13,4 @@ class StoryView(StoryBreadcrumbMixin, PJAXResponseMixin, DetailView):
 
 class StoriesView(StoriesBreadcrumbMixin, PJAXResponseMixin, ListView):
     template_name = 'stories.html'
-    model = Story
+    queryset = Story.objects.filter(published=True)
