@@ -17,6 +17,18 @@
     <p><a id="albums" href="{% url "music:albums" %}">Show me everything</a></p>
   </section>
 
+  <section class="latest-news">
+    {% spaceless %}
+      <h1>
+        {% if story.pertinent_object %}
+          {% include 'includes/enqueue.html' with object=story.pertinent_object %}
+        {% endif %}
+        <a href="{{ story.get_absolute_url }}">{{ story.headline }}</a></h1>
+      </h1>
+    {% endspaceless %}
+    <p class="date">{{ story.date }}</p>
+  </section>
+
   <section class="welcome">
     <ul class="engage">
       <li class="twitter"><a href="https://twitter.com/mftb">mftb</a></li>

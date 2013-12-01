@@ -17,7 +17,7 @@ class IndexView(PJAXResponseMixin, TemplateView):
         feature = list(Track.feature())
 
         context['albums'] = Album.objects.all()
-        context['stories'] = Story.objects.all()
+        context['story'] = Story.objects.all()[0]
         context['feature'] = ujson.dumps([t.json_data() for t in feature])
         context['first_track'] = feature[0]
         context['stranger'] = self.request.session.get('stranger', True)
