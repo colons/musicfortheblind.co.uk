@@ -13,7 +13,11 @@ var $np;
 function saveState() {
   var serial = $('#playlist ul').sortable('serialize', {key: 'id'});
   var selected = $('#playlist .selected').attr('data-pk');
-  $.post(playlistUrl, serial + '&selected=' + selected + '&stranger=' + $('body.stranger').length.toString());
+
+  $.post(playlistUrl, serial + '&' + $.param({
+    selected: selected,
+    stranger: $('body.stranger').length.toString()
+  }));
 }
 
 function queueTracks(tracks) {
@@ -80,12 +84,13 @@ function bindEnqueue() {
   $('.enqueue').off('click');
   $('.enqueue').on('click', function(e) {
     e.preventDefault();
-    animateUpwards($(this).parent());
-    var jsonString = decodeURIComponent($(this).attr('data-json'));
-    queueTracks($.parseJSON(jsonString));
 
     // just in case this is a stranger clicking the feature
     $('body').removeClass('stranger');
+
+    animateUpwards($(this).parent());
+    var jsonString = decodeURIComponent($(this).attr('data-json'));
+    queueTracks($.parseJSON(jsonString));
   });
 }
 
@@ -139,14 +144,26 @@ function bindShuffle() {
 
 function getPlaylist() {
   var embeddedPlaylist = $('[data-feature]');
+  var playlist = [];
+  var selected = null;
+
+  var focalEnqueue = $('.focal .enqueue');
+  if (focalEnqueue.length && $('body.stranger').length) {
+    // this is a page for a piece of content we can be confident our user is probably interested in
+    $('body').removeClass('stranger');
+    var focalJsonString = decodeURIComponent(focalEnqueue.attr('data-json'));
+    playlist = $.parseJSON(focalJsonString);
+    selected = playlist[0].pk;
+  }
 
   if ($('body.stranger').length && embeddedPlaylist.length) {
-    var jsonString = decodeURIComponent(embeddedPlaylist.attr('data-feature'));
-    var playlist = $.parseJSON(jsonString);
+    var featureJsonString = decodeURIComponent(embeddedPlaylist.attr('data-feature'));
+    $.merge(playlist, $.parseJSON(featureJsonString));
     drawPlaylist(playlist, playlist[0].pk);
   } else {
     $.getJSON(playlistUrl, function(data) {
-      drawPlaylist(data.playlist, data.selected);
+      $.merge(playlist, data.playlist);
+      drawPlaylist(playlist, (selected || data.selected));
     }).fail(giveUp);
   }
 }
@@ -155,7 +172,10 @@ function drawPlaylist(playlist, selected) {
   var element = $('#playlist ul');
   element.html('');
   $.each(playlist, function(i, track) {
-    element.append(playlistTemplate(track));
+    if (!$('#playlist li[data-pk="' + track.pk.toString() + '"]').length) {
+      // this isn't a dupe, we can add it
+      element.append(playlistTemplate(track));
+    }
   });
 
   $('#playlist ul').sortable({

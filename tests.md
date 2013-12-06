@@ -28,6 +28,13 @@ that I'm scared of it breaking.
 - Find an album and do the same. It should be queued up after the track you
   just queued up.
 
+- Load up a track in a new porn mode session. That track should be the first
+  thing in the playlist, ahead of the regular feature (stripped of whatever the
+  current track is).
+
+  - Do this again for an album and a news page with an associated album or
+    track.
+
 - Click a track in the playlist. It should slide into position above the
   controls and start playing, after the play/pause button is replaced by a
   spinner for a short time.

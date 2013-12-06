@@ -33,7 +33,7 @@ class PlaylistView(JSONView):
 
         selected_str = request.POST.get('selected')
 
-        if selected_str != 'undefined':
+        if coercible_to_int(selected_str):
             selected = int(selected_str)
         else:
             selected = None

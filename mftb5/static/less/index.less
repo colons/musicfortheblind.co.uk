@@ -54,6 +54,11 @@ section.latest-news {
     margin-right: .3em;
     padding: 0;
     width: auto;
+
+    &::after {
+      // position: static fucks up the listen tooltip
+      display: none;
+    }
   }
 }
 
