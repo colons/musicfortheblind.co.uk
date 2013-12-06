@@ -47,7 +47,7 @@ function bindTouchFeedback(selector) {
   // pjax and/or fastclick prevents clicks from looking like anything has happened.
   // I repeatedly found myself tapping over and over again on some links on my phone,
   // so we have to provide some other feedback mechanism for links. Dumb, I know.
-  $(selector).css({opacity: ''}).on('touchstart', function(e) {
+  $(selector).css({opacity: ''}).on('touchend', function(e) {
     var currentOpacity = $(this).css('opacity');
     $(this).css({opacity: '0'}).animate({opacity: currentOpacity}, function() {
       $(this).css({opacity: ''});
