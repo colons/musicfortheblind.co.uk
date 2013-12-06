@@ -83,6 +83,9 @@ function bindEnqueue() {
     animateUpwards($(this).parent());
     var jsonString = decodeURIComponent($(this).attr('data-json'));
     queueTracks($.parseJSON(jsonString));
+
+    // just in case this is a stranger clicking the feature
+    $('body').removeClass('stranger');
   });
 }
 
