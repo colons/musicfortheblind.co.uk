@@ -20,4 +20,5 @@ def service_from_url(url):
         'desus.bandcamp.com': bandcamp,
         'globalgamejam.org': 'see the game on The Global Game Jam',
         'moddb.com': 'see the game on Mod DB',
+        'youtube.com': 'watch on YouTube',
     }.get(host, host)
