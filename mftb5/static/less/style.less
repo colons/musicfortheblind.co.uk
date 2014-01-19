@@ -13,10 +13,6 @@ html {
   color: @dark;
 }
 
-h1, h2, h3, h4, h5 {
-  .heavy();
-}
-
 code, pre {
   font-family: @monofont;
   font-size: .9em;
@@ -273,6 +269,45 @@ figure {
 body.first-load main {
   pointer-events: none;  // prevent people from clicking before stuff's been bound
 }
+
+h1, h2, h3, h4, h5 {
+  .heavy();
+}
+
+// stuff to make the footer work
+@footer-height: 11em;
+
+html, body {
+  height: 100%;
+}
+
+#not-footer {
+  height: auto;
+  min-height: 100%;
+
+  main {
+    padding-bottom: @footer-height;
+  }
+}
+
+footer {
+  text-align: center;
+  font-size: 1.1em;
+
+  background-image: url('http://colons.co/stamp.png');
+  background-size: 5em;
+  background-position: center 0;
+  background-repeat: no-repeat;
+
+  position: relative;
+  clear: both;
+  margin-top: -@footer-height;
+
+  p {
+    padding-top: 6em;
+  }
+}
+
 
 @import 'playlist.less';
 @import 'index.less';

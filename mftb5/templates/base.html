@@ -18,38 +18,44 @@
     <script type="text/javascript">
       document.body.className += ' js audio first-load';
     </script>
-    <a href="{% url "index" %}">
-      <header>
+    <div id="not-footer">
+      <a href="{% url "index" %}">
+        <header>
+          <div class="inner">
+            <h1>Music for the Blind</h1>
+          </div>
+        </header>
+      </a>
+
+      <section id="playlist">
+        <ul></ul>
+      </section>
+
+      <div id="controls">
         <div class="inner">
-          <h1>Music for the Blind</h1>
-        </div>
-      </header>
-    </a>
-
-    <section id="playlist">
-      <ul></ul>
-    </section>
-
-    <div id="controls">
-      <div class="inner">
-        <p>
-          <span id="transport">
-            <span class="prev fa fa-backward"></span>
-            <span class="pp fa fa-play">
-              <span id="spinner"></span>
+          <p>
+            <span id="transport">
+              <span class="prev fa fa-backward"></span>
+              <span class="pp fa fa-play">
+                <span id="spinner"></span>
+              </span>
+              <span class="next fa fa-forward"></span>
+              <span class="shuffle fa fa-random"></span>
             </span>
-            <span class="next fa fa-forward"></span>
-            <span class="shuffle fa fa-random"></span>
-          </span>
-          <span id="dropdowns"><span id="np"></span></span>
-        </p>
+            <span id="dropdowns"><span id="np"></span></span>
+          </p>
+        </div>
       </div>
+
+      <main>
+        {% include 'includes/breadcrumbs.html' %}
+        {% block content %}{% endblock %}
+      </main>
     </div>
 
-    <main>
-      {% include 'includes/breadcrumbs.html' %}
-      {% block content %}{% endblock %}
-    </main>
+    <footer>
+      <p><a href="https://creativecommons.org/licenses/by/4.0/">cc-by</a> by <a href="http://colons.co/">iain dawson</a></p>
+    </footer>
 
     <script type="text/javascript" src="{% static 'js/libs/jquery/jquery-2.0.3.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/libs/jquery-ui/jquery-ui-1.10.3.custom.min.js' %}"></script>
