@@ -59,7 +59,7 @@ $(function() {
   $('body').removeClass('first-load');
   FastClick.attach(document.body);
   $(document).pjax('a[href^="/"]:not([download])', 'main');
-  $.pjax.defaults.timeout = 3000;
+  $.pjax.defaults.timeout = 10000;
   targetBlank();
   loadCsrf();
   bindTouchFeedback('main a');
