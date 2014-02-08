@@ -21,6 +21,7 @@
         from <a href="{{ track.album.get_absolute_url }}">{{ track.album.name }}</a></p>
       {% endif %}
     </p>
+    {% include "includes/player.html" with track=track %}
     {{ track.description_html|safe }}
   </section>
 

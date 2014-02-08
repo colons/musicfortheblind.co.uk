@@ -187,53 +187,58 @@ main {
   display: none;
 }
 
-.js .enqueue {
-  .icon-left();
+.js {
+  .enqueue {
+    .icon-left();
 
-  &::before {
-    .fa(@fa-var-headphones);
-  }
-
-  &::after {
-    opacity: 0;
-    content: attr(data-title);
-
-    font-size: .7em;
-    position: absolute;
-    pointer-events: none;
-
-    @media (min-width: @tooltipbreakpoint) {
-      .transition(opacity .2s linear);
-      .light();
-      top: .2em;
-      right: 2.3em;
+    &::before {
+      .fa(@fa-var-headphones);
     }
 
-    @media (max-width: (@tooltipbreakpoint - 1)) {
-      .medium();
-      background-color: @highlight;
-      color: @light;
-      border-radius: .4em;
-      box-shadow: 0 .2em .5em @light;
-      padding: .3em .4em;
-      z-index: 5;
+    &::after {
+      opacity: 0;
+      content: attr(data-title);
 
-      left: 1.7em;
-      top: 0;
-      white-space: nowrap;
+      font-size: .7em;
+      position: absolute;
+      pointer-events: none;
+
+      @media (min-width: @tooltipbreakpoint) {
+        .transition(opacity .2s linear);
+        .light();
+        top: .2em;
+        right: 2.3em;
+      }
+
+      @media (max-width: (@tooltipbreakpoint - 1)) {
+        .medium();
+        background-color: @highlight;
+        color: @light;
+        border-radius: .4em;
+        box-shadow: 0 .2em .5em @light;
+        padding: .3em .4em;
+        z-index: 5;
+
+        left: 1.7em;
+        top: 0;
+        white-space: nowrap;
+      }
     }
-  }
-  &:hover {
-    opacity: 1;
+    &:hover {
+      opacity: 1;
 
-    @media (min-width: @innerbreakpoint) {
-      &::after {
-        opacity: 1;
+      @media (min-width: @innerbreakpoint) {
+        &::after {
+          opacity: 1;
+        }
       }
     }
   }
-}
 
+  audio.fallback {
+    display: none;
+  }
+}
 
 .selection(@dark, @light);
 

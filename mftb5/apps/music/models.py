@@ -105,6 +105,22 @@ class Track(models.Model):
     def external(self):
         return self.album.external
 
+    def playable_formats(self):
+        formats = []
+        for attr, mime in [
+            ('mp3', 'audio/mpeg'),
+            ('ogg', 'audio/ogg'),
+            ('flac', 'audio/flac'),
+        ]:
+            field = getattr(self, attr)
+
+            formats.append({
+                'mime': mime,
+                'url': field.url
+            })
+
+        return formats
+
     def downloads(self):
         downloads = []
         for attr in ['mp3', 'flac', 'karaoke_mp3', 'karaoke_flac']:

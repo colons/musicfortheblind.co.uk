@@ -1,0 +1,5 @@
+<audio class="fallback" controls>
+  {% for format in track.playable_formats %}
+    <source src="{{ format.url }}" type="{{ format.mime }}"/>
+  {% endfor %}
+</audio>
