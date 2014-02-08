@@ -114,10 +114,11 @@ class Track(models.Model):
         ]:
             field = getattr(self, attr)
 
-            formats.append({
-                'mime': mime,
-                'url': field.url
-            })
+            if field:
+                formats.append({
+                    'mime': mime,
+                    'url': field.url
+                })
 
         return formats
 
