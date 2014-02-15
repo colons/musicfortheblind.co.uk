@@ -284,7 +284,8 @@ h1, h2, h3, h4, h5 {
 }
 
 // stuff to make the footer work
-@footer-height: 11em;
+@footer-height: 12em;
+@footer-topspace: 4em;
 
 html, body {
   height: 100%;
@@ -296,25 +297,28 @@ html, body {
 
   main {
     padding-bottom: @footer-height;
+    margin-bottom: -@footer-height;
   }
 }
 
 footer {
-  text-align: center;
-  font-size: .9em;
-  @media (min-width: @outerbreakpoint) {font-size: 1.1em}
-
-  background-image: url('http://colons.co/stamp.png');
-  background-size: 5em;
-  background-position: center 0;
-  background-repeat: no-repeat;
-
   position: relative;
   clear: both;
   margin-top: -@footer-height;
+  padding-top: @footer-topspace;
+
+  font-size: .8em;
+  @media (min-width: @outerbreakpoint) {font-size: .9em}
+
+  text-align: center;
+  background-image: url('http://colons.co/stamp.png');
+  background-size: 5em;
+  background-position: center @footer-topspace;
+  background-repeat: no-repeat;
 
   p {
     padding-top: 6em;
+    padding-bottom: 1em;
   }
 }
 
