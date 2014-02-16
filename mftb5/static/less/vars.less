@@ -75,6 +75,10 @@
 }
 
 .icon-left() {
+  .icon-left-with(0);
+}
+
+.icon-left-with(@space) {
   display: inline;
   color: @dark;
   opacity: .3;
@@ -86,7 +90,7 @@
     position: relative;
     display: inline-block;
     width: 0;
-    right: 1.2em;
+    right: @space + 1.2em;
   }
 }
 

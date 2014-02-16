@@ -189,13 +189,19 @@ main {
 
 .js {
   .enqueue {
-    .icon-left();
+    .icon-left-with(.3em);
+    opacity: 1;
+    color: @light;
 
     &::before {
+      border-radius: .2em;
+      background-color: @highlight;
+      padding: .1em .2em 0;
       .fa(@fa-var-headphones);
     }
 
     &::after {
+      color: @dark;
       opacity: 0;
       content: attr(data-title);
 
@@ -207,7 +213,7 @@ main {
         .transition(opacity .2s linear);
         .light();
         top: .2em;
-        right: 2.3em;
+        right: 2.1em;
       }
 
       @media (max-width: (@tooltipbreakpoint - 1)) {
@@ -225,7 +231,9 @@ main {
       }
     }
     &:hover {
-      opacity: 1;
+      &::before {
+        background-color: @dark;
+      }
 
       @media (min-width: @innerbreakpoint) {
         &::after {
