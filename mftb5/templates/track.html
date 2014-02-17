@@ -16,9 +16,9 @@
         {{ track.date }},
       {% endif %}
       {% if track.track_number %}
-        <a href="{{ track.album.get_absolute_url }}">{{ track.album.name }}</a>, track {{ track.track_number }}</p>
+        <a href="{{ track.album.get_absolute_url }}">{{ track.album.name }}</a>, track {{ track.track_number }}
       {% else %}
-        from <a href="{{ track.album.get_absolute_url }}">{{ track.album.name }}</a></p>
+        from <a href="{{ track.album.get_absolute_url }}">{{ track.album.name }}</a>
       {% endif %}
     </p>
     {% include "includes/player.html" with track=track %}
