@@ -11,7 +11,7 @@
           {% if story.pertinent_object %}
             {% include 'includes/enqueue.html' with object=story.pertinent_object %}
           {% endif %}
-          <a href="{{ story.get_absolute_url }}">{{ story.headline }}</a></h1>
+          <a href="{{ story.get_absolute_url }}">{{ story.headline }}</a>
         </h2>
       {% endspaceless %}
       <p class="date">{{ story.date }}</p>
