@@ -187,6 +187,8 @@ main {
   display: none;
 }
 
+@listen-border-radius: .2em;
+
 .js {
   .enqueue {
     .icon-left-with(.3em);
@@ -196,14 +198,14 @@ main {
     &::before {
       border-radius: .2em;
       background-color: @highlight;
-      padding: .1em .2em 0;
+      padding: .15em .2em 0;
       .fa(@fa-var-headphones);
     }
 
     &::after {
       color: @dark;
       opacity: 0;
-      content: attr(data-title);
+      content: attr(data-title) ' »';
 
       font-size: .7em;
       position: absolute;
@@ -218,15 +220,16 @@ main {
 
       @media (max-width: (@tooltipbreakpoint - 1)) {
         .medium();
+        content: '« ' attr(data-title);
         background-color: @highlight;
         color: @light;
-        border-radius: .4em;
+        border-radius: .3em;
         box-shadow: 0 .2em .5em @light;
-        padding: .3em .4em;
+        padding: .2em .4em;
         z-index: 5;
 
-        left: 1.7em;
-        top: 0;
+        left: 2.1em;
+        bottom: .15em;
         white-space: nowrap;
       }
     }
