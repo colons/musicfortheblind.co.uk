@@ -2,7 +2,7 @@ var csrftoken;
 
 // to be called whenever you update links
 function targetBlank() {
-  $('a[href^="http://"], a[href^="https://"]').attr('target', '_blank');
+  $('a[href^="http://"], a[href^="https://"], a[href^="mailto:"]').attr('target', '_blank');
 }
 
 // things to run after updating the DOM
