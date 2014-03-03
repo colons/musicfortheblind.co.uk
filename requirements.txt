@@ -4,3 +4,5 @@ markdown
 slimit
 south
 ujson
+django-instant-coverage
+pyenchant
