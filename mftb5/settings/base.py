@@ -2,6 +2,8 @@ from os import path
 
 BASE_DIR = path.dirname(path.dirname(__file__))
 
+SECRET_KEY = 'override me locally please :<'
+
 DEBUG = False
 TEMPLATE_DEBUG = True
 
