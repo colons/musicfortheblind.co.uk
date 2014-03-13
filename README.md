@@ -21,3 +21,4 @@ I am unspeakably grateful for the existence of the following:
 - [jQuery Shuffle](http://mktgdept.com/jquery-shuffle)
 - [spin.js](http://fgnass.github.io/spin.js/)
 - [FastClick](https://github.com/ftlabs/fastclick)
+- [Travis CI](https://travis-ci.org/)
