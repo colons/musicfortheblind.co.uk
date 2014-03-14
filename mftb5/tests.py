@@ -2,8 +2,8 @@ from django.test import TestCase
 
 from instant_coverage import InstantCoverageMixin, optional
 
-
 from mftb5.apps.music.models import Track, Album
+
 
 covered_urls = {
     '/',
