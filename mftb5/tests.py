@@ -3,9 +3,10 @@ from django.test import TestCase
 from instant_coverage import InstantCoverageMixin, optional
 
 from mftb5.apps.music.models import Track, Album
+from mftb5.apps.news.models import Story
 
 
-covered_urls = {
+base_covered_urls = {
     '/',
     '/meta/',
     '/contact/',
@@ -16,15 +17,9 @@ covered_urls = {
     '/albums/',
     '/playlist/',
     '/music/dust/',
-    '/projects/thrust/',
     '/orphans/',
-    '/pyrrha/pyrrha/',
+    '/projects/orphans/',
 }
-
-
-for model in [Track, Album]:
-    for instance in model.objects.all():
-        covered_urls.add(instance.get_absolute_url())
 
 
 class EverythingTest(
@@ -35,7 +30,6 @@ class EverythingTest(
     fixtures = ['music', 'news']
     spelling_language = 'en_GB'
 
-    covered_urls = list(covered_urls)
     uncovered_urls = [
         '/favicon.ico',
     ]
@@ -43,3 +37,17 @@ class EverythingTest(
         ('^admin/',),
     ]
     instant_tracebacks = True
+
+    def setUp(self):
+        if not self.covered_urls:
+            covered_urls = set(base_covered_urls)
+
+            for model in [Track, Album, Story]:
+                for instance in model.objects.all():
+                    covered_urls.add(instance.get_absolute_url())
+
+            self.covered_urls = list(covered_urls)
+
+        self.assertGreater(len(self.covered_urls), len(base_covered_urls))
+
+        super(EverythingTest, self).setUp()
