@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from instant_coverage import InstantCoverageMixin, optional
@@ -6,20 +7,20 @@ from mftb5.apps.music.models import Track, Album
 from mftb5.apps.news.models import Story
 
 
-base_covered_urls = {
-    '/',
-    '/meta/',
-    '/contact/',
-    '/about/',
-    '/news/',
-    '/news/blade-teardown/',
-    '/music/',
-    '/albums/',
-    '/playlist/',
-    '/music/dust/',
-    '/orphans/',
-    '/projects/orphans/',
-}
+base_covered_urls = set([reverse(name, kwargs=kwargs) for name, kwargs in [
+    ('index', {}),
+    ('meta', {}),
+    ('contact-redir', {}),
+    ('about-redir', {}),
+    ('news:stories', {}),
+    ('news:story', {'slug': 'blade-teardown'}),
+    ('news:stories', {}),
+    ('music:music-redir', {}),
+    ('music:albums', {}),
+    ('music:playlist', {}),
+    ('music:music-track-redir', {'slug': 'dust'}),
+    ('music:project-redir', {'slug': 'orphans'}),
+]])
 
 
 class EverythingTest(

@@ -17,8 +17,8 @@ urlpatterns = patterns(
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^meta/$', MetaView.as_view(), name='meta'),
 
-    url(r'^contact/$', redir('meta')),
-    url(r'^about/$', redir('meta')),
+    url(r'^contact/$', redir('meta'), name='contact-redir'),
+    url(r'^about/$', redir('meta'), name='about-redir'),
 
     url(r'^news/', include('mftb5.apps.news.urls', namespace='news')),
     url(r'^admin/', include(admin.site.urls)),
