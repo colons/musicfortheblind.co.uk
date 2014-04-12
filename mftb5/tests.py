@@ -7,7 +7,7 @@ from mftb5.apps.music.models import Track, Album
 from mftb5.apps.news.models import Story
 
 
-base_covered_urls = set([reverse(name, kwargs=kwargs) for name, kwargs in [
+base_covered_urls = [reverse(name, kwargs=kwargs) for name, kwargs in [
     ('index', {}),
     ('meta', {}),
     ('contact-redir', {}),
@@ -20,7 +20,7 @@ base_covered_urls = set([reverse(name, kwargs=kwargs) for name, kwargs in [
     ('music:playlist', {}),
     ('music:music-track-redir', {'slug': 'dust'}),
     ('music:project-redir', {'slug': 'orphans'}),
-]])
+]]
 
 
 class EverythingTest(
