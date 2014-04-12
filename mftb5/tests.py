@@ -40,6 +40,10 @@ class EverythingTest(
     instant_tracebacks = True
 
     def setUp(self):
+        # We have to do this here because our test database is competely empty
+        # when this file is imported and even when the test's __init__ is
+        # called. By here, though, the fixtures will be loaded.
+
         if not self.covered_urls:
             covered_urls = set(base_covered_urls)
 
