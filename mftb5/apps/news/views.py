@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.urlresolvers import reverse_lazy
 from django.contrib.syndication.views import Feed
 from django.utils.feedgenerator import Atom1Feed
@@ -22,11 +24,22 @@ class StoriesView(StoriesBreadcrumbMixin, PJAXResponseMixin, ListView):
 class StoriesFeed(Feed):
     feed_type = Atom1Feed
     link = reverse_lazy('news:stories')
+
     title = 'Music for the Blind News'
     subtitle = 'New music and other occasional updates'
+    author_name = 'Iain Dawson'
+    author_email = 'feed@musicfortheblind.co.uk'
+    author_link = 'https://colons.co/'
 
     def items(self):
         return Story.objects.all()
 
     def item_description(self, item):
         return item.content_html
+
+    def item_pubdate(self, item):
+        midnight = datetime.time(0, 0)
+        return datetime.datetime.combine(item.date, midnight)
+
+    def item_updateddate(self, item):
+        return self.item_pubdate(item)
