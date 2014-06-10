@@ -15,6 +15,7 @@ base_covered_urls = [reverse(name, kwargs=kwargs) for name, kwargs in [
     ('news:stories', {}),
     ('news:story', {'slug': 'blade-teardown'}),
     ('news:stories', {}),
+    ('news:feed', {}),
     ('music:music-redir', {}),
     ('music:albums', {}),
     ('music:playlist', {}),
