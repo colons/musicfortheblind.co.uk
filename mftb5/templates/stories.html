@@ -4,6 +4,7 @@
 
 {% block content %}
   <h1>News</h1>
+  <p class="feed"><a href="{% url "news:feed" %}">feed</a></p>
   {% for story in object_list %}
     <section class="story description">
       {% spaceless %}
