@@ -7,7 +7,7 @@ from mftb5.utils.mdfield import MarkdownTextField
 class Story(models.Model):
     headline = models.CharField(max_length=300)
     deck = models.CharField(max_length=300, blank=True)
-    content = MarkdownTextField()
+    content = MarkdownTextField(blank=True)
     slug = models.SlugField()
     date = models.DateField(blank=True, null=True)
     published = models.BooleanField(default=True)
@@ -22,7 +22,10 @@ class Story(models.Model):
         return self.headline
 
     def get_absolute_url(self):
-        return reverse('news:story', kwargs={'slug': self.slug})
+        if self.content or (not self.pertinent_object()):
+            return reverse('news:story', kwargs={'slug': self.slug})
+
+        return self.pertinent_object().get_absolute_url()
 
     def pertinent_object(self):
         if self.album:
