@@ -62,7 +62,7 @@ class Track(models.Model):
     url = models.URLField(blank=True)
     published = models.BooleanField(default=True)
 
-    album = models.ForeignKey('Album', blank=True, related_name='_tracks')
+    album = models.ForeignKey('Album', related_name='_tracks')
     track_number = models.IntegerField(blank=True, null=True)
 
     mp3 = models.FileField(blank=True, upload_to=_upload_to)
