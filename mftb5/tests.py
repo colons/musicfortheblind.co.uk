@@ -20,6 +20,7 @@ base_covered_urls = [reverse(name, kwargs=kwargs) for name, kwargs in [
     ('music:albums', {}),
     ('music:playlist', {}),
     ('music:music-track-redir', {'slug': 'dust'}),
+    ('music:music-archive-redir', {'slug': 'dust'}),
     ('music:project-redir', {'slug': 'orphans'}),
 ]]
 
