@@ -10,6 +10,8 @@ urlpatterns = patterns(
         name='music-redir'),
     url(r'^music/(?P<slug>[^/]+)/$', views.MFTBRedirect.as_view(),
         name='music-track-redir'),
+    url(r'^music/archive/\d+_(?P<slug>[^/]+)\.mp3$',
+        views.MFTBRedirect.as_view(), name='music-archive-redir'),
     url(r'^projects?/(?P<slug>[^/]+)/$', views.AlbumRedirect.as_view(),
         name='project-redir'),
 
