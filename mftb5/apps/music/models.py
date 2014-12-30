@@ -65,9 +65,9 @@ class Track(models.Model):
     album = models.ForeignKey('Album', related_name='_tracks')
     track_number = models.IntegerField(blank=True, null=True)
 
-    mp3 = models.FileField(blank=True, upload_to=_upload_to)
-    ogg = models.FileField(blank=True, upload_to=_upload_to)
-    flac = models.FileField(blank=True, upload_to=_upload_to)
+    mp3 = models.FileField(blank=True, upload_to=_upload_to, max_length=500)
+    ogg = models.FileField(blank=True, upload_to=_upload_to, max_length=500)
+    flac = models.FileField(blank=True, upload_to=_upload_to, max_length=500)
     karaoke_mp3 = models.FileField(blank=True, upload_to=_upload_to,
                                    verbose_name='instrumental (mp3)')
     karaoke_ogg = models.FileField(blank=True, upload_to=_upload_to,
