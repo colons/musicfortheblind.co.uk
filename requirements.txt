@@ -4,4 +4,4 @@ Markdown==2.3.1
 slimit==0.8.1
 South==0.8.4
 ujson==1.33
-django-instant-coverage
+django-instant-coverage>=0.0.14
