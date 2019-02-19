@@ -17,7 +17,7 @@
   <body class="{% if request.session.stranger == None %}stranger{% endif %}">
     {% csrf_token %}
     <script type="text/javascript">
-      document.body.className += ' js audio first-load';
+      document.body.classList.add('first-load');
     </script>
     <div id="not-footer">
       <a href="{% url "index" %}">

@@ -56,6 +56,8 @@ function bindTouchFeedback(selector) {
 }
 
 $(function() {
+  document.body.classList.add('js');
+  document.body.classList.add('audio');
   $('body').removeClass('first-load');
   FastClick.attach(document.body);
   $(document).pjax('a[href^="/"]:not([download])', 'main');
