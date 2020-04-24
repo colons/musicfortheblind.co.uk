@@ -27,7 +27,7 @@ class StoriesFeed(Feed):
 
     title = 'Music for the Blind News'
     subtitle = 'New music and other occasional updates'
-    author_name = 'Iain Dawson'
+    author_name = 'colons'
     author_email = 'feed@musicfortheblind.co.uk'
     author_link = 'https://colons.co/'
 
